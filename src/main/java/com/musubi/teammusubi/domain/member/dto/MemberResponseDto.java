@@ -17,5 +17,5 @@ public class MemberResponseDto {
     private String address;
     private String phone;
     private LocalDateTime createdAt;
-    private LocalDateTime modifiedAt;
+    private LocalDateTime updatedAt;
 }

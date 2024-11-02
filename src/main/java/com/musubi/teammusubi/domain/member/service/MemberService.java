@@ -43,7 +43,7 @@ public class MemberService {
         responseDto.setAddress(member.getAddress());
         responseDto.setPhone(member.getPhone());
         responseDto.setCreatedAt(member.getCreatedAt());
-        responseDto.setModifiedAt(member.getModifiedAt());
+        responseDto.setUpdatedAt(member.getUpdatedAt());
         return responseDto;
     }
 }

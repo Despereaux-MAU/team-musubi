@@ -53,5 +53,5 @@ public class Member {
     @LastModifiedDate
     @Column
     @Temporal(TemporalType.TIMESTAMP)
-    private LocalDateTime modifiedAt;
+    private LocalDateTime updatedAt;
 }
