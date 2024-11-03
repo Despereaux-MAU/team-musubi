@@ -11,7 +11,8 @@ public class MemberRequestDto {
     private String username;
     private String nickname;
     private String password;
+    private String passwordCheck;
     private MemberRoleEnum role;
-    private String address;
     private String phone;
+    private String address;
 }
