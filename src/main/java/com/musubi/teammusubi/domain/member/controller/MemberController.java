@@ -1,22 +1,18 @@
 package com.musubi.teammusubi.domain.member.controller;
 
-import com.musubi.teammusubi.common.config.PasswordEncoder;
+import com.musubi.teammusubi.common.Security.MemberDetailsImpl;
 import com.musubi.teammusubi.common.exception.GlobalException;
-import com.musubi.teammusubi.common.util.JwtUtil;
 import com.musubi.teammusubi.domain.member.dto.MemberRequestDto;
 import com.musubi.teammusubi.domain.member.dto.MemberResponseDto;
-import com.musubi.teammusubi.common.entity.Member;
 import com.musubi.teammusubi.domain.member.service.MemberService;
-import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
-
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletResponse;
 
 import java.util.Map;
 
@@ -25,33 +21,23 @@ import java.util.Map;
 public class MemberController {
 
     private final MemberService memberService;
-    private final PasswordEncoder passwordEncoder;
-    private final JwtUtil jwtUtil;
 
-    public MemberController(MemberService memberService, PasswordEncoder passwordEncoder, JwtUtil jwtUtil) {
+    public MemberController(MemberService memberService) {
         this.memberService = memberService;
-        this.passwordEncoder = passwordEncoder;
-        this.jwtUtil = jwtUtil;
     }
 
     @PostMapping("/signup")
     @ResponseStatus(HttpStatus.CREATED)
     public MemberResponseDto registerMember(@RequestBody MemberRequestDto requestDto) {
-        Member member = memberService.registerMember(requestDto);
-        return memberService.convertToResponseDto(member);
+        return memberService.registerMember(requestDto);
     }
 
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody MemberRequestDto requestDto, HttpServletResponse response) {
         try {
-            Member member = memberService.findByEmail(requestDto.getEmail());
-            if (member != null && passwordEncoder.matches(requestDto.getPassword(), member.getPassword())) {
-                String token = jwtUtil.generateToken(member.getUsername(), member.getRole().name());
-                Cookie cookie = new Cookie("jwt", token);
-                cookie.setHttpOnly(true);
-                cookie.setPath("/");
-                response.addCookie(cookie);
-                return ResponseEntity.ok(member.getNickname() + "님 환영합니다.");
+            String welcomeMessage = memberService.login(requestDto, response);
+            if (welcomeMessage != null) {
+                return ResponseEntity.ok(welcomeMessage);
             }
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("이메일 또는 비밀번호가 일치하지 않습니다.");
         } catch (Exception ex) {
@@ -61,9 +47,8 @@ public class MemberController {
 
     @GetMapping("/profile")
     public ResponseEntity<MemberResponseDto> getProfile(@AuthenticationPrincipal UserDetails userDetails) {
-        Member member = memberService.findByEmail(userDetails.getUsername());
-        if (member != null) {
-            MemberResponseDto responseDto = memberService.convertToResponseDto(member);
+        MemberResponseDto responseDto = memberService.getProfile(userDetails.getUsername());
+        if (responseDto != null) {
             return ResponseEntity.ok(responseDto);
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
@@ -72,12 +57,7 @@ public class MemberController {
     @PutMapping("/profile")
     public ResponseEntity<MemberResponseDto> updateMember(@RequestBody MemberRequestDto requestDto, Authentication authentication) {
         String email = authentication.getName();
-        Member member = memberService.findByEmail(email);
-        if (member == null) {
-            throw new GlobalException("U0002", HttpStatus.NOT_FOUND, "회원 정보를 찾을 수 없습니다.");
-        }
-        Member updatedMember = memberService.updateMember(member.getId(), requestDto);
-        MemberResponseDto responseDto = memberService.convertToResponseDto(updatedMember);
+        MemberResponseDto responseDto = memberService.updateMember(email, requestDto);
         return ResponseEntity.ok(responseDto);
     }
 
@@ -96,10 +76,16 @@ public class MemberController {
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping("/delete")
-    public ResponseEntity<Void> deleteMember(HttpServletRequest request, @RequestBody Map<String, String> passwordRequest) {
-        String password = passwordRequest.get("password");
-        memberService.deleteMember(request, password);
+    @PutMapping
+    public ResponseEntity<Void> deleteMember(Authentication authentication, HttpServletResponse response) {
+        String email = authentication.getName();
+        memberService.deleteMember(email);
+
+        Cookie deleteCookie = new Cookie("jwt", null);
+        deleteCookie.setPath("/");
+        deleteCookie.setMaxAge(0);
+        response.addCookie(deleteCookie);
+
         return ResponseEntity.noContent().build();
     }
 }
