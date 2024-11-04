@@ -1,9 +1,8 @@
 package com.musubi.teammusubi.domain.member.controller;
 
-import com.musubi.teammusubi.common.Security.MemberDetailsImpl;
 import com.musubi.teammusubi.common.exception.GlobalException;
-import com.musubi.teammusubi.domain.member.dto.MemberRequestDto;
-import com.musubi.teammusubi.domain.member.dto.MemberResponseDto;
+import com.musubi.teammusubi.domain.member.dto.MemberRequest;
+import com.musubi.teammusubi.domain.member.dto.MemberResponse;
 import com.musubi.teammusubi.domain.member.service.MemberService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
@@ -28,14 +27,14 @@ public class MemberController {
 
     @PostMapping("/signup")
     @ResponseStatus(HttpStatus.CREATED)
-    public MemberResponseDto registerMember(@RequestBody MemberRequestDto requestDto) {
-        return memberService.registerMember(requestDto);
+    public MemberResponse registerMember(@RequestBody MemberRequest request) {
+        return memberService.registerMember(request);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody MemberRequestDto requestDto, HttpServletResponse response) {
+    public ResponseEntity<String> login(@RequestBody MemberRequest request, HttpServletResponse response) {
         try {
-            String welcomeMessage = memberService.login(requestDto, response);
+            String welcomeMessage = memberService.login(request, response);
             if (welcomeMessage != null) {
                 return ResponseEntity.ok(welcomeMessage);
             }
@@ -46,19 +45,19 @@ public class MemberController {
     }
 
     @GetMapping("/profile")
-    public ResponseEntity<MemberResponseDto> getProfile(@AuthenticationPrincipal UserDetails userDetails) {
-        MemberResponseDto responseDto = memberService.getProfile(userDetails.getUsername());
-        if (responseDto != null) {
-            return ResponseEntity.ok(responseDto);
+    public ResponseEntity<MemberResponse> getProfile(@AuthenticationPrincipal UserDetails userDetails) {
+        MemberResponse response = memberService.getProfile(userDetails.getUsername());
+        if (response != null) {
+            return ResponseEntity.ok(response);
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
     }
 
     @PutMapping("/profile")
-    public ResponseEntity<MemberResponseDto> updateMember(@RequestBody MemberRequestDto requestDto, Authentication authentication) {
+    public ResponseEntity<MemberResponse> updateMember(@RequestBody MemberRequest request, Authentication authentication) {
         String email = authentication.getName();
-        MemberResponseDto responseDto = memberService.updateMember(email, requestDto);
-        return ResponseEntity.ok(responseDto);
+        MemberResponse response = memberService.updateMember(email, request);
+        return ResponseEntity.ok(response);
     }
 
     @PutMapping("/password")

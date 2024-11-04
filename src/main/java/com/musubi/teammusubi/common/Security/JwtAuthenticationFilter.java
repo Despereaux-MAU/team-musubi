@@ -1,11 +1,13 @@
 package com.musubi.teammusubi.common.Security;
 
+import com.musubi.teammusubi.common.exception.GlobalException;
 import com.musubi.teammusubi.common.util.JwtUtil;
 import com.musubi.teammusubi.domain.member.service.MemberDetailsServiceImpl;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -36,11 +38,17 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         if (token != null && jwtUtil.validateToken(token)) {
             String username = jwtUtil.getUsernameFromToken(token);
             String role = jwtUtil.getRoleFromToken(token);
+
             UserDetails userDetails = memberDetailsServiceImpl.loadUserByUsername(username);
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
                     userDetails, null, Collections.singletonList(new SimpleGrantedAuthority(role)));
             authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+
+            if (request.getRequestURI().startsWith("/api/seller") && !"OWNER".equals(role)) {
+                throw new GlobalException("U0003", HttpStatus.FORBIDDEN, "접근이 거부되었습니다.");
+            }
+
         }
         chain.doFilter(request, response);
     }
