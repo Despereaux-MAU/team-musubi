@@ -5,7 +5,7 @@ import com.musubi.teammusubi.common.exception.GlobalException;
 import com.musubi.teammusubi.common.util.JwtUtil;
 import com.musubi.teammusubi.domain.member.dto.MemberRequestDto;
 import com.musubi.teammusubi.domain.member.dto.MemberResponseDto;
-import com.musubi.teammusubi.domain.member.entity.Member;
+import com.musubi.teammusubi.common.entity.Member;
 import com.musubi.teammusubi.domain.member.repository.MemberRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;

@@ -1,11 +1,9 @@
 package com.musubi.teammusubi.domain.member.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.musubi.teammusubi.domain.member.entity.MemberRoleEnum;
+import com.musubi.teammusubi.common.enums.MemberRoleEnum;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.time.LocalDateTime;
 
 @Getter
 @Setter

@@ -1,6 +1,6 @@
 package com.musubi.teammusubi.domain.member.dto;
 
-import com.musubi.teammusubi.domain.member.entity.MemberRoleEnum;
+import com.musubi.teammusubi.common.enums.MemberRoleEnum;
 import lombok.Getter;
 import lombok.Setter;
 
