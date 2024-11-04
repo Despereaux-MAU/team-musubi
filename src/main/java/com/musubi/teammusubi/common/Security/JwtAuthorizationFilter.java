@@ -1,4 +1,4 @@
-package com.musubi.teammusubi.common.filter;
+package com.musubi.teammusubi.common.Security;
 
 import com.musubi.teammusubi.common.util.JwtUtil;
 import jakarta.servlet.FilterChain;

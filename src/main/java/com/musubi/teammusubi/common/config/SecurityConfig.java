@@ -1,8 +1,8 @@
 package com.musubi.teammusubi.common.config;
 
-import com.musubi.teammusubi.common.filter.JwtAuthorizationFilter;
+import com.musubi.teammusubi.common.Security.JwtAuthorizationFilter;
 import com.musubi.teammusubi.common.util.JwtUtil;
-import com.musubi.teammusubi.domain.member.service.MemberDetailsService;
+import com.musubi.teammusubi.domain.member.service.MemberDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,11 +17,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfig {
 
-    private final MemberDetailsService memberDetailsService;
+    private final MemberDetailsServiceImpl memberDetailsServiceImpl;
     private final JwtUtil jwtUtil;
 
-    public SecurityConfig(MemberDetailsService memberDetailsService, JwtUtil jwtUtil) {
-        this.memberDetailsService = memberDetailsService;
+    public SecurityConfig(MemberDetailsServiceImpl memberDetailsServiceImpl, JwtUtil jwtUtil) {
+        this.memberDetailsServiceImpl = memberDetailsServiceImpl;
         this.jwtUtil = jwtUtil;
     }
 
@@ -41,7 +41,7 @@ public class SecurityConfig {
 
     @Bean
     public JwtAuthorizationFilter jwtAuthorizationFilter() {
-        return new JwtAuthorizationFilter(jwtUtil, memberDetailsService);
+        return new JwtAuthorizationFilter(jwtUtil, memberDetailsServiceImpl);
     }
 
     @Bean
