@@ -47,4 +47,11 @@ public class Menu extends Timestamped {
         this.price = price;
         this.description = description;
     }
+
+    public void delete() {
+        if(isDeleted) {
+            throw new IllegalStateException("이미 삭제된 메뉴입니다.");
+        }
+        this.isDeleted = true;
+    }
 }
