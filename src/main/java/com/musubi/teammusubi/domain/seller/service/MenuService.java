@@ -52,4 +52,23 @@ public class MenuService {
 
         return MenuResponse.from(menu);
     }
+
+    @Transactional
+    public void deleteMenu(Long memberId, Long storeId, Long menuId) {
+        memberRepository.findById(memberId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 존재하지 않습니다."));
+        storeRepository.findById(storeId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 가게가 존재하지 않습니다."));
+        Menu menu = menuRepository.findById(menuId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 메뉴가 존재하지 않습니다."));
+
+        if(!memberId.equals(menu.getStore().getMemberId())) {
+            throw new IllegalArgumentException("해당 가게의 주인이 아닙니다.");
+        }
+        if(!storeId.equals(menu.getStore().getId())) {
+            throw new IllegalArgumentException("해당 가게의 메뉴가 아닙니다.");
+        }
+
+        menu.delete();
+    }
 }

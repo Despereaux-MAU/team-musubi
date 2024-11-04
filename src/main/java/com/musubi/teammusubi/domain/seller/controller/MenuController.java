@@ -58,4 +58,24 @@ public class MenuController {
                 .status(HttpStatus.OK)
                 .body(response);
     }
+
+    @DeleteMapping("/stores/{storeId}/menus/{menuId}")
+    public ResponseEntity<Void> deleteMenu(
+            @AuthenticationPrincipal MemberDetailsImpl memberDetails,
+            @PathVariable Long storeId,
+            @PathVariable Long menuId
+    ) {
+        MemberRoleEnum memberRole = memberDetails.getMember().getRole();
+        if(!memberRole.equals(MemberRoleEnum.OWNER)) {
+            return ResponseEntity
+                    .status(HttpStatus.FORBIDDEN)
+                    .build();
+        }
+
+        Long memberId = memberDetails.getMember().getId();
+        menuService.deleteMenu(memberId, storeId, menuId);
+        return ResponseEntity
+                .status(HttpStatus.NO_CONTENT)
+                .build();
+    }
 }
