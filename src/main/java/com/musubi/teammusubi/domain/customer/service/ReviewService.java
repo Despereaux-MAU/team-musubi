@@ -52,5 +52,15 @@ public class ReviewService {
 
     }
 
+    public ReviewResponsePage findByScore(Long storeId, Integer score, int page, int size, String criteria) {
+        storeRepository.findById(storeId).orElseThrow(() ->
+                new NullPointerException("가게가 존재하지 않습니다."));
+
+        Pageable pageable = PageRequest.of(page - 1, size, Sort.by(Sort.Direction.DESC, criteria));
+        Page<Review> reviews = reviewRepository.findByScore(score, pageable);
+
+        return new ReviewResponsePage(reviews);
+    }
+
 
 }
