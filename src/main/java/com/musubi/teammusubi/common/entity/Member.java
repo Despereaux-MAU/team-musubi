@@ -1,6 +1,6 @@
 package com.musubi.teammusubi.common.entity;
 
-import com.musubi.teammusubi.common.entity.Timestamped;
+import com.musubi.teammusubi.common.enums.MemberRoleEnum;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import lombok.Getter;
