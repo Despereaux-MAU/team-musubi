@@ -16,17 +16,18 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class MenuService {
     private final MemberRepository memberRepository;
-//    private final StoreRepository storeRepository;
+    private final StoreRepository storeRepository;
     private final MenuRepository menuRepository;
 
     public MenuResponse createMenu(Long memberId, Long storeId, MenuRequest requestDto) {
         memberRepository.findById(memberId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 존재하지 않습니다."));
-//        Store store = storeRepository.findById(storeId)
-//                .orElseThrow(() -> new IllegalArgumentException("해당 가게가 존재하지 않습니다."));
-
-//        Menu savedMenu = menuRepository.save(Menu.of(requestDto, store));
-        Menu savedMenu = menuRepository.save(Menu.of(requestDto, storeId));
+        Store store = storeRepository.findById(storeId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 가게가 존재하지 않습니다."));
+        if(!memberId.equals(store.getMemberId())) {
+            throw new IllegalArgumentException("해당 가게의 주인이 아닙니다.");
+        }
+        Menu savedMenu = menuRepository.save(Menu.of(requestDto, store));
 
         return MenuResponse.from(savedMenu);
     }
@@ -35,19 +36,17 @@ public class MenuService {
     public MenuResponse modifyMenu(Long memberId, Long storeId, Long menuId, MenuRequest requestDto) {
         memberRepository.findById(memberId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 존재하지 않습니다."));
-//        Store store = storeRepository.findById(storeId)
-//                .orElseThrow(() -> new IllegalArgumentException("해당 가게가 존재하지 않습니다."));
+        storeRepository.findById(storeId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 가게가 존재하지 않습니다."));
         Menu menu = menuRepository.findById(menuId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 메뉴가 존재하지 않습니다."));
 
-        if(!storeId.equals(menu.getStoreId())) {
+        if(!memberId.equals(menu.getStore().getMemberId())) {
+            throw new IllegalArgumentException("해당 가게의 주인이 아닙니다.");
+        }
+        if(!storeId.equals(menu.getStore().getId())) {
             throw new IllegalArgumentException("해당 가게의 메뉴가 아닙니다.");
         }
-
-        // store 부분 병합하면, 이 부분 체크하기!
-//        if(!memberId.equals(menu.getStore().getMemberId())) {
-//            throw new IllegalArgumentException("해당 가게의 주인이 아닙니다.");
-//        }
 
         menu.modify(requestDto.getName(), requestDto.getPrice(), requestDto.getDescription());
 
