@@ -1,6 +1,6 @@
 package com.musubi.teammusubi.domain.member.service;
 
-import com.musubi.teammusubi.domain.member.entity.Member;
+import com.musubi.teammusubi.common.entity.Member;
 import com.musubi.teammusubi.domain.member.repository.MemberRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
