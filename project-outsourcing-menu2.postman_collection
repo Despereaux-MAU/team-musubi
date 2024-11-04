@@ -1,0 +1,167 @@
+{
+	"info": {
+		"_postman_id": "e91379d7-7f1e-49d0-9582-a9d973255c96",
+		"name": "project-outsourcing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38635409"
+	},
+	"item": [
+		{
+			"name": "회원가입",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"musubi@email.com\",\r\n    \"username\":\"이름\",\r\n    \"nickname\":\"별명\",\r\n    \"password\":\"0000\",\r\n    \"passwordCheck\":\"0000\",\r\n    \"role\":\"USER\",\r\n    \"phone\":\"010-1234-5678\",\r\n    \"address\":\"서울특별시\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/members/signup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"members",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "로그인",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"musubi@email.com\",\r\n    \"username\":\"이름\",\r\n    \"nickname\":\"별명\",\r\n    \"password\":\"0000\",\r\n    \"passwordCheck\":\"0000\",\r\n    \"role\":\"USER\",\r\n    \"phone\":\"010-1234-5678\",\r\n    \"address\":\"서울특별시\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/members/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"members",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[사업자] 메뉴 등록 - role 보완",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\" : \"음식명\",\r\n    \"price\" : \"100000\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/seller/stores/3/menus",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"seller",
+						"stores",
+						"3",
+						"menus"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[사업자] 메뉴 등록",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\" : \"음식명\",\r\n    \"price\" : \"100000\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/seller/stores/3/menus",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"seller",
+						"stores",
+						"3",
+						"menus"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[사업자] 메뉴 수정",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\" : \"음식명\",\r\n    \"price\" : \"100000\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/seller/stores/3/menus/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"seller",
+						"stores",
+						"3",
+						"menus",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

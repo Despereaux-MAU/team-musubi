@@ -60,4 +60,9 @@ public class Menu extends Timestamped {
         return new Menu(request.getName(), request.getPrice(), request.getDescription(), false, storeId);
     }
 
+    public void modify(String name, Integer price, String description) {
+        this.name = name;
+        this.price = price;
+        this.description = description;
+    }
 }
