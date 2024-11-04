@@ -1,7 +1,7 @@
-package com.musubi.teammusubi.common.filter;
+package com.musubi.teammusubi.common.Security;
 
 import com.musubi.teammusubi.common.util.JwtUtil;
-import com.musubi.teammusubi.domain.member.service.MemberDetailsService;
+import com.musubi.teammusubi.domain.member.service.MemberDetailsServiceImpl;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,11 +21,11 @@ import java.util.Collections;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtUtil jwtUtil;
-    private final MemberDetailsService memberDetailsService;
+    private final MemberDetailsServiceImpl memberDetailsServiceImpl;
 
-    public JwtAuthenticationFilter(JwtUtil jwtUtil, MemberDetailsService memberDetailsService) {
+    public JwtAuthenticationFilter(JwtUtil jwtUtil, MemberDetailsServiceImpl memberDetailsServiceImpl) {
         this.jwtUtil = jwtUtil;
-        this.memberDetailsService = memberDetailsService;
+        this.memberDetailsServiceImpl = memberDetailsServiceImpl;
     }
 
     @Override
@@ -36,7 +36,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         if (token != null && jwtUtil.validateToken(token)) {
             String username = jwtUtil.getUsernameFromToken(token);
             String role = jwtUtil.getRoleFromToken(token);
-            UserDetails userDetails = memberDetailsService.loadUserByUsername(username);
+            UserDetails userDetails = memberDetailsServiceImpl.loadUserByUsername(username);
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
                     userDetails, null, Collections.singletonList(new SimpleGrantedAuthority(role)));
             authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
