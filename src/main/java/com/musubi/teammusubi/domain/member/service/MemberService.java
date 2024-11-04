@@ -3,13 +3,17 @@ package com.musubi.teammusubi.domain.member.service;
 import com.musubi.teammusubi.common.config.PasswordEncoder;
 import com.musubi.teammusubi.common.entity.Member;
 import com.musubi.teammusubi.common.util.JwtUtil;
+import com.musubi.teammusubi.domain.member.dto.LoginRequest;
+import com.musubi.teammusubi.domain.member.dto.LoginResponse;
 import com.musubi.teammusubi.domain.member.dto.MemberRequest;
 import com.musubi.teammusubi.domain.member.dto.MemberResponse;
 import com.musubi.teammusubi.domain.member.repository.MemberRepository;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class MemberService {
@@ -41,7 +45,7 @@ public class MemberService {
         return convertToResponseDto(member);
     }
 
-    public String login(MemberRequest request, HttpServletResponse response) {
+    public LoginResponse login(LoginRequest request, HttpServletResponse response) {
         String token = authenticate(request);
         if (token != null) {
             Cookie cookie = new Cookie("jwt", token);
@@ -50,12 +54,17 @@ public class MemberService {
             response.addCookie(cookie);
 
             Member member = findByEmail(request.getEmail());
-            return member.getNickname() + "님 환영합니다.";
+            LoginResponse loginResponse = new LoginResponse();
+            loginResponse.setEmail(member.getEmail());
+            loginResponse.setUsername(member.getUsername());
+            loginResponse.setNickname(member.getNickname());
+            loginResponse.setToken(token);
+            return loginResponse;
         }
-        return null;
+        throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "이메일 또는 비밀번호가 일치하지 않습니다.");
     }
 
-    public String authenticate(MemberRequest request) {
+    public String authenticate(LoginRequest request) {
         Member member = findByEmail(request.getEmail());
         if (member != null && passwordEncoder.matches(request.getPassword(), member.getPassword())) {
             return jwtUtil.generateToken(member.getUsername(), member.getRole().name());

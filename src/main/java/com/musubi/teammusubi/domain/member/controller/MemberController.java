@@ -1,6 +1,8 @@
 package com.musubi.teammusubi.domain.member.controller;
 
 import com.musubi.teammusubi.common.exception.GlobalException;
+import com.musubi.teammusubi.domain.member.dto.LoginRequest;
+import com.musubi.teammusubi.domain.member.dto.LoginResponse;
 import com.musubi.teammusubi.domain.member.dto.MemberRequest;
 import com.musubi.teammusubi.domain.member.dto.MemberResponse;
 import com.musubi.teammusubi.domain.member.service.MemberService;
@@ -32,16 +34,9 @@ public class MemberController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody MemberRequest request, HttpServletResponse response) {
-        try {
-            String welcomeMessage = memberService.login(request, response);
-            if (welcomeMessage != null) {
-                return ResponseEntity.ok(welcomeMessage);
-            }
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("이메일 또는 비밀번호가 일치하지 않습니다.");
-        } catch (Exception ex) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("로그인 중 오류가 발생했습니다.");
-        }
+    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request, HttpServletResponse response) {
+        LoginResponse loginResponse = memberService.login(request, response);
+        return ResponseEntity.ok(loginResponse);
     }
 
     @GetMapping("/profile")
