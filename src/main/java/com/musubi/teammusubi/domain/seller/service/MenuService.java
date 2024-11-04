@@ -1,5 +1,6 @@
 package com.musubi.teammusubi.domain.seller.service;
 
+import com.musubi.teammusubi.common.entity.Member;
 import com.musubi.teammusubi.common.entity.Menu;
 import com.musubi.teammusubi.common.entity.Store;
 import com.musubi.teammusubi.domain.member.repository.MemberRepository;
@@ -9,6 +10,7 @@ import com.musubi.teammusubi.domain.seller.repository.MenuRepository;
 import com.musubi.teammusubi.domain.seller.repository.StoreRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -27,5 +29,28 @@ public class MenuService {
         Menu savedMenu = menuRepository.save(Menu.of(requestDto, storeId));
 
         return MenuResponse.from(savedMenu);
+    }
+
+    @Transactional
+    public MenuResponse modifyMenu(Long memberId, Long storeId, Long menuId, MenuRequest requestDto) {
+        memberRepository.findById(memberId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 존재하지 않습니다."));
+//        Store store = storeRepository.findById(storeId)
+//                .orElseThrow(() -> new IllegalArgumentException("해당 가게가 존재하지 않습니다."));
+        Menu menu = menuRepository.findById(menuId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 메뉴가 존재하지 않습니다."));
+
+        if(!storeId.equals(menu.getStoreId())) {
+            throw new IllegalArgumentException("해당 가게의 메뉴가 아닙니다.");
+        }
+
+        // store 부분 병합하면, 이 부분 체크하기!
+//        if(!memberId.equals(menu.getStore().getMemberId())) {
+//            throw new IllegalArgumentException("해당 가게의 주인이 아닙니다.");
+//        }
+
+        menu.modify(requestDto.getName(), requestDto.getPrice(), requestDto.getDescription());
+
+        return MenuResponse.from(menu);
     }
 }
