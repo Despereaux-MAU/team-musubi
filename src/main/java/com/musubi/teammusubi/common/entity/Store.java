@@ -50,11 +50,6 @@ public class Store extends Timestamped {
     @Enumerated(EnumType.STRING)
     private StoreStatus status;
 
-    // 이 가게의 사장님
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "member_id", nullable = false)
-//    private Member member;
-
     @Column(name = "member_id", nullable = false)
     private Long memberId;
 

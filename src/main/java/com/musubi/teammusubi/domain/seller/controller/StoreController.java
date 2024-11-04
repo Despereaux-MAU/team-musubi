@@ -7,7 +7,6 @@ import com.musubi.teammusubi.domain.seller.dto.StoreResponse;
 import com.musubi.teammusubi.domain.seller.service.StoreService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PostMapping;
