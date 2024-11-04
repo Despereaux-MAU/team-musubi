@@ -9,6 +9,8 @@ import com.musubi.teammusubi.domain.seller.repository.StoreRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalTime;
+
 @Service
 @RequiredArgsConstructor
 public class StoreService {
@@ -20,9 +22,16 @@ public class StoreService {
             throw new IllegalArgumentException("사장님이 아닙니다");
         }
 
-        Store store = new Store(createRequest, loginedMember.getId());
+        validateStoreHours(createRequest.getOpenTime(),createRequest.getCloseTime());
 
+        Store store = new Store(createRequest, loginedMember.getId());
         storeRepository.save(store);
         return new StoreResponse(store);
+    }
+
+    private void validateStoreHours(LocalTime openTime, LocalTime closeTime) {
+        if (openTime.isAfter(closeTime)) {
+            throw new IllegalArgumentException("오픈시간이 마감 시간보다 늦을 수 없습니다.");
+        }
     }
 }
