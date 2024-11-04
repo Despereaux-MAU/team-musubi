@@ -10,10 +10,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -30,6 +29,23 @@ public class StoreController {
                 .status(HttpStatus.CREATED)
                 .body(storeResponse);
     }
+
+    @GetMapping("/stores")
+    public ResponseEntity<List<StoreResponse>> getAllStores(@AuthenticationPrincipal MemberDetailsImpl memberDetails) {
+        Member loginedMember = memberDetails.getMember();
+
+        List<StoreResponse> storeResponse = storeService.getAllStores(loginedMember.getId());
+        return ResponseEntity.ok(storeResponse);
+    }
+
+    @GetMapping("/stores/{storeId}")
+    public ResponseEntity<StoreResponse> getStoreByStoreId(@AuthenticationPrincipal MemberDetailsImpl memberDetails , @PathVariable Long storeId) {
+        Member loginedMember = memberDetails.getMember();
+        StoreResponse storeResponse = storeService.getStore(loginedMember.getId(), storeId);
+        return ResponseEntity.ok(storeResponse);
+    }
+
+
 
 
 }
