@@ -4,8 +4,6 @@ import com.musubi.teammusubi.common.entity.Menu;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-
 @Getter
 @NoArgsConstructor
 public class MenuResponse {
@@ -13,9 +11,6 @@ public class MenuResponse {
     private String name;
     private Integer price;
     private String description;
-    private boolean isDeleted;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
 
     public static MenuResponse of(Menu menu) {
         MenuResponse response = new MenuResponse();
@@ -29,9 +24,6 @@ public class MenuResponse {
         this.name = menu.getName();
         this.price = menu.getPrice();
         this.description = menu.getDescription();
-        this.isDeleted = menu.isDeleted();
-        this.createdAt = menu.getCreatedAt();
-        this.updatedAt = menu.getUpdatedAt();
     }
 
 

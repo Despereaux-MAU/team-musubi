@@ -3,6 +3,7 @@ package com.musubi.teammusubi.common.entity;
 import com.musubi.teammusubi.common.enums.Category;
 import com.musubi.teammusubi.common.enums.StoreStatus;
 import jakarta.persistence.*;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
@@ -10,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Getter
 @NoArgsConstructor
 public class Store extends Timestamped {
 
@@ -58,6 +60,10 @@ public class Store extends Timestamped {
     // 이 가게가 받은 주문들
     @OneToMany(mappedBy = "store", cascade = CascadeType.REMOVE)
     private List<Delivery> deliveryList = new ArrayList<>();
+
+    // 가게 조회 시 메뉴 함께 조회
+    @OneToMany(mappedBy = "store", cascade = CascadeType.REMOVE)
+    private List<Menu> menus = new ArrayList<>();
 
 
 }
