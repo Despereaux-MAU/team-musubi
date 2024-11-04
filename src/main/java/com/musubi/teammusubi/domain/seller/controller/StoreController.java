@@ -5,6 +5,7 @@ import com.musubi.teammusubi.common.entity.Member;
 import com.musubi.teammusubi.domain.seller.dto.StoreCreateRequest;
 import com.musubi.teammusubi.domain.seller.dto.StoreResponse;
 import com.musubi.teammusubi.domain.seller.service.StoreService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +23,7 @@ public class StoreController {
     private final StoreService storeService;
 
     @PostMapping("/stores")
-    public ResponseEntity<StoreResponse> registerStore(@AuthenticationPrincipal MemberDetailsImpl memberDetails, @RequestBody StoreCreateRequest createRequest) {
+    public ResponseEntity<StoreResponse> registerStore(@AuthenticationPrincipal MemberDetailsImpl memberDetails, @Valid @RequestBody StoreCreateRequest createRequest) {
         Member loginedMember = memberDetails.getMember();
         StoreResponse storeResponse = storeService.registerStore(loginedMember, createRequest);
         return ResponseEntity
