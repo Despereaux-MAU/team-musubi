@@ -2,7 +2,6 @@ package com.musubi.teammusubi.common.entity;
 
 import com.musubi.teammusubi.domain.customer.dto.ReviewRequest;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -26,24 +25,23 @@ public class Review extends Timestamped{
     @JoinColumn(name = "store_id")
     private Store store;
 
-    // 리뷰를 작성한 고객
-//    @ManyToOne
-//    @JoinColumn(name = "member_id")
-//    private Member member;
-
     @Column(nullable = false)
-    private Long memberId;
+    private String memberNickname;
 
-    public static Review from(Store store, ReviewRequest req, Member member) {
+    @Column(nullable = false, unique = true)
+    private Long deliveryId;
+
+    public static Review from(Store store, Long deliveryId, ReviewRequest req, String memberNickname) {
         Review review = new Review();
-        review.init(store, req, member);
+        review.init(store, deliveryId, req, memberNickname);
         return review;
     }
 
-    private void init(Store store, ReviewRequest req, Member member) {
+    private void init(Store store, Long deliveryId, ReviewRequest req, String memberNickname) {
         this.score = req.getScore();
         this.comment = req.getComment();
         this.store = store;
-        this.member = member;
+        this.memberNickname = memberNickname;
+        this.deliveryId = deliveryId;
     }
 }
