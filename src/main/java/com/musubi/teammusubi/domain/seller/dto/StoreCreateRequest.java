@@ -25,7 +25,7 @@ public class StoreCreateRequest {
     @Size(max = 255, message = "주소는 최대 255자까지 입력할 수 있습니다.")
     private String address;
     @NotBlank(message = "사업자 등록증을 입력하세요.")
-    @Pattern(regexp = "^[A-Z0-9]+$", message = "사업자 등록증 형식이 올바르지 않습니다.")
+    @Pattern(regexp = "^\\d{3}-\\d{2}-\\d{5}$", message = "사업자 등록증 형식이 올바르지 않습니다.")
     private String license;
     private boolean togo;
     private final StoreStatus status = StoreStatus.OPEN;
