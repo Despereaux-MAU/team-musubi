@@ -2,8 +2,10 @@ package com.musubi.teammusubi.common.entity;
 
 import com.musubi.teammusubi.common.enums.OrderStatus;
 import jakarta.persistence.*;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+@Getter
 @Entity
 @NoArgsConstructor
 public class Delivery extends Timestamped {

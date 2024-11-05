@@ -2,8 +2,11 @@ package com.musubi.teammusubi.domain.seller.controller;
 
 import com.musubi.teammusubi.common.Security.MemberDetailsImpl;
 import com.musubi.teammusubi.common.entity.Member;
+import com.musubi.teammusubi.common.enums.MemberRoleEnum;
+import com.musubi.teammusubi.domain.seller.dto.DeliveryResponse;
 import com.musubi.teammusubi.domain.seller.dto.StoreCreateRequest;
 import com.musubi.teammusubi.domain.seller.dto.StoreResponse;
+import com.musubi.teammusubi.domain.seller.service.DeliveryService;
 import com.musubi.teammusubi.domain.seller.service.StoreService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -18,8 +21,8 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/api/seller")
 public class StoreController {
-
     private final StoreService storeService;
+    private final DeliveryService deliveryService;
 
     @PostMapping("/stores")
     public ResponseEntity<StoreResponse> registerStore(@AuthenticationPrincipal MemberDetailsImpl memberDetails, @Valid @RequestBody StoreCreateRequest createRequest) {
@@ -46,6 +49,23 @@ public class StoreController {
     }
 
 
+    // 가게별 주문 조회
+    // 최신 업데이트 순
+    @GetMapping("/stores/{storeId}/orders")
+    public ResponseEntity<List<DeliveryResponse>> retrieveDeliveryByStoreId(
+            @AuthenticationPrincipal MemberDetailsImpl memberDetails,
+            @PathVariable Long storeId
+    ) {
+        MemberRoleEnum memberRole = memberDetails.getMember().getRole();
+        if(!memberRole.equals(MemberRoleEnum.OWNER)) {
+            return ResponseEntity
+                    .status(HttpStatus.FORBIDDEN)
+                    .build();
+        }
 
-
+        List<DeliveryResponse> responses = deliveryService.retrieveDelivery(storeId);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(responses);
+    }
 }
