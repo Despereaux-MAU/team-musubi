@@ -1,6 +1,6 @@
 package com.musubi.teammusubi.domain.member.service;
 
-import com.musubi.teammusubi.common.Security.MemberDetailsImpl;
+import com.musubi.teammusubi.common.security.MemberDetailsImpl;
 import com.musubi.teammusubi.common.entity.Member;
 import com.musubi.teammusubi.domain.member.repository.MemberRepository;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,14 +18,25 @@ public class MemberDetailsServiceImpl implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Member member = memberRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("가입되지 않은 회원입니다 : " + username));
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        Member member = memberRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("가입되지 않은 회원입니다." + email));
 
         if (member.isDeleted()) {
-            throw new UsernameNotFoundException("탈퇴한 회원입니다." + username);
+            throw new UsernameNotFoundException("탈퇴한 회원입니다." + email);
         }
 
         return new MemberDetailsImpl(member);
+    }
+
+    public UserDetails loadUserById(Long id) throws UsernameNotFoundException {
+        Member member = memberRepository.findById(id)
+                .orElseThrow(() -> new UsernameNotFoundException("가입되지 않은 회원입니다." + id));
+
+        if (member.isDeleted()) {
+            throw new UsernameNotFoundException("탈퇴한 회원입니다." + id);
+        }
+
+        return  new MemberDetailsImpl(member);
     }
 }

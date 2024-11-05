@@ -1,0 +1,430 @@
+{
+	"info": {
+		"_postman_id": "5592d946-8d11-4282-be66-b26f33b0dd45",
+		"name": "musubi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38576727"
+	},
+	"item": [
+		{
+			"name": "member",
+			"item": [
+				{
+					"name": "유저 회원가입",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"test@example.com\",\r\n  \"username\": \"testuser\",\r\n  \"nickname\": \"testnick\",\r\n  \"password\": \"password123\",\r\n  \"passwordCheck\": \"password123\",\r\n  \"role\": \"USER\",\r\n  \"phone\": \"010-1234-5678\",\r\n  \"address\": \"Seoul\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/members/signup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"members",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "같은 이메일로 회원가입",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"test@example.com\",\r\n  \"username\": \"testuser2\",\r\n  \"nickname\": \"testnick2\",\r\n  \"password\": \"password1234\",\r\n  \"passwordCheck\": \"password1234\",\r\n  \"role\": \"USER\",\r\n  \"phone\": \"010-1234-5678\",\r\n  \"address\": \"Busan\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/members/signup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"members",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "비밀번호 틀리게 회원가입",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"test@example.com\",\r\n  \"username\": \"testuser2\",\r\n  \"nickname\": \"testnick2\",\r\n  \"password\": \"password1234\",\r\n  \"passwordCheck\": \"password1234\",\r\n  \"role\": \"USER\",\r\n  \"phone\": \"010-1234-5678\",\r\n  \"address\": \"Busan\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/members/signup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"members",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "유저 로그인",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"test@example.com\",\r\n    \"password\": \"password123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/members/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"members",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "회원정보 조회",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/members/profile",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"members",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "비밀번호 변경",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"test@example.com\",\r\n  \"newPassword\": \"Ehdwn123!\",\r\n  \"passwordCheck\": \"Ehdwn123!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/members/password",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"members",
+								"password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "비밀번호 변경(비밀번호 틀림)",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"test@example.com\",\r\n  \"newPassword\": \"newpassword123\",\r\n  \"passwordCheck\": \"newpassword123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/members/password",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"members",
+								"password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "비밀번호 변경(이메일 다름)",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"test3@example.com\",\r\n  \"newPassword\": \"newpassword123\",\r\n  \"passwordCheck\": \"newpassword123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/members/password",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"members",
+								"password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "회원정보 수정",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"updateduser\",\r\n  \"nickname\": \"updatednick\",\r\n  \"email\": \"test@example.com\",\r\n  \"phone\": \"010-8765-4321\",\r\n  \"address\": \"Busan\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/members/profile",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"members",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "사장님 회원가입",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"test3@example.com\",\r\n  \"username\": \"testowner\",\r\n  \"nickname\": \"testnick2\",\r\n  \"password\": \"password123\",\r\n  \"passwordCheck\": \"password123\",\r\n  \"role\": \"OWNER\",\r\n  \"phone\": \"010-1234-5678\",\r\n  \"address\": \"Seoul\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/members/signup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"members",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "사장님 로그인",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"test3@example.com\",\r\n    \"password\": \"password123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/members/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"members",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "사장님 회원정보 조회",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/members/profile",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"members",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "회원탈퇴",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"password\": \"password123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/members",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"members"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "탈퇴한 이메일로 회원가입",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"test@example.com\",\r\n  \"username\": \"testuser2\",\r\n  \"nickname\": \"testnick2\",\r\n  \"password\": \"password1234\",\r\n  \"passwordCheck\": \"password1234\",\r\n  \"role\": \"USER\",\r\n  \"phone\": \"010-1234-5678\",\r\n  \"address\": \"Busan\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/members/signup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"members",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

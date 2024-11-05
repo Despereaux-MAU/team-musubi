@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @Entity
+@Getter
 @NoArgsConstructor
 public class Menu extends Timestamped {
     @Id
