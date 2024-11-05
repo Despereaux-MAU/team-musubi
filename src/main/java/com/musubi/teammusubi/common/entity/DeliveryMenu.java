@@ -18,7 +18,7 @@ public class DeliveryMenu {
     private Integer price;
 
     @ManyToOne
-    @JoinColumn(name = "order_id")
+    @JoinColumn(name = "delivery_id")
     private Delivery delivery;
 
     @ManyToOne

@@ -1,0 +1,224 @@
+{
+	"info": {
+		"_postman_id": "9b788ff1-7a8f-4be2-98bf-93b23cd08291",
+		"name": "seller-store",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38617949"
+	},
+	"item": [
+		{
+			"name": "로그인",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"email\":\"zjfl@email.com\",\n\"password\":\"1234\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/members/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"members",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "회원가입",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"email\":\"zjfl@email.com\",\n\"username\":\"이름3\",\n\"nickname\":\"별명3\",\n\"password\":\"1234\",\n\"passwordCheck\":\"1234\",\n\"role\":\"OWNER\",\n\"phone\":\"010-1234-5678\",\n\"address\":\"서울특별시 종로구\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/members/signup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"members",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "가게등록",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiLsnbTrpoQzIiwicm9sZSI6Ik9XTkVSIiwiaWF0IjoxNzMwNzQ1NTMxLCJleHAiOjE3MzA3NDkxMzF9.K2Kef4ra2JRFegj0fzQul--BUOdMj5Go1OTRyGJCVFOZUOf4m6bXkCKoWTKdSfROi_AR7ghF0clu2EMlGaJyOA; Path=/; HttpOnly",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"name\":\"굽네치킨종로점\",\n\"openTime\": \"10:00:00\",\n\"closeTime\": \"02:00:00\",\n\"minPrice\":10000,\n\"category\":\"KOREAN\",\n\"address\":\"서울시 종로구 00동\",\n\"license\":\"192-02-01113\",\n\"togo\":\"true\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/seller/stores",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"seller",
+						"stores"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "사장님 전체 가게 조회",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiLsnbTrpoQzIiwicm9sZSI6Ik9XTkVSIiwiaWF0IjoxNzMwNzM3OTEzLCJleHAiOjE3MzA3NDE1MTN9.DFIE6H0TLOqeF8-950Zsibz8MgVRI9BK_tGSlzVnKP-rMmNt-0NoXUxx59YOUyBjjCWFOYuUCoDZqS2esRlQTg; Path=/; HttpOnly",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/seller/stores",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"seller",
+						"stores"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "사장님 특정 가게 조회",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiLsnbTrpoQzIiwicm9sZSI6Ik9XTkVSIiwiaWF0IjoxNzMwNzQ1MDgxLCJleHAiOjE3MzA3NDg2ODF9.aA8_brBoLt1f_9yYgmngGU9eq7OP_HypVIcXb4uaFtxebRyBsCAEzZb1H8gNIUR86hKS7-dO7rvMhoHqQFDDig; Path=/; HttpOnly",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/seller/stores/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"seller",
+						"stores",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "\b사장님 가게 정보 수정",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiLsnbTrpoQzIiwicm9sZSI6Ik9XTkVSIiwiaWF0IjoxNzMwNzcyMzc3LCJleHAiOjE3MzA3NzU5Nzd9.0Tcu8dM7hVZVr1YaARCS2xNDMzETAU27kZZGOtOcMOEE1bSN258qzorv8Inrw_d9V4VQjWxQcfBgGu7B7L7PZw; Path=/; HttpOnly",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"name\":\"굽네치킨종로점\",\n\"openTime\": \"10:00:00\",\n\"closeTime\": \"23:00:00\",\n\"minPrice\":12000,\n\"category\":\"KOREAN\",\n\"togo\":\"false\",\n\"status\":\"OPEN\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/seller/stores/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"seller",
+						"stores",
+						"3"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

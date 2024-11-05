@@ -1,4 +1,13 @@
 package com.musubi.teammusubi.domain.customer.repository;
 
-public interface ReviewRepository {
+import com.musubi.teammusubi.common.entity.Review;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface ReviewRepository extends JpaRepository<Review, Long> {
+
+    Page<Review> findByStoreId(Long storeId, Pageable pageable);
+
+    Page<Review> findByScore(Integer score, Pageable pageable);
 }

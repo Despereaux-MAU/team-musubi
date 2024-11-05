@@ -1,9 +1,10 @@
 package com.musubi.teammusubi.domain.member.controller;
 
-import com.musubi.teammusubi.common.Security.MemberDetailsImpl;
 import com.musubi.teammusubi.common.exception.GlobalException;
-import com.musubi.teammusubi.domain.member.dto.MemberRequestDto;
-import com.musubi.teammusubi.domain.member.dto.MemberResponseDto;
+import com.musubi.teammusubi.domain.member.dto.LoginRequest;
+import com.musubi.teammusubi.domain.member.dto.LoginResponse;
+import com.musubi.teammusubi.domain.member.dto.MemberRequest;
+import com.musubi.teammusubi.domain.member.dto.MemberResponse;
 import com.musubi.teammusubi.domain.member.service.MemberService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
@@ -28,37 +29,30 @@ public class MemberController {
 
     @PostMapping("/signup")
     @ResponseStatus(HttpStatus.CREATED)
-    public MemberResponseDto registerMember(@RequestBody MemberRequestDto requestDto) {
-        return memberService.registerMember(requestDto);
+    public MemberResponse registerMember(@RequestBody MemberRequest request) {
+        return memberService.registerMember(request);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody MemberRequestDto requestDto, HttpServletResponse response) {
-        try {
-            String welcomeMessage = memberService.login(requestDto, response);
-            if (welcomeMessage != null) {
-                return ResponseEntity.ok(welcomeMessage);
-            }
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("이메일 또는 비밀번호가 일치하지 않습니다.");
-        } catch (Exception ex) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("로그인 중 오류가 발생했습니다.");
-        }
+    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request, HttpServletResponse response) {
+        LoginResponse loginResponse = memberService.login(request, response);
+        return ResponseEntity.ok(loginResponse);
     }
 
     @GetMapping("/profile")
-    public ResponseEntity<MemberResponseDto> getProfile(@AuthenticationPrincipal UserDetails userDetails) {
-        MemberResponseDto responseDto = memberService.getProfile(userDetails.getUsername());
-        if (responseDto != null) {
-            return ResponseEntity.ok(responseDto);
+    public ResponseEntity<MemberResponse> getProfile(@AuthenticationPrincipal UserDetails userDetails) {
+        MemberResponse response = memberService.getProfile(userDetails.getUsername());
+        if (response != null) {
+            return ResponseEntity.ok(response);
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        throw new GlobalException("U0001", HttpStatus.BAD_REQUEST, "회원 정보를 찾을 수 없습니다.");
     }
 
     @PutMapping("/profile")
-    public ResponseEntity<MemberResponseDto> updateMember(@RequestBody MemberRequestDto requestDto, Authentication authentication) {
+    public ResponseEntity<MemberResponse> updateMember(@RequestBody MemberRequest request, Authentication authentication) {
         String email = authentication.getName();
-        MemberResponseDto responseDto = memberService.updateMember(email, requestDto);
-        return ResponseEntity.ok(responseDto);
+        MemberResponse response = memberService.updateMember(email, request);
+        return ResponseEntity.ok(response);
     }
 
     @PutMapping("/password")

@@ -3,11 +3,12 @@ package com.musubi.teammusubi.common.entity;
 import com.musubi.teammusubi.common.enums.Category;
 import com.musubi.teammusubi.common.enums.StoreStatus;
 import com.musubi.teammusubi.domain.seller.dto.StoreCreateRequest;
+import com.musubi.teammusubi.domain.seller.dto.StoreUpdateRequest;
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -61,6 +62,10 @@ public class Store extends Timestamped {
     @OneToMany(mappedBy = "store", cascade = CascadeType.REMOVE)
     private List<Delivery> deliveryList = new ArrayList<>();
 
+    // 가게 조회 시 메뉴 함께 조회
+    @OneToMany(mappedBy = "store", cascade = CascadeType.REMOVE)
+    private List<Menu> menus = new ArrayList<>();
+
 
     public Store(StoreCreateRequest createRequest, Long loginedMemberId) {
         this.name = createRequest.getName();
@@ -73,5 +78,15 @@ public class Store extends Timestamped {
         this.togo = createRequest.isTogo();
         this.status = createRequest.getStatus();
         this.memberId = loginedMemberId;
+    }
+
+    public void update(@Valid StoreUpdateRequest updateRequest) {
+        this.name = updateRequest.getName();
+        this.openTime = updateRequest.getOpenTime();
+        this.closeTime = updateRequest.getCloseTime();
+        this.minPrice = updateRequest.getMinPrice();
+        this.category = updateRequest.getCategory();
+        this.togo = updateRequest.isTogo();
+        this.status = updateRequest.getStatus();
     }
 }

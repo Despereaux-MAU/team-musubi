@@ -1,10 +1,10 @@
 package com.musubi.teammusubi.domain.seller.controller;
 
-import com.musubi.teammusubi.common.Security.MemberDetailsImpl;
 import com.musubi.teammusubi.common.enums.MemberRoleEnum;
-import com.musubi.teammusubi.domain.seller.service.MenuService;
+import com.musubi.teammusubi.common.security.MemberDetailsImpl;
 import com.musubi.teammusubi.domain.seller.dto.MenuRequest;
 import com.musubi.teammusubi.domain.seller.dto.MenuResponse;
+import com.musubi.teammusubi.domain.seller.service.SellerMenuService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -15,8 +15,9 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/seller")
-public class MenuController {
-    private final MenuService menuService;
+public class SellerMenuController {
+
+    private final SellerMenuService sellerMenuService;
 
     @PostMapping("/stores/{storeId}/menus")
     public ResponseEntity<MenuResponse> createMenu(
@@ -32,7 +33,7 @@ public class MenuController {
         }
 
         Long memberId = memberDetails.getMember().getId();
-        MenuResponse response = menuService.createMenu(memberId, storeId, requestDto);
+        MenuResponse response = sellerMenuService.createMenu(memberId, storeId, requestDto);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(response);
@@ -53,7 +54,7 @@ public class MenuController {
         }
 
         Long memberId = memberDetails.getMember().getId();
-        MenuResponse response = menuService.modifyMenu(memberId, storeId, menuId, requestDto);
+        MenuResponse response = sellerMenuService.modifyMenu(memberId, storeId, menuId, requestDto);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(response);
@@ -73,7 +74,7 @@ public class MenuController {
         }
 
         Long memberId = memberDetails.getMember().getId();
-        menuService.deleteMenu(memberId, storeId, menuId);
+        sellerMenuService.deleteMenu(memberId, storeId, menuId);
         return ResponseEntity
                 .status(HttpStatus.NO_CONTENT)
                 .build();

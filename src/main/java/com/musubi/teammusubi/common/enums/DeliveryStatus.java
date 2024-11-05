@@ -1,6 +1,6 @@
 package com.musubi.teammusubi.common.enums;
 
-public enum OrderStatus {
+public enum DeliveryStatus {
     PENDING,
     IN_PROGRESS,
     REJECTED,
