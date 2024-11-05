@@ -2,14 +2,19 @@ package com.musubi.teammusubi.common.entity;
 
 import com.musubi.teammusubi.common.enums.Category;
 import com.musubi.teammusubi.common.enums.StoreStatus;
+import com.musubi.teammusubi.domain.seller.dto.StoreCreateRequest;
+import com.musubi.teammusubi.domain.seller.dto.StoreUpdateRequest;
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Getter
 @NoArgsConstructor
 public class Store extends Timestamped {
 
@@ -20,11 +25,11 @@ public class Store extends Timestamped {
     @Column(nullable = false, unique = true)
     private String name;
 
-    @Column(nullable = false)
-    private LocalDateTime openTime;
+    @Column()
+    private LocalTime openTime;
 
-    @Column(nullable = false)
-    private LocalDateTime closeTime;
+    @Column()
+    private LocalTime closeTime;
 
     @Column(nullable = false)
     private Integer minPrice;
@@ -46,10 +51,8 @@ public class Store extends Timestamped {
     @Enumerated(EnumType.STRING)
     private StoreStatus status;
 
-    // 이 가게의 사장님
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id", nullable = false)
-    private Member member;
+    @Column(name = "member_id", nullable = false)
+    private Long memberId;
 
     // 이 가게에 달린 리뷰들
     @OneToMany(mappedBy = "store", cascade = CascadeType.REMOVE)
@@ -59,5 +62,31 @@ public class Store extends Timestamped {
     @OneToMany(mappedBy = "store", cascade = CascadeType.REMOVE)
     private List<Delivery> deliveryList = new ArrayList<>();
 
+    // 가게 조회 시 메뉴 함께 조회
+    @OneToMany(mappedBy = "store", cascade = CascadeType.REMOVE)
+    private List<Menu> menus = new ArrayList<>();
 
+
+    public Store(StoreCreateRequest createRequest, Long loginedMemberId) {
+        this.name = createRequest.getName();
+        this.openTime = createRequest.getOpenTime();
+        this.closeTime = createRequest.getCloseTime();
+        this.minPrice = createRequest.getMinPrice();
+        this.category = createRequest.getCategory();
+        this.address = createRequest.getAddress();
+        this.license = createRequest.getLicense();
+        this.togo = createRequest.isTogo();
+        this.status = createRequest.getStatus();
+        this.memberId = loginedMemberId;
+    }
+
+    public void update(@Valid StoreUpdateRequest updateRequest) {
+        this.name = updateRequest.getName();
+        this.openTime = updateRequest.getOpenTime();
+        this.closeTime = updateRequest.getCloseTime();
+        this.minPrice = updateRequest.getMinPrice();
+        this.category = updateRequest.getCategory();
+        this.togo = updateRequest.isTogo();
+        this.status = updateRequest.getStatus();
+    }
 }
