@@ -1,6 +1,7 @@
 package com.musubi.teammusubi.domain.seller.controller;
 
 import com.musubi.teammusubi.common.entity.Member;
+import com.musubi.teammusubi.common.enums.DeliveryStatus;
 import com.musubi.teammusubi.common.enums.MemberRoleEnum;
 import com.musubi.teammusubi.common.security.MemberDetailsImpl;
 import com.musubi.teammusubi.domain.seller.dto.DeliveryResponse;
@@ -50,12 +51,13 @@ public class SellerStoreController {
 
 
     // 가게별 주문 조회
-    // 최신 업데이트 순
+    // 주문 상태별 조회 - default: 대기
     @GetMapping("/stores/{storeId}/deliveries")
     public ResponseEntity<List<DeliveryResponse>> retrieveDeliveryByStoreId(
             @AuthenticationPrincipal MemberDetailsImpl memberDetails,
-            @PathVariable Long storeId
-    ) {
+            @PathVariable Long storeId,
+            @RequestParam DeliveryStatus deliveryStatus
+            ) {
         MemberRoleEnum memberRole = memberDetails.getMember().getRole();
         if(!memberRole.equals(MemberRoleEnum.OWNER)) {
             return ResponseEntity
@@ -63,7 +65,7 @@ public class SellerStoreController {
                     .build();
         }
 
-        List<DeliveryResponse> responses = sellerDeliveryService.retrieveDelivery(storeId);
+        List<DeliveryResponse> responses = sellerDeliveryService.retrieveDelivery(storeId, deliveryStatus);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(responses);
