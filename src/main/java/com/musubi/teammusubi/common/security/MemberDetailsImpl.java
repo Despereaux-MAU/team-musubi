@@ -1,4 +1,4 @@
-package com.musubi.teammusubi.common.Security;
+package com.musubi.teammusubi.common.security;
 
 import com.musubi.teammusubi.common.entity.Member;
 import org.springframework.security.core.GrantedAuthority;

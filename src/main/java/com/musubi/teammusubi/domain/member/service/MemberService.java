@@ -2,16 +2,18 @@ package com.musubi.teammusubi.domain.member.service;
 
 import com.musubi.teammusubi.common.config.PasswordEncoder;
 import com.musubi.teammusubi.common.entity.Member;
-import com.musubi.teammusubi.common.exception.GlobalException;
 import com.musubi.teammusubi.common.util.JwtUtil;
-import com.musubi.teammusubi.domain.member.dto.MemberRequestDto;
-import com.musubi.teammusubi.domain.member.dto.MemberResponseDto;
+import com.musubi.teammusubi.domain.member.dto.LoginRequest;
+import com.musubi.teammusubi.domain.member.dto.LoginResponse;
+import com.musubi.teammusubi.domain.member.dto.MemberRequest;
+import com.musubi.teammusubi.domain.member.dto.MemberResponse;
 import com.musubi.teammusubi.domain.member.repository.MemberRepository;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class MemberService {
@@ -25,51 +27,60 @@ public class MemberService {
         this.jwtUtil = jwtUtil;
     }
 
-    public MemberResponseDto registerMember(MemberRequestDto requestDto) {
-        if (memberRepository.findByEmail(requestDto.getEmail()).isPresent()) {
-            throw new GlobalException("U0001", HttpStatus.BAD_REQUEST, "이미 존재하는 이메일입니다.");
-        }
-        if (!requestDto.getPassword().equals(requestDto.getPasswordCheck())) {
-            throw new IllegalArgumentException("비밀번호와 비밀번호 확인이 일치하지 않습니다.");
-        }
+    public MemberResponse registerMember(MemberRequest request) {
 
         Member member = new Member();
-        member.setEmail(requestDto.getEmail());
-        member.setUsername(requestDto.getUsername());
-        member.setNickname(requestDto.getNickname());
-        member.setPassword(passwordEncoder.encode(requestDto.getPassword()));
-        member.setRole(requestDto.getRole());
-        member.setPhone(requestDto.getPhone());
-        member.setAddress(requestDto.getAddress());
+        member.checkEmailDuplicate(request.getEmail(), memberRepository);
+        member.setEmail(request.getEmail());
+        member.setUsername(request.getUsername());
+        member.setNickname(request.getNickname());
+        member.checkPasswordMatch(request.getPassword(), request.getPasswordCheck());
+        member.setPassword(request.getPassword(), passwordEncoder);
+        member.setRole(request.getRole());
+        member.setPhone(request.getPhone());
+        member.setAddress(request.getAddress());
 
         memberRepository.save(member);
 
         return convertToResponseDto(member);
     }
 
-    public String login(MemberRequestDto requestDto, HttpServletResponse response) {
-        String token = authenticate(requestDto);
+    public LoginResponse login(LoginRequest request, HttpServletResponse response) {
+        String token = authenticate(request);
         if (token != null) {
-            Cookie cookie = new Cookie("jwt", token);
-            cookie.setHttpOnly(true);
-            cookie.setPath("/");
-            response.addCookie(cookie);
 
-            Member member = findByEmail(requestDto.getEmail());
-            return member.getNickname() + "님 환영합니다.";
+            Member member = findByEmail(request.getEmail());
+
+            Cookie jwtcookie = new Cookie("jwt", token);
+            jwtcookie.setHttpOnly(true);
+            jwtcookie.setPath("/");
+            response.addCookie(jwtcookie);
+
+            Cookie idCookie = new Cookie("id", member.getId().toString());
+            idCookie.setHttpOnly(true);
+            idCookie.setPath("/");
+            response.addCookie(idCookie);
+
+            LoginResponse loginResponse = new LoginResponse();
+            loginResponse.setEmail(member.getEmail());
+            loginResponse.setUsername(member.getUsername());
+            loginResponse.setNickname(member.getNickname());
+            loginResponse.setToken(token);
+            loginResponse.setId(member.getId().toString());
+            return loginResponse;
+        }
+        throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "이메일 또는 비밀번호가 일치하지 않습니다.");
+    }
+
+    public String authenticate(LoginRequest request) {
+        Member member = findByEmail(request.getEmail());
+        if (member != null && passwordEncoder.matches(request.getPassword(), member.getPassword())) {
+            return jwtUtil.generateToken(member.getId(), member.getRole().name());
         }
         return null;
     }
 
-    public String authenticate(MemberRequestDto requestDto) {
-        Member member = findByEmail(requestDto.getEmail());
-        if (member != null && passwordEncoder.matches(requestDto.getPassword(), member.getPassword())) {
-            return jwtUtil.generateToken(member.getUsername(), member.getRole().name());
-        }
-        return null;
-    }
-
-    public MemberResponseDto getProfile(String email) {
+    public MemberResponse getProfile(String email) {
         Member member = findByEmail(email);
         if (member != null) {
             return convertToResponseDto(member);
@@ -81,49 +92,43 @@ public class MemberService {
         return memberRepository.findByEmail(email).orElse(null);
     }
 
-    public MemberResponseDto convertToResponseDto(Member member) {
-        MemberResponseDto responseDto = new MemberResponseDto();
-        responseDto.setId(member.getId());
-        responseDto.setEmail(member.getEmail());
-        responseDto.setUsername(member.getUsername());
-        responseDto.setNickname(member.getNickname());
-        responseDto.setRole(member.getRole());
-        responseDto.setPhone(member.getPhone());
-        responseDto.setAddress(member.getAddress());
-        return responseDto;
+    public MemberResponse convertToResponseDto(Member member) {
+        MemberResponse response = new MemberResponse();
+        response.setId(member.getId());
+        response.setEmail(member.getEmail());
+        response.setUsername(member.getUsername());
+        response.setNickname(member.getNickname());
+        response.setRole(member.getRole());
+        response.setPhone(member.getPhone());
+        response.setAddress(member.getAddress());
+        return response;
     }
 
     @Transactional
-    public MemberResponseDto updateMember(String email, MemberRequestDto requestDto) {
-        Member member = memberRepository.findByEmail(email)
-                .orElseThrow(() -> new GlobalException("U0002", HttpStatus.NOT_FOUND, "회원 정보를 찾을 수 없습니다."));
+    public MemberResponse updateMember(String email, MemberRequest request) {
+        Member member = Member.findByEmailOrThrow(email, memberRepository);
 
-        member.setUsername(requestDto.getUsername());
-        member.setNickname(requestDto.getNickname());
-        member.setEmail(requestDto.getEmail());
-        member.setPhone(requestDto.getPhone());
-        member.setAddress(requestDto.getAddress());
+        member.setUsername(request.getUsername());
+        member.setNickname(request.getNickname());
+        member.setEmail(request.getEmail());
+        member.setPhone(request.getPhone());
+        member.setAddress(request.getAddress());
 
         return convertToResponseDto(member);
     }
 
     @Transactional
     public void changePassword(String email, String newPassword, String passwordCheck) {
-        Member member = memberRepository.findByEmail(email)
-                .orElseThrow(() -> new GlobalException("U0002", HttpStatus.NOT_FOUND, "회원 정보를 찾을 수 없습니다."));
+        Member member = Member.findByEmailOrThrow(email, memberRepository);
 
-        if (!newPassword.equals(passwordCheck)) {
-            throw new IllegalArgumentException("비밀번호와 비밀번호 확인이 일치하지 않습니다.");
-        }
-
-        member.setPassword(passwordEncoder.encode(newPassword));
+        member.checkPasswordMatch(newPassword, passwordCheck);
+        member.setPassword(newPassword, passwordEncoder);
         memberRepository.save(member);
     }
 
     @Transactional
     public void deleteMember(String email) {
-        Member member = memberRepository.findByEmail(email)
-                .orElseThrow(() -> new GlobalException("U0002", HttpStatus.NOT_FOUND, "회원 정보를 찾을 수 없습니다."));
+        Member member = Member.findByEmailOrThrow(email, memberRepository);
 
         member.deactiveAccount();
         member.setUsername("탈퇴회원");

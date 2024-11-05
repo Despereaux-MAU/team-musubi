@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class MemberResponseDto {
+public class MemberResponse {
     @JsonIgnore
     private Long id;
     private String email;
