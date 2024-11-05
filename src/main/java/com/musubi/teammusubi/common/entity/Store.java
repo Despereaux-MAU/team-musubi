@@ -61,5 +61,9 @@ public class Store extends Timestamped {
     @OneToMany(mappedBy = "store", cascade = CascadeType.REMOVE)
     private List<Delivery> deliveryList = new ArrayList<>();
 
+    // 가게 조회 시 메뉴 함께 조회
+    @OneToMany(mappedBy = "store", cascade = CascadeType.REMOVE)
+    private List<Menu> menus = new ArrayList<>();
+
 
 }
