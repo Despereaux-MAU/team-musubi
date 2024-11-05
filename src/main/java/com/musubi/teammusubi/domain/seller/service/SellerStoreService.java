@@ -3,6 +3,7 @@ package com.musubi.teammusubi.domain.seller.service;
 import com.musubi.teammusubi.common.entity.Member;
 import com.musubi.teammusubi.common.entity.Store;
 import com.musubi.teammusubi.common.enums.MemberRoleEnum;
+import com.musubi.teammusubi.common.enums.StoreStatus;
 import com.musubi.teammusubi.domain.seller.dto.StoreCreateRequest;
 import com.musubi.teammusubi.domain.seller.dto.StoreResponse;
 import com.musubi.teammusubi.domain.seller.dto.StoreUpdateRequest;
@@ -31,7 +32,7 @@ public class SellerStoreService {
             throw new IllegalArgumentException("최소주문금액이 0원 이상이여야합니다.");
         }
 
-        int storeCount = sellerStoreRepository.countByMemberId(loginedMember.getId());
+        int storeCount = sellerStoreRepository.countByMemberIdAndStatusNot(loginedMember.getId(), StoreStatus.CLOSE);
         if (storeCount >= 3) {
             throw new IllegalArgumentException("가게는 최대 3개까지만 운영할 수 없습니다");
         }
