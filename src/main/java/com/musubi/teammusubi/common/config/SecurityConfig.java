@@ -1,6 +1,6 @@
 package com.musubi.teammusubi.common.config;
 
-import com.musubi.teammusubi.common.Security.JwtAuthorizationFilter;
+import com.musubi.teammusubi.common.security.JwtAuthorizationFilter;
 import com.musubi.teammusubi.common.util.JwtUtil;
 import com.musubi.teammusubi.domain.member.service.MemberDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;

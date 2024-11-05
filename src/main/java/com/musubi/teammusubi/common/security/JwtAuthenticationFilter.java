@@ -1,4 +1,4 @@
-package com.musubi.teammusubi.common.Security;
+package com.musubi.teammusubi.common.security;
 
 import com.musubi.teammusubi.common.exception.GlobalException;
 import com.musubi.teammusubi.common.util.JwtUtil;
@@ -9,9 +9,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -36,10 +36,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                                     FilterChain chain) throws ServletException, IOException {
         String token = getJwtFromRequest(request);
         if (token != null && jwtUtil.validateToken(token)) {
-            String username = jwtUtil.getUsernameFromToken(token);
+            Long memberId = jwtUtil.getMemberIdFromToken(token);
             String role = jwtUtil.getRoleFromToken(token);
 
-            UserDetails userDetails = memberDetailsServiceImpl.loadUserByUsername(username);
+            UserDetails userDetails = memberDetailsServiceImpl.loadUserById(memberId);
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
                     userDetails, null, Collections.singletonList(new SimpleGrantedAuthority(role)));
             authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));

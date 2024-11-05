@@ -48,17 +48,25 @@ public class MemberService {
     public LoginResponse login(LoginRequest request, HttpServletResponse response) {
         String token = authenticate(request);
         if (token != null) {
-            Cookie cookie = new Cookie("jwt", token);
-            cookie.setHttpOnly(true);
-            cookie.setPath("/");
-            response.addCookie(cookie);
 
             Member member = findByEmail(request.getEmail());
+
+            Cookie jwtcookie = new Cookie("jwt", token);
+            jwtcookie.setHttpOnly(true);
+            jwtcookie.setPath("/");
+            response.addCookie(jwtcookie);
+
+            Cookie idCookie = new Cookie("id", member.getId().toString());
+            idCookie.setHttpOnly(true);
+            idCookie.setPath("/");
+            response.addCookie(idCookie);
+
             LoginResponse loginResponse = new LoginResponse();
             loginResponse.setEmail(member.getEmail());
             loginResponse.setUsername(member.getUsername());
             loginResponse.setNickname(member.getNickname());
             loginResponse.setToken(token);
+            loginResponse.setId(member.getId().toString());
             return loginResponse;
         }
         throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "이메일 또는 비밀번호가 일치하지 않습니다.");
@@ -67,7 +75,7 @@ public class MemberService {
     public String authenticate(LoginRequest request) {
         Member member = findByEmail(request.getEmail());
         if (member != null && passwordEncoder.matches(request.getPassword(), member.getPassword())) {
-            return jwtUtil.generateToken(member.getUsername(), member.getRole().name());
+            return jwtUtil.generateToken(member.getId(), member.getRole().name());
         }
         return null;
     }

@@ -24,8 +24,8 @@ public class JwtUtil {
         return Keys.hmacShaKeyFor(secretKey.getBytes());
     }
 
-    public String generateToken(String username, String role) {
-        Claims claims = Jwts.claims().setSubject(username);
+    public String generateToken(Long memberId, String role) {
+        Claims claims = Jwts.claims().setSubject(memberId.toString());
         claims.put("role", role);
         Date now = new Date();
         Date expiredAt = new Date(now.getTime() + EXPIRATION_TIME);
@@ -38,14 +38,14 @@ public class JwtUtil {
                 .compact();
     }
 
-    public String getUsernameFromToken(String token) {
+    public Long getMemberIdFromToken(String token) {
         Claims claims = Jwts.parserBuilder()
                 .setSigningKey(getSigningKey())
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
 
-        return claims.getSubject();
+        return Long.parseLong(claims.getSubject());
     }
 
     public String getRoleFromToken(String token) {

@@ -45,7 +45,7 @@ public class MemberController {
         if (response != null) {
             return ResponseEntity.ok(response);
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        throw new GlobalException("U0001", HttpStatus.BAD_REQUEST, "회원 정보를 찾을 수 없습니다.");
     }
 
     @PutMapping("/profile")
