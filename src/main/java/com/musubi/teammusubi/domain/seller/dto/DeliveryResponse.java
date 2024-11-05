@@ -1,7 +1,7 @@
 package com.musubi.teammusubi.domain.seller.dto;
 
 import com.musubi.teammusubi.common.entity.Delivery;
-import com.musubi.teammusubi.common.enums.OrderStatus;
+import com.musubi.teammusubi.common.enums.DeliveryStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -10,7 +10,7 @@ import lombok.Getter;
 public class DeliveryResponse {
     private Long id;
     private String details;
-    private OrderStatus status;
+    private DeliveryStatus status;
     private Integer totalPrice;
     private Long storeId;
 

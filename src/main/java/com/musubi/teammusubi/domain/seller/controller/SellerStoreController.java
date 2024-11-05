@@ -51,7 +51,7 @@ public class SellerStoreController {
 
     // 가게별 주문 조회
     // 최신 업데이트 순
-    @GetMapping("/stores/{storeId}/orders")
+    @GetMapping("/stores/{storeId}/deliveries")
     public ResponseEntity<List<DeliveryResponse>> retrieveDeliveryByStoreId(
             @AuthenticationPrincipal MemberDetailsImpl memberDetails,
             @PathVariable Long storeId
