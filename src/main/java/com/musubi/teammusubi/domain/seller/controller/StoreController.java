@@ -4,6 +4,7 @@ import com.musubi.teammusubi.common.Security.MemberDetailsImpl;
 import com.musubi.teammusubi.common.entity.Member;
 import com.musubi.teammusubi.domain.seller.dto.StoreCreateRequest;
 import com.musubi.teammusubi.domain.seller.dto.StoreResponse;
+import com.musubi.teammusubi.domain.seller.dto.StoreUpdateRequest;
 import com.musubi.teammusubi.domain.seller.service.StoreService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -42,6 +43,13 @@ public class StoreController {
     public ResponseEntity<StoreResponse> getStoreByStoreId(@AuthenticationPrincipal MemberDetailsImpl memberDetails , @PathVariable Long storeId) {
         Member loginedMember = memberDetails.getMember();
         StoreResponse storeResponse = storeService.getStore(loginedMember.getId(), storeId);
+        return ResponseEntity.ok(storeResponse);
+    }
+
+    @PutMapping("/stores/{storeId}")
+    public ResponseEntity<StoreResponse> updateStore(@AuthenticationPrincipal MemberDetailsImpl memberDetails, @PathVariable Long storeId, @Valid @RequestBody StoreUpdateRequest updateRequest) {
+        Member loginedMember = memberDetails.getMember();
+        StoreResponse storeResponse = storeService.updateStore(loginedMember.getId(), storeId, updateRequest);
         return ResponseEntity.ok(storeResponse);
     }
 
