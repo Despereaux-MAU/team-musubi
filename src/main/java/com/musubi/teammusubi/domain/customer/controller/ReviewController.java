@@ -1,6 +1,6 @@
 package com.musubi.teammusubi.domain.customer.controller;
 
-import com.musubi.teammusubi.common.Security.MemberDetailsImpl;
+import com.musubi.teammusubi.common.security.MemberDetailsImpl;
 import com.musubi.teammusubi.domain.customer.dto.ReviewRequest;
 import com.musubi.teammusubi.domain.customer.dto.ReviewResponse;
 import com.musubi.teammusubi.domain.customer.dto.ReviewResponsePage;
