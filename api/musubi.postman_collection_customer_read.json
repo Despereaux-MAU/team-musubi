@@ -1,0 +1,138 @@
+{
+	"info": {
+		"_postman_id": "003e5560-57fb-4e8e-8f32-c84a073c1e7f",
+		"name": "musubi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38557384"
+	},
+	"item": [
+		{
+			"name": "customer",
+			"item": [
+				{
+					"name": "stores",
+					"item": [
+						{
+							"name": "전체 가게조회",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/stores?category=KOREAN",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"stores"
+									],
+									"query": [
+										{
+											"key": "category",
+											"value": "KOREAN"
+										},
+										{
+											"key": "search",
+											"value": "미",
+											"disabled": true
+										},
+										{
+											"key": "size",
+											"value": "2",
+											"disabled": true
+										},
+										{
+											"key": "page",
+											"value": "2",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "상세 가게조회",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/stores/{{storeId}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"stores",
+										"{{storeId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "deliveries",
+					"item": [
+						{
+							"name": "전체 주문조회",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/deliveries",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"deliveries"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "주문 생성",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\t\"details\":\"세부사항\",\r\n\t\"quantity\":4,\r\n\t\"totalPrice\":60000\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/deliveries?storeId=1&menuId=1",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"deliveries"
+									],
+									"query": [
+										{
+											"key": "storeId",
+											"value": "1"
+										},
+										{
+											"key": "menuId",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}
