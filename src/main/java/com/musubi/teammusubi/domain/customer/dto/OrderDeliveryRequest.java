@@ -3,8 +3,10 @@ package com.musubi.teammusubi.domain.customer.dto;
 import com.musubi.teammusubi.common.entity.Delivery;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
+@Setter
 @NoArgsConstructor
 public class OrderDeliveryRequest {
 
