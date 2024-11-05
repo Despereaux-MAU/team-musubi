@@ -26,7 +26,7 @@ public class Delivery extends Timestamped {
     @Column(nullable = false)
     private Integer totalPrice;
 
-    // todo - 추가됨, 선택한 수량
+    // todo - 삭제해야 함
     @Column(nullable = false)
     private Integer quantity;
 
@@ -43,6 +43,7 @@ public class Delivery extends Timestamped {
     private long memberId;
 
     // 주문을 받은 가게
+    // todo - 연결 관계 끊기
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "store_id")
     private Store store;
