@@ -1,12 +1,16 @@
 package com.musubi.teammusubi.domain.seller.controller;
 
+import com.musubi.teammusubi.common.enums.MemberRoleEnum;
+import com.musubi.teammusubi.common.security.MemberDetailsImpl;
 import com.musubi.teammusubi.common.entity.Member;
+import com.musubi.teammusubi.domain.seller.dto.DeliveryResponse;
 import com.musubi.teammusubi.common.enums.DeliveryStatus;
 import com.musubi.teammusubi.common.enums.MemberRoleEnum;
 import com.musubi.teammusubi.common.security.MemberDetailsImpl;
 import com.musubi.teammusubi.domain.seller.dto.DeliveryResponse;
 import com.musubi.teammusubi.domain.seller.dto.StoreCreateRequest;
 import com.musubi.teammusubi.domain.seller.dto.StoreResponse;
+import com.musubi.teammusubi.domain.seller.dto.StoreUpdateRequest;
 import com.musubi.teammusubi.domain.seller.service.SellerDeliveryService;
 import com.musubi.teammusubi.domain.seller.service.SellerStoreService;
 import jakarta.validation.Valid;
@@ -46,6 +50,13 @@ public class SellerStoreController {
     public ResponseEntity<StoreResponse> getStoreByStoreId(@AuthenticationPrincipal MemberDetailsImpl memberDetails , @PathVariable Long storeId) {
         Member loginedMember = memberDetails.getMember();
         StoreResponse storeResponse = sellerStoreService.getStore(loginedMember.getId(), storeId);
+        return ResponseEntity.ok(storeResponse);
+    }
+
+    @PutMapping("/stores/{storeId}")
+    public ResponseEntity<StoreResponse> updateStore(@AuthenticationPrincipal MemberDetailsImpl memberDetails, @PathVariable Long storeId, @Valid @RequestBody StoreUpdateRequest updateRequest) {
+        Member loginedMember = memberDetails.getMember();
+        StoreResponse storeResponse = sellerStoreService.updateStore(loginedMember.getId(), storeId, updateRequest);
         return ResponseEntity.ok(storeResponse);
     }
 
