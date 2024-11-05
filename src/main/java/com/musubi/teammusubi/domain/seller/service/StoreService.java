@@ -5,7 +5,9 @@ import com.musubi.teammusubi.common.entity.Store;
 import com.musubi.teammusubi.common.enums.MemberRoleEnum;
 import com.musubi.teammusubi.domain.seller.dto.StoreCreateRequest;
 import com.musubi.teammusubi.domain.seller.dto.StoreResponse;
+import com.musubi.teammusubi.domain.seller.dto.StoreUpdateRequest;
 import com.musubi.teammusubi.domain.seller.repository.StoreRepository;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -46,6 +48,13 @@ public class StoreService {
     public StoreResponse getStore(Long loginedMemberId, Long storeId) {
 
         Store store = storeRepository.findByIdAndMemberId(storeId, loginedMemberId);
+        return new StoreResponse(store);
+    }
+
+    public StoreResponse updateStore(Long loginedMemberId, Long storeId, @Valid StoreUpdateRequest updateRequest) {
+        Store store = storeRepository.findByIdAndMemberId(storeId,loginedMemberId);
+        store.update(updateRequest);
+        storeRepository.save(store);
         return new StoreResponse(store);
     }
 
