@@ -12,4 +12,8 @@ public interface DeliveryRepository extends JpaRepository<Delivery, Long> {
     // Review 에서 사용하는 메소드
     @Query("SELECT d FROM Delivery d WHERE d.id = ?1 AND d.status = ?2")
     Optional<Delivery> findByIdAndStatus(Long id, DeliveryStatus status);
+
+    default Delivery findByIdSafe(long id) {
+        return findById(id).orElseThrow(() -> new RuntimeException("(Dummy Exception)Id not found"));
+    }
 }
