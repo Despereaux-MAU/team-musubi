@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface StoreRepository extends JpaRepository<Store, Long> {
+public interface SellerStoreRepository extends JpaRepository<Store, Long> {
     Integer countByMemberId(Long id);
 
     List<Store> findAllByMemberId(Long loginedMemberId);
