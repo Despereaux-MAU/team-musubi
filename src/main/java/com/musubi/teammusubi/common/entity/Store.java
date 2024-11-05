@@ -3,7 +3,9 @@ package com.musubi.teammusubi.common.entity;
 import com.musubi.teammusubi.common.enums.Category;
 import com.musubi.teammusubi.common.enums.StoreStatus;
 import com.musubi.teammusubi.domain.seller.dto.StoreCreateRequest;
+import com.musubi.teammusubi.domain.seller.dto.StoreUpdateRequest;
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -76,5 +78,15 @@ public class Store extends Timestamped {
         this.togo = createRequest.isTogo();
         this.status = createRequest.getStatus();
         this.memberId = loginedMemberId;
+    }
+
+    public void update(@Valid StoreUpdateRequest updateRequest) {
+        this.name = updateRequest.getName();
+        this.openTime = updateRequest.getOpenTime();
+        this.closeTime = updateRequest.getCloseTime();
+        this.minPrice = updateRequest.getMinPrice();
+        this.category = updateRequest.getCategory();
+        this.togo = updateRequest.isTogo();
+        this.status = updateRequest.getStatus();
     }
 }
