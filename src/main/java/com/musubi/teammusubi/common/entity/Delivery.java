@@ -1,6 +1,6 @@
 package com.musubi.teammusubi.common.entity;
 
-import com.musubi.teammusubi.common.enums.OrderStatus;
+import com.musubi.teammusubi.common.enums.DeliveryStatus;
 import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
 
@@ -17,7 +17,7 @@ public class Delivery extends Timestamped {
 
     @Column
     @Enumerated(EnumType.STRING)
-    private OrderStatus status;
+    private DeliveryStatus status;
 
     @Column(nullable = false)
     private Integer totalPrice;
