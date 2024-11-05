@@ -67,4 +67,11 @@ public class SellerStoreService {
             throw new IllegalArgumentException("오픈시간이 마감 시간보다 늦을 수 없습니다.");
         }
     }
+
+    public StoreResponse closeStore(Long id, Long storeId) {
+        Store store = sellerStoreRepository.findByIdAndMemberId(storeId, id);
+        store.closeStore();
+        sellerStoreRepository.save(store);
+        return new StoreResponse(store);
+    }
 }
