@@ -1,0 +1,391 @@
+{
+	"info": {
+		"_postman_id": "e91379d7-7f1e-49d0-9582-a9d973255c96",
+		"name": "project-outsourcing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38635409"
+	},
+	"item": [
+		{
+			"name": "회원가입-USER",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"musubi3@email.com\",\r\n    \"username\":\"무스비\",\r\n    \"nickname\":\"무스비\",\r\n    \"password\":\"0000\",\r\n    \"passwordCheck\":\"0000\",\r\n    \"role\":\"USER\",\r\n    \"phone\":\"010-1234-5678\",\r\n    \"address\":\"서울특별시\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/members/signup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"members",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "회원가입-OWNER/2",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"musubi333@email.com\",\r\n    \"username\":\"매듭이\",\r\n    \"nickname\":\"매듭이\",\r\n    \"password\":\"0000\",\r\n    \"passwordCheck\":\"0000\",\r\n    \"role\":\"OWNER\",\r\n    \"phone\":\"010-1234-5678\",\r\n    \"address\":\"서울특별시 어쩌구\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/members/signup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"members",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "회원가입-OWNER/3",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"WE@email.com\",\r\n    \"username\":\"3조\",\r\n    \"nickname\":\"3짱\",\r\n    \"password\":\"0000\",\r\n    \"passwordCheck\":\"0000\",\r\n    \"role\":\"OWNER\",\r\n    \"phone\":\"010-1234-5678\",\r\n    \"address\":\"경기도 와랄라\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/members/signup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"members",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "로그인-USER/1",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"musubi3@email.com\",\r\n    \"username\":\"무스비\",\r\n    \"nickname\":\"무스비\",\r\n    \"password\":\"0000\",\r\n    \"passwordCheck\":\"0000\",\r\n    \"role\":\"USER\",\r\n    \"phone\":\"010-1234-5678\",\r\n    \"address\":\"서울특별시\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/members/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"members",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "로그인-OWNER/2",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"musubi333@email.com\",\r\n    \"username\":\"매듭이\",\r\n    \"nickname\":\"매듭이\",\r\n    \"password\":\"0000\",\r\n    \"passwordCheck\":\"0000\",\r\n    \"role\":\"OWNER\",\r\n    \"phone\":\"010-1234-5678\",\r\n    \"address\":\"서울특별시 어쩌구\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/members/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"members",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "로그인-OWNER/3",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"WE@email.com\",\r\n    \"username\":\"3조\",\r\n    \"nickname\":\"3짱\",\r\n    \"password\":\"0000\",\r\n    \"passwordCheck\":\"0000\",\r\n    \"role\":\"OWNER\",\r\n    \"phone\":\"010-1234-5678\",\r\n    \"address\":\"경기도 와랄라\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/members/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"members",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[사업자] 가게 등록",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\" : \"새벽의 아침\",\r\n    \"openTime\" : \"10:00:00\",\r\n    \"closeTime\" : \"23:00:00\",\r\n    \"minPrice\" : \"50000\",\r\n    \"category\" : \"KOREAN\",\r\n    \"address\" : \"서울특별시 어쩌구 저쩌구\",\r\n    \"license\" : \"111\",\r\n    \"togo\" : \"false\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/seller/stores",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"seller",
+						"stores"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[사업자] 메뉴 등록 1",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\" : \"카라멜 마끼아또\",\r\n    \"price\" : \"6500\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/seller/stores/3/menus",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"seller",
+						"stores",
+						"3",
+						"menus"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[사업자] 메뉴 등록",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\" : \"진짜! 레몬에이드\",\r\n    \"price\" : \"6000\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/seller/stores/5/menus",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"seller",
+						"stores",
+						"5",
+						"menus"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[사업자] 메뉴 수정",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\" : \"연어 포케\",\r\n    \"price\" : \"12000\",\r\n    \"description\" : \"맛있는 연어 포케~~\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/seller/stores/5/menus/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"seller",
+						"stores",
+						"5",
+						"menus",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[사업자] 메뉴 수정 2",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\" : \"진짜! 레몬에이드\",\r\n    \"price\" : \"6000\",\r\n    \"description\" : \"진짜! 생레몬!\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/seller/stores/5/menus/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"seller",
+						"stores",
+						"5",
+						"menus",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[사업자] 메뉴 삭제",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/seller/stores/5/menus/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"seller",
+						"stores",
+						"5",
+						"menus",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[사업자] 가게별 주문 조회",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}
