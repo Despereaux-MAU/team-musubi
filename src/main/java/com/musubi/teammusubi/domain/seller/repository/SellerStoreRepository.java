@@ -7,11 +7,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface SellerStoreRepository extends JpaRepository<Store, Long> {
-    Integer countByMemberId(Long id);
-
-    List<Store> findAllByMemberId(Long loginedMemberId);
-
-    Store findByIdAndMemberId(Long id, Long loginedMemberId);
-
     Integer countByMemberIdAndStatusNot(Long loginedMemberId, StoreStatus storeStatus);
+
+    List<Store> findAllByMemberIdAndStatusNot(Long loginedMemberId, StoreStatus storeStatus);
+
+    Store findByIdAndMemberIdAndStatusNot(Long storeId, Long loginedMemberId, StoreStatus storeStatus);
 }

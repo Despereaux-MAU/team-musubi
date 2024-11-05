@@ -42,18 +42,23 @@ public class SellerStoreService {
     }
 
     public List<StoreResponse> getAllStores(Long loginedMemberId) {
-        List<Store> storeList = sellerStoreRepository.findAllByMemberId(loginedMemberId);
+        List<Store> storeList = sellerStoreRepository.findAllByMemberIdAndStatusNot(loginedMemberId, StoreStatus.CLOSE);
         return storeList.stream().map(StoreResponse::new).toList();
     }
 
     public StoreResponse getStore(Long loginedMemberId, Long storeId) {
-
-        Store store = sellerStoreRepository.findByIdAndMemberId(storeId, loginedMemberId);
+        Store store = sellerStoreRepository.findByIdAndMemberIdAndStatusNot(storeId, loginedMemberId, StoreStatus.CLOSE);
+        if (store == null) {
+            throw new IllegalArgumentException("가게가 존재하지 않거나, 폐업상태입니다.");
+        }
         return new StoreResponse(store);
     }
 
     public StoreResponse updateStore(Long loginedMemberId, Long storeId, @Valid StoreUpdateRequest updateRequest) {
-        Store store = sellerStoreRepository.findByIdAndMemberId(storeId,loginedMemberId);
+        Store store = sellerStoreRepository.findByIdAndMemberIdAndStatusNot(storeId, loginedMemberId, StoreStatus.CLOSE);
+        if (store == null) {
+            throw new IllegalArgumentException("가게가 존재하지 않거나, 폐업상태라서 수정할 수 없습니다.");
+        }
         store.update(updateRequest);
         sellerStoreRepository.save(store);
         return new StoreResponse(store);
