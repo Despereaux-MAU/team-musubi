@@ -1,7 +1,7 @@
 package com.musubi.teammusubi.domain.seller.controller;
 
-import com.musubi.teammusubi.common.Security.MemberDetailsImpl;
 import com.musubi.teammusubi.common.entity.Member;
+import com.musubi.teammusubi.common.security.MemberDetailsImpl;
 import com.musubi.teammusubi.domain.seller.dto.StoreCreateRequest;
 import com.musubi.teammusubi.domain.seller.dto.StoreResponse;
 import com.musubi.teammusubi.domain.seller.dto.StoreUpdateRequest;
