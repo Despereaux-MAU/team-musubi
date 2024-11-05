@@ -3,10 +3,7 @@ package com.musubi.teammusubi.domain.seller.controller;
 import com.musubi.teammusubi.common.enums.MemberRoleEnum;
 import com.musubi.teammusubi.common.security.MemberDetailsImpl;
 import com.musubi.teammusubi.common.entity.Member;
-import com.musubi.teammusubi.domain.seller.dto.DeliveryResponse;
-import com.musubi.teammusubi.domain.seller.dto.StoreCreateRequest;
-import com.musubi.teammusubi.domain.seller.dto.StoreResponse;
-import com.musubi.teammusubi.domain.seller.dto.StoreUpdateRequest;
+import com.musubi.teammusubi.domain.seller.dto.*;
 import com.musubi.teammusubi.domain.seller.service.SellerDeliveryService;
 import com.musubi.teammusubi.domain.seller.service.SellerStoreService;
 import jakarta.validation.Valid;
@@ -56,6 +53,14 @@ public class SellerStoreController {
         StoreResponse storeResponse = sellerStoreService.updateStore(loginedMember.getId(), storeId, updateRequest);
         return ResponseEntity.ok(storeResponse);
     }
+
+    @PatchMapping("/stores/{storeId}")
+    public ResponseEntity<StoreResponse> closeStore(@AuthenticationPrincipal MemberDetailsImpl memberDetails, @PathVariable Long storeId) {
+        Member loginedMember = memberDetails.getMember();
+        StoreResponse storeResponse = sellerStoreService.closeStore(loginedMember.getId(), storeId);
+        return ResponseEntity.ok(storeResponse);
+    }
+
 
     // 가게별 주문 조회
     // 최신 업데이트 순
