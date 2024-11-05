@@ -21,6 +21,7 @@ public class Review extends Timestamped{
     private String comment;
 
     // 리뷰가 작성된 가게
+    // todo - 연결 관계 끊기
     @ManyToOne
     @JoinColumn(name = "store_id")
     private Store store;
