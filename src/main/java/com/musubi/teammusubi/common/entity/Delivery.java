@@ -2,8 +2,6 @@ package com.musubi.teammusubi.common.entity;
 
 import com.musubi.teammusubi.common.enums.DeliveryStatus;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.*;
 
 @Entity
@@ -38,9 +36,11 @@ public class Delivery extends Timestamped {
     private Menu menu;
 
     // 주문을 한 고객
-    @ManyToOne
-    @JoinColumn(name = "member_id")
-    private Member member;
+//    @ManyToOne
+//    @JoinColumn(name = "member_id")
+//    private Member member;
+    @Column
+    private long memberId;
 
     // 주문을 받은 가게
     @ManyToOne(fetch = FetchType.LAZY)
