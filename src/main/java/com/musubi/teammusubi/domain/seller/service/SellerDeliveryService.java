@@ -2,8 +2,8 @@ package com.musubi.teammusubi.domain.seller.service;
 
 import com.musubi.teammusubi.common.entity.Delivery;
 import com.musubi.teammusubi.domain.seller.dto.DeliveryResponse;
-import com.musubi.teammusubi.domain.seller.repository.DeliveryRepository;
-import com.musubi.teammusubi.domain.seller.repository.StoreRepository;
+import com.musubi.teammusubi.domain.seller.repository.SellerDeliveryRepository;
+import com.musubi.teammusubi.domain.seller.repository.SellerStoreRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -11,9 +11,9 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class DeliveryService {
-    private final StoreRepository storeRepository;
-    private final DeliveryRepository deliveryRepository;
+public class SellerDeliveryService {
+    private final SellerStoreRepository storeRepository;
+    private final SellerDeliveryRepository deliveryRepository;
 
     public List<DeliveryResponse> retrieveDelivery(Long storeId) {
         storeRepository.findById(storeId)
