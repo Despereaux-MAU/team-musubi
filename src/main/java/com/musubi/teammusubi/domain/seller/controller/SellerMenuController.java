@@ -60,23 +60,24 @@ public class SellerMenuController {
                 .body(response);
     }
 
-    @DeleteMapping("/stores/{storeId}/menus/{menuId}")
-    public ResponseEntity<Void> deleteMenu(
+    @PatchMapping("/stores/{storeId}/menus/{menuId}")
+    public ResponseEntity<MenuResponse> closeMenu(
             @AuthenticationPrincipal MemberDetailsImpl memberDetails,
             @PathVariable Long storeId,
             @PathVariable Long menuId
     ) {
-        MemberRoleEnum memberRole = memberDetails.getMember().getRole();
-        if(!memberRole.equals(MemberRoleEnum.OWNER)) {
-            return ResponseEntity
-                    .status(HttpStatus.FORBIDDEN)
-                    .build();
-        }
+        // todo - filter에서 확인했으니, 삭제하기!
+//        MemberRoleEnum memberRole = memberDetails.getMember().getRole();
+//        if(!memberRole.equals(MemberRoleEnum.OWNER)) {
+//            return ResponseEntity
+//                    .status(HttpStatus.FORBIDDEN)
+//                    .build();
+//        }
 
         Long memberId = memberDetails.getMember().getId();
-        sellerMenuService.deleteMenu(memberId, storeId, menuId);
+        MenuResponse response = sellerMenuService.closeMenu(memberId, storeId, menuId);
         return ResponseEntity
-                .status(HttpStatus.NO_CONTENT)
-                .build();
+                .status(HttpStatus.OK)
+                .body(response);
     }
 }

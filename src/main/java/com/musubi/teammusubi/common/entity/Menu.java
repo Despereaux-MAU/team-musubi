@@ -1,15 +1,16 @@
 package com.musubi.teammusubi.common.entity;
 
+import com.musubi.teammusubi.common.enums.MenuStatus;
 import com.musubi.teammusubi.domain.seller.dto.MenuRequest;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import static lombok.AccessLevel.PROTECTED;
+import static com.musubi.teammusubi.common.enums.MenuStatus.*;
 
 @Entity
 @Getter
-@NoArgsConstructor(access = PROTECTED)
+@NoArgsConstructor
 public class Menu extends Timestamped {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,8 +25,9 @@ public class Menu extends Timestamped {
     @Column(nullable = true)
     private String description;
 
-    @Column
-    private boolean isDeleted;
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private MenuStatus status;
 
     // 메뉴를 제공하는 가게
     @ManyToOne
@@ -36,8 +38,8 @@ public class Menu extends Timestamped {
         this.name = name;
         this.price = price;
         this.description = description;
-        this.isDeleted = false;
         this.store = store;
+        this.status = FOR_SALE;
     }
 
     public static Menu of(MenuRequest request, Store store) {
@@ -50,10 +52,7 @@ public class Menu extends Timestamped {
         this.description = description;
     }
 
-    public void delete() {
-        if(isDeleted) {
-            throw new IllegalStateException("이미 삭제된 메뉴입니다.");
-        }
-        this.isDeleted = true;
+    public void close() {
+        this.status = NOT_FOR_SALE;
     }
 }
