@@ -1,6 +1,7 @@
 package com.musubi.teammusubi.domain.seller.dto;
 
 import com.musubi.teammusubi.common.entity.Menu;
+import com.musubi.teammusubi.common.enums.MenuStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -13,7 +14,7 @@ public class MenuResponse {
     private String name;
     private Integer price;
     private String description;
-    private boolean isDeleted;
+    private MenuStatus status;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
@@ -23,7 +24,7 @@ public class MenuResponse {
                 menu.getName(),
                 menu.getPrice(),
                 menu.getDescription(),
-                menu.isDeleted(),
+                menu.getStatus(),
                 menu.getCreatedAt(),
                 menu.getUpdatedAt()
         );
