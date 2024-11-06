@@ -2,6 +2,7 @@ package com.musubi.teammusubi.domain.member.service;
 
 import com.musubi.teammusubi.common.config.PasswordEncoder;
 import com.musubi.teammusubi.common.entity.Member;
+import com.musubi.teammusubi.common.exception.ResponseException;
 import com.musubi.teammusubi.common.util.JwtUtil;
 import com.musubi.teammusubi.domain.member.dto.LoginRequest;
 import com.musubi.teammusubi.domain.member.dto.LoginResponse;
@@ -27,7 +28,7 @@ public class MemberService {
         this.jwtUtil = jwtUtil;
     }
 
-    public MemberResponse registerMember(MemberRequest request) {
+    public MemberResponse registerMember(MemberRequest request) throws ResponseException {
 
         Member member = new Member();
         member.checkEmailDuplicate(request.getEmail(), memberRepository);

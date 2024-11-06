@@ -11,7 +11,6 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class Delivery extends Timestamped {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -34,6 +33,11 @@ public class Delivery extends Timestamped {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "menu_id")
     private Menu menu;
+
+    // todo - deliver_menu 를 참조
+    // 1 : 1 매핑 menu
+    // delivery에서 몇개를 주문하느냐
+    // 1 : N
 
     // 주문을 한 고객
 //    @ManyToOne
