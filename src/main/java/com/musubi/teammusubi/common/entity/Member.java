@@ -40,7 +40,7 @@ public class Member extends Timestamped {
     private MemberRoleEnum role;
 
     @Column(nullable = false)
-    private boolean isDeleted = false;
+    private boolean deActive = false;
 
     @Column(nullable = false)
     private String address;
@@ -79,7 +79,7 @@ public class Member extends Timestamped {
                 .orElseThrow(() -> new GlobalException("U0002", HttpStatus.NOT_FOUND, "회원 정보를 찾을 수 없습니다."));
     }
 
-    public void deactiveAccount() {
-        this.isDeleted = true;
+    public void deActiveAccount() {
+        this.deActive = true;
     }
 }

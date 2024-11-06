@@ -70,10 +70,10 @@ public class MemberController {
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping
-    public ResponseEntity<Void> deleteMember(Authentication authentication, HttpServletResponse response) {
+    @PatchMapping
+    public ResponseEntity<Void> deActivateMember(Authentication authentication, HttpServletResponse response) {
         String email = authentication.getName();
-        memberService.deleteMember(email);
+        memberService.deActivateMember(email);
 
         Cookie deleteCookie = new Cookie("jwt", null);
         deleteCookie.setPath("/");

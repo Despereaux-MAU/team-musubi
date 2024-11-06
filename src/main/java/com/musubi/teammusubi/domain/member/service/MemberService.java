@@ -127,15 +127,10 @@ public class MemberService {
     }
 
     @Transactional
-    public void deleteMember(String email) {
+    public void deActivateMember(String email) {
         Member member = Member.findByEmailOrThrow(email, memberRepository);
 
-        member.deactiveAccount();
-        member.setUsername("탈퇴회원");
-        member.setNickname("");
-        member.setPassword("");
-        member.setPhone("");
-        member.setAddress("");
+        member.deActiveAccount();
         memberRepository.save(member);
     }
 }

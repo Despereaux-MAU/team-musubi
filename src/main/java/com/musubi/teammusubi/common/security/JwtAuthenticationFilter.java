@@ -1,6 +1,5 @@
 package com.musubi.teammusubi.common.security;
 
-import com.musubi.teammusubi.common.exception.GlobalException;
 import com.musubi.teammusubi.common.util.JwtUtil;
 import com.musubi.teammusubi.domain.member.service.MemberDetailsServiceImpl;
 import jakarta.servlet.FilterChain;
