@@ -1,5 +1,6 @@
 package com.musubi.teammusubi.review;
 
+import com.musubi.teammusubi.TeamMusubiApplication;
 import com.musubi.teammusubi.common.exception.ResponseException;
 import com.musubi.teammusubi.domain.customer.dto.ReviewRequest;
 import com.musubi.teammusubi.domain.customer.dto.ReviewResponse;
@@ -12,17 +13,20 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ContextConfiguration;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
+@ContextConfiguration(classes = TeamMusubiApplication.class)
 public class ReviewServiceTests {
 
     private final ReviewRepository reviewRepository;
     private final StoreRepository storeRepository;
     private final DeliveryRepository deliveryRepository;
 
+    @Autowired
     public ReviewServiceTests(ReviewRepository reviewRepository, StoreRepository storeRepository, DeliveryRepository deliveryRepository) {
         this.reviewRepository = reviewRepository;
         this.storeRepository = storeRepository;
