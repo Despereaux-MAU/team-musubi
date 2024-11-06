@@ -30,7 +30,7 @@ public interface StoreRepository extends JpaRepository<Store, Long> {
         SELECT s FROM Store s \s
         WHERE \s
             (:search IS NULL OR s.name LIKE %:search%) AND \s
-            (:category IS NULL OR s.category LIKE :category) AND \s
+            (:category IS NULL OR s.category = :category) AND \s
             (:now IS NULL OR s.openTime <= :now) AND \s
             (:now IS NULL OR s.closeTime >= :now) AND \s
             (s.status <> 'CLOSE') AND \s
