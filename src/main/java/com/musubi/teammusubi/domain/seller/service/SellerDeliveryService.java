@@ -1,11 +1,9 @@
 package com.musubi.teammusubi.domain.seller.service;
 
 import com.musubi.teammusubi.common.entity.Delivery;
-import com.musubi.teammusubi.common.entity.Menu;
 import com.musubi.teammusubi.common.enums.DeliveryStatus;
 import com.musubi.teammusubi.domain.member.repository.MemberRepository;
 import com.musubi.teammusubi.domain.seller.dto.DeliveryResponse;
-import com.musubi.teammusubi.domain.seller.dto.MenuResponse;
 import com.musubi.teammusubi.domain.seller.repository.SellerDeliveryRepository;
 import com.musubi.teammusubi.domain.seller.repository.SellerStoreRepository;
 import lombok.RequiredArgsConstructor;
@@ -55,7 +53,7 @@ public class SellerDeliveryService {
         Delivery delivery = deliveryRepository.findById(deliveryId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 주문이 존재하지 않습니다."));
 
-        if(!storeId.equals(delivery.getStore().getId())) {
+        if(!storeId.equals(delivery.getStoreId())) {
             throw new IllegalArgumentException("해당 가게의 주문이 아닙니다.");
         }
 

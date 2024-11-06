@@ -28,7 +28,7 @@ public class ReviewService {
 
 
     public ReviewResponse submit(Long storeId, Long deliveryId, ReviewRequest req, String memberNickname) {
-
+        // todo - 이미 작성된 주문에는 리뷰 생성 불가 처리
         Store store = validStore(storeId);
 
         deliveryRepository.findByIdAndStatus(deliveryId, DeliveryStatus.COMPLETED).orElseThrow(() ->

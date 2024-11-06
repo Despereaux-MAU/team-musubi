@@ -52,6 +52,8 @@ public class SellerStoreService {
 
     public StoreResponse getStore(Long loginedMemberId, Long storeId) {
         Store store = sellerStoreRepository.findByIdAndMemberIdAndStatusNot(storeId, loginedMemberId, StoreStatus.CLOSE);
+        // todo - 해당 가게가 아닌 경우 예외처리 추가
+
         if (store == null) {
             throw new IllegalArgumentException("가게가 존재하지 않거나, 폐업상태입니다.");
         }

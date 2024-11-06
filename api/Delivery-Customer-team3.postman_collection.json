@@ -1,0 +1,1572 @@
+{
+	"info": {
+		"_postman_id": "ec76c2c2-ceaa-4ab7-832f-916075e2c438",
+		"name": "Delivery-Customer-team3",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38635409"
+	},
+	"item": [
+		{
+			"name": "회원가입",
+			"item": [
+				{
+					"name": "회원가입-USER/1",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"musubi123@email.com\",\r\n    \"username\":\"무스비\",\r\n    \"nickname\":\"무스비\",\r\n    \"password\":\"Rkdhssnfl123!\",\r\n    \"passwordCheck\":\"Rkdhssnfl123!\",\r\n    \"role\":\"USER\",\r\n    \"phone\":\"010-1234-5678\",\r\n    \"address\":\"서울특별시\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/members/signup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"members",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "회원가입-OWNER/2",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"musubi333@email.com\",\r\n    \"username\":\"매듭이\",\r\n    \"nickname\":\"매듭이\",\r\n    \"password\":\"Rkdhssnfl123!\",\r\n    \"passwordCheck\":\"Rkdhssnfl123!\",\r\n    \"role\":\"OWNER\",\r\n    \"phone\":\"010-1234-5678\",\r\n    \"address\":\"서울특별시 어쩌구\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/members/signup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"members",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "회원가입-OWNER/3",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"nbp333@email.com\",\r\n    \"username\":\"3조\",\r\n    \"nickname\":\"3짱\",\r\n    \"password\":\"1Rkdhssnfl123!\",\r\n    \"passwordCheck\":\"1Rkdhssnfl123!\",\r\n    \"role\":\"OWNER\",\r\n    \"phone\":\"010-1234-5678\",\r\n    \"address\":\"경기도 와랄라\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/members/signup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"members",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "회원가입-USER/4",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"mornig@email.net\",\r\n    \"username\":\"모닝\",\r\n    \"nickname\":\"아침 햇살\",\r\n    \"password\":\"1Rkdhssnfl123!\",\r\n    \"passwordCheck\":\"1Rkdhssnfl123!\",\r\n    \"role\":\"USER\",\r\n    \"phone\":\"010-1234-5678\",\r\n    \"address\":\"제주특별자치도 제주시 감귤마을\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/members/signup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"members",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "회원가입-USER/5",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"test5@example.com\",\r\n  \"username\": \"testuser\",\r\n  \"nickname\": \"testnick\",\r\n  \"password\": \"Rkdhssnfl123!\",\r\n  \"passwordCheck\": \"Rkdhssnfl123!\",\r\n  \"role\": \"USER\",\r\n  \"phone\": \"010-1234-5678\",\r\n  \"address\": \"Seoul\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/members/signup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"members",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "USER5와 같은 이메일로 회원가입",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"test5@example.com\",\r\n  \"username\": \"testuser2\",\r\n  \"nickname\": \"testnick2\",\r\n  \"password\": \"Rkdhssnfl123!\",\r\n  \"passwordCheck\": \"Rkdhssnfl123!\",\r\n  \"role\": \"USER\",\r\n  \"phone\": \"010-1234-5678\",\r\n  \"address\": \"Busan\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/members/signup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"members",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "비밀번호 양식과 다르게 회원가입",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"test@example.com\",\r\n  \"username\": \"test\",\r\n  \"nickname\": \"테스터\",\r\n  \"password\": \"password1234\",\r\n  \"passwordCheck\": \"password1234\",\r\n  \"role\" : \"USER\",\r\n  \"phone\": \"010-1234-5678\",\r\n  \"address\": \"Busan\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/members/signup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"members",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "로그인",
+			"item": [
+				{
+					"name": "잘못된 로그인-USER/1",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"musubi3@email.com\",\r\n    \"password\":\"Rkdhssnfl123!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/members/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"members",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "로그인-USER/1",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"musubi123@email.com\",\r\n    \"password\":\"Rkdhssnfl123!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/members/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"members",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "로그인-OWNER/2",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"musubi333@email.com\",\r\n    \"password\":\"Rkdhssnfl123!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/members/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"members",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "로그인-OWNER/3",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"nbp333@email.com\",\r\n    \"password\":\"1Rkdhssnfl123!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/members/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"members",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "로그인-USER/5",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"test5@example.com\",\r\n    \"password\": \"Rkdhssnfl123!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/members/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"members",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "1.동주",
+			"item": [
+				{
+					"name": "회원정보 조회",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/members/profile",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"members",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "비밀번호 변경",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"test5@example.com\",\r\n  \"newPassword\": \"Ehdwn123!\",\r\n  \"passwordCheck\": \"Ehdwn123!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/members/password",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"members",
+								"password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "비밀번호 변경(비밀번호 틀림)",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"test5@example.com\",\r\n  \"newPassword\": \"newpassword123\",\r\n  \"passwordCheck\": \"newpassword123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/members/password",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"members",
+								"password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "비밀번호 변경(이메일 다름)",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"test3@example.com\",\r\n  \"newPassword\": \"newpassword123\",\r\n  \"passwordCheck\": \"newpassword123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/members/password",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"members",
+								"password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "회원정보 수정",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"updateduser\",\r\n  \"nickname\": \"updatednick\",\r\n  \"email\": \"test2@example.com\",\r\n  \"phone\": \"010-8765-4321\",\r\n  \"address\": \"Busan\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/members/profile",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"members",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "사장님 회원가입",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"test3@example.com\",\r\n  \"username\": \"testowner\",\r\n  \"nickname\": \"testnick2\",\r\n  \"password\": \"Rkdhssnfl123!\",\r\n  \"passwordCheck\": \"Rkdhssnfl123!\",\r\n  \"role\": \"OWNER\",\r\n  \"phone\": \"010-1234-5678\",\r\n  \"address\": \"Seoul\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/members/signup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"members",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "사장님 로그인",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"test3@example.com\",\r\n    \"password\": \"Rkdhssnfl123!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/members/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"members",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "사장님 회원정보 조회",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/members/profile",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"members",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "회원탈퇴",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"password\": \"Rkdhssnfl123!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/members",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"members"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "탈퇴한 이메일로 회원가입",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"test3@example.com\",\r\n  \"username\": \"testuser2\",\r\n  \"nickname\": \"testnick2\",\r\n  \"password\": \"Ppassword1234@@@\",\r\n  \"passwordCheck\": \"Ppassword1234@@@\",\r\n  \"role\": \"OWNER\",\r\n  \"phone\": \"010-1234-5678\",\r\n  \"address\": \"Busan\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/members/signup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"members",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "2.은영",
+			"item": [
+				{
+					"name": "[사업자] 가게 등록 1",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"새벽의 아침\",\r\n    \"openTime\" : \"10:00:00\",\r\n    \"closeTime\" : \"23:00:00\",\r\n    \"minPrice\" : \"50000\",\r\n    \"category\" : \"CHINESE\",\r\n    \"address\" : \"서울특별시 어쩌구 저쩌구\",\r\n    \"license\" : \"111-00-12345\",\r\n    \"togo\" : \"false\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/seller/stores",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"seller",
+								"stores"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[사업자] 가게 등록 2",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"이븐한 가게\",\r\n    \"openTime\" : \"10:00:00\",\r\n    \"closeTime\" : \"22:00:00\",\r\n    \"minPrice\" : \"50000\",\r\n    \"category\" : \"KOREAN\",\r\n    \"address\" : \"서울특별시 어쩌구 저쩌동\",\r\n    \"license\" : \"111-00-12345\",\r\n    \"togo\" : \"true\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/seller/stores",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"seller",
+								"stores"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[사업자] 가게 등록 3",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"원조 할머니 국밥집밥\",\r\n    \"openTime\" : \"10:00:00\",\r\n    \"closeTime\" : \"23:59:59\",\r\n    \"minPrice\" : \"50000\",\r\n    \"category\" : \"KOREAN\",\r\n    \"address\" : \"서울특별시 어쩌구 저쩌동\",\r\n    \"license\" : \"852-12-01478\",\r\n    \"togo\" : \"true\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/seller/stores",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"seller",
+								"stores"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[사업자] 메뉴 등록 1",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"카라멜 마끼아또\",\r\n    \"price\" : \"6500\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/seller/stores/2/menus",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"seller",
+								"stores",
+								"2",
+								"menus"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[사업자] 메뉴 등록 2",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"진짜! 레몬에이드\",\r\n    \"price\" : \"6000\",\r\n    \"description\" : \"100% 생레몬\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/seller/stores/2/menus",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"seller",
+								"stores",
+								"2",
+								"menus"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[사업자] 메뉴 등록 3",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"루왁 커피\",\r\n    \"price\" : \"10000\",\r\n    \"description\" : \"향기로운 루와아악\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/seller/stores/3/menus",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"seller",
+								"stores",
+								"3",
+								"menus"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[사업자] 메뉴 수정",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"연어 포케\",\r\n    \"price\" : \"12000\",\r\n    \"description\" : \"맛있는 연어 포케~~\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/seller/stores/2/menus/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"seller",
+								"stores",
+								"2",
+								"menus",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[사업자] 메뉴 수정 2",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"달달한 카라멜 마끼아또\",\r\n    \"price\" : \"6000\",\r\n    \"description\" : \"부드러운 거품이~\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/seller/stores/1/menus/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"seller",
+								"stores",
+								"1",
+								"menus",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[사업자] 메뉴 삭제",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/seller/stores/2/menus/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"seller",
+								"stores",
+								"2",
+								"menus",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[사업자] 가게별 주문 조회",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/seller/stores/1/deliveries?status=&page=&size=&orderBy=&sort=",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"seller",
+								"stores",
+								"1",
+								"deliveries"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": ""
+								},
+								{
+									"key": "page",
+									"value": ""
+								},
+								{
+									"key": "size",
+									"value": ""
+								},
+								{
+									"key": "orderBy",
+									"value": ""
+								},
+								{
+									"key": "sort",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[사업자] 주문 상태 변경",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/seller/stores/2/deliveries/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"seller",
+								"stores",
+								"2",
+								"deliveries",
+								"3"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "IN_PROGRESS",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "3.현욱",
+			"item": [
+				{
+					"name": "회원가입",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"email\":\"zjfl@email.com\",\n\"username\":\"이름3\",\n\"nickname\":\"별명3\",\n\"password\":\"Rkdhssnfl123!\",\n\"passwordCheck\":\"Rkdhssnfl123!\",\n\"role\":\"OWNER\",\n\"phone\":\"010-1234-5678\",\n\"address\":\"서울특별시 종로구\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/members/signup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"members",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "로그인",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"email\":\"zjfl@email.com\",\n\"password\":\"Rkdhssnfl123!\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/members/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"members",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "가게등록",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiLsnbTrpoQzIiwicm9sZSI6Ik9XTkVSIiwiaWF0IjoxNzMwNzQ1NTMxLCJleHAiOjE3MzA3NDkxMzF9.K2Kef4ra2JRFegj0fzQul--BUOdMj5Go1OTRyGJCVFOZUOf4m6bXkCKoWTKdSfROi_AR7ghF0clu2EMlGaJyOA; Path=/; HttpOnly",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"name\":\"굽네치킨청산점\",\n\"openTime\": \"10:00:00\",\n\"closeTime\": \"23:00:00\",\n\"minPrice\":10000,\n\"category\":\"KOREAN\",\n\"address\":\"서울시 종로구 00동\",\n\"license\":\"192-02-01114\",\n\"togo\":\"true\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/seller/stores",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"seller",
+								"stores"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "사장님 전체 가게 조회",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiLsnbTrpoQzIiwicm9sZSI6Ik9XTkVSIiwiaWF0IjoxNzMwNzM3OTEzLCJleHAiOjE3MzA3NDE1MTN9.DFIE6H0TLOqeF8-950Zsibz8MgVRI9BK_tGSlzVnKP-rMmNt-0NoXUxx59YOUyBjjCWFOYuUCoDZqS2esRlQTg; Path=/; HttpOnly",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/seller/stores",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"seller",
+								"stores"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "사장님 특정 가게 조회",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiLsnbTrpoQzIiwicm9sZSI6Ik9XTkVSIiwiaWF0IjoxNzMwNzQ1MDgxLCJleHAiOjE3MzA3NDg2ODF9.aA8_brBoLt1f_9yYgmngGU9eq7OP_HypVIcXb4uaFtxebRyBsCAEzZb1H8gNIUR86hKS7-dO7rvMhoHqQFDDig; Path=/; HttpOnly",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/seller/stores/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"seller",
+								"stores",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "사장님 가게 정보 수정",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiLsnbTrpoQzIiwicm9sZSI6Ik9XTkVSIiwiaWF0IjoxNzMwNzcyMzc3LCJleHAiOjE3MzA3NzU5Nzd9.0Tcu8dM7hVZVr1YaARCS2xNDMzETAU27kZZGOtOcMOEE1bSN258qzorv8Inrw_d9V4VQjWxQcfBgGu7B7L7PZw; Path=/; HttpOnly",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"name\":\"굽네치킨종로점\",\n\"openTime\": \"10:00:00\",\n\"closeTime\": \"23:00:00\",\n\"minPrice\":12000,\n\"category\":\"KOREAN\",\n\"togo\":\"false\",\n\"status\":\"OPEN\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/seller/stores/6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"seller",
+								"stores",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "가게 폐업",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/seller/stores/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"seller",
+								"stores",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "4.재혁",
+			"item": [
+				{
+					"name": "유저 로그인 (토큰 발급용)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"musubi123@email.com\",\r\n    \"password\":\"Rkdhssnfl123!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/members/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"members",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "전체 가게조회",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/stores?includeTemp=true&time=22:30:29",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"stores"
+							],
+							"query": [
+								{
+									"key": "size",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "category",
+									"value": "CHINESE",
+									"disabled": true
+								},
+								{
+									"key": "search",
+									"value": "새",
+									"disabled": true
+								},
+								{
+									"key": "includeTemp",
+									"value": "true"
+								},
+								{
+									"key": "time",
+									"value": "22:30:29"
+								},
+								{
+									"key": "page",
+									"value": "2",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "상세 가게조회",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/stores/6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"stores",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "주문 생성_dev",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n\t{\r\n\t\t\"menuId\":1,\r\n\t\t\"quantity\":3\r\n\t},\r\n\t{\r\n\t\t\"menuId\":3,\r\n\t\t\"quantity\":3\r\n\t}\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/deliveries?storeId=2&details=문앞에 두고 노크해주세요",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"deliveries"
+							],
+							"query": [
+								{
+									"key": "storeId",
+									"value": "2"
+								},
+								{
+									"key": "details",
+									"value": "문앞에 두고 노크해주세요"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "전체 주문조회",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/deliveries",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"deliveries"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "상세 주문조회",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/deliveries/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"deliveries",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "5.누리",
+			"item": [
+				{
+					"name": "리뷰작성",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwicm9sZSI6Ik9XTkVSIiwiaWF0IjoxNzMwNzkyNjQwLCJleHAiOjE3MzA3OTYyNDB9.Mly0GUYNsqBAC-cR25s4VP_KGoZQCy2gt38vTr4O72dqPtIIM5zmlDZWRYJ3ljM8J3QCTJ2ZOPlEXjyASYf1uQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"score\": \"3\",\n    \"comment\": \"맛있게 먹었습니다.\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/stores/1/deliveries/1/reviews",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"stores",
+								"1",
+								"deliveries",
+								"1",
+								"reviews"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "가게별 리뷰조회",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/stores/1/reviews",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"stores",
+								"1",
+								"reviews"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "별점별 리뷰조회",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/stores/1/score/reviews?score=4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"stores",
+								"1",
+								"score",
+								"reviews"
+							],
+							"query": [
+								{
+									"key": "score",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

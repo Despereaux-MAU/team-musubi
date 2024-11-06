@@ -25,6 +25,7 @@ public class DeliveryMenu {
     @JoinColumn(name = "delivery_id")
     private Delivery delivery;
 
+    // @OneToOne 의 FetchType 명시적 표기
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "menu_id")
     private Menu menu;
@@ -34,6 +35,7 @@ public class DeliveryMenu {
         delivery.getDeliveryMenu().add(this);
     }
 
+    // 추후 배달 삭제시 필요한 메서드
     public void disconnectDelivery(Delivery delivery) {
         this.delivery = null;
         delivery.getDeliveryMenu().remove(this);

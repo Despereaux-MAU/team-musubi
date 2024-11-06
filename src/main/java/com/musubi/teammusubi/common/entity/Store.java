@@ -25,10 +25,11 @@ public class Store extends Timestamped {
     @Column(nullable = false, unique = true)
     private String name;
 
-    @Column()
+    @Column
     private LocalTime openTime;
 
-    @Column()
+    // 고객 입장에서 가게 조회할 때 일자가 들어가면, 로직 수정이 많이 필요
+    @Column
     private LocalTime closeTime;
 
     @Column(nullable = false)
@@ -55,7 +56,7 @@ public class Store extends Timestamped {
     private Long memberId;
 
     // 이 가게에 달린 리뷰들
-    @OneToMany(mappedBy = "store", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "store")
     private List<Review> reviewList = new ArrayList<>();
 
     // 이 가게가 받은 주문들
@@ -64,7 +65,7 @@ public class Store extends Timestamped {
     private List<Delivery> deliveryList = new ArrayList<>();
 
     // 가게 조회 시 메뉴 함께 조회
-    @OneToMany(mappedBy = "store", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "store")
     private List<Menu> menus = new ArrayList<>();
 
 

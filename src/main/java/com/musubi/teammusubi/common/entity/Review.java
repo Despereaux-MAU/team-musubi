@@ -5,8 +5,6 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Entity
 @Getter
 @NoArgsConstructor
@@ -32,6 +30,7 @@ public class Review extends Timestamped{
     @Column(nullable = false, unique = true)
     private Long deliveryId;
 
+    // 추후 기능: 대댓글 기능
 //    @ManyToOne
 //    @JoinColumn(name = "parent_id")
 //    private Review parentReview;
