@@ -16,8 +16,4 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     Page<Review> findByScore(Integer score, Pageable pageable);
 
     List<Review> findAllByStoreId(Long storeId);
-
-    @Modifying
-    @Query("DELE")
-    void deleteAllByStoreId();
 }
