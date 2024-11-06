@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalTime;
 import java.util.List;
 
 @Getter
@@ -16,6 +17,8 @@ public class StoreResponse {
 
     private Long id;//1
     private String name; //
+    private LocalTime openTime;
+    private LocalTime closeTime;
     private Category category;
     private String address;
     private boolean togo;
@@ -39,6 +42,8 @@ public class StoreResponse {
     private void init(Store store) {
         this.id = store.getId();
         this.name = store.getName();
+        this.openTime = store.getOpenTime();
+        this.closeTime = store.getCloseTime();
         this.category = store.getCategory();
         this.address = store.getAddress();
         this.togo = store.isTogo();
