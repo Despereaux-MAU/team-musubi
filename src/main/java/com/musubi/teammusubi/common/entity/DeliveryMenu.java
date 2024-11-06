@@ -25,8 +25,7 @@ public class DeliveryMenu {
     @JoinColumn(name = "delivery_id")
     private Delivery delivery;
 
-    // @OneToOne 의 FetchType 명시적 표기
-    @OneToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "menu_id")
     private Menu menu;
 
