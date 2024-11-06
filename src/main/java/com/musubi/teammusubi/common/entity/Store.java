@@ -59,7 +59,8 @@ public class Store extends Timestamped {
     private List<Review> reviewList = new ArrayList<>();
 
     // 이 가게가 받은 주문들
-    @OneToMany(mappedBy = "store", cascade = CascadeType.REMOVE)
+    @OneToMany
+    @JoinColumn(name = "delivery_list")
     private List<Delivery> deliveryList = new ArrayList<>();
 
     // 가게 조회 시 메뉴 함께 조회
