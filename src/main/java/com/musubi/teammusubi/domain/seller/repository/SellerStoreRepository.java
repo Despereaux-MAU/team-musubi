@@ -14,4 +14,6 @@ public interface SellerStoreRepository extends JpaRepository<Store, Long> {
     Store findByIdAndMemberIdAndStatusNot(Long storeId, Long loginedMemberId, StoreStatus storeStatus);
 
     Store findByIdAndMemberId(Long storeId, Long loginedMemberId);
+
+    Store findByIdAndStatusNot(Long storeId, StoreStatus storeStatus);
 }

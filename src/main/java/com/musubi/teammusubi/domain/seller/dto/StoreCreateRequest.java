@@ -28,6 +28,5 @@ public class StoreCreateRequest {
     @Pattern(regexp = "^\\d{3}-\\d{2}-\\d{5}$", message = "사업자 등록증 형식이 올바르지 않습니다.")
     private String license;
     private boolean togo;
-    private final StoreStatus status = StoreStatus.OPEN;
 
 }
