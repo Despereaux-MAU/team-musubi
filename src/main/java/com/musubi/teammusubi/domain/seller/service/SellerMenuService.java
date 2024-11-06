@@ -48,14 +48,16 @@ public class SellerMenuService {
         }
 
         menu.modify(requestDto.getName(), requestDto.getPrice(), requestDto.getDescription());
-
         return MenuResponse.from(menu);
     }
 
     @Transactional
-    public void deleteMenu(Long memberId, Long storeId, Long menuId) {
+    public MenuResponse closeMenu(Long memberId, Long storeId, Long menuId) {
+        // TODO
+        // filter에서 확인했으니, 삭제하기!
         memberRepository.findById(memberId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 존재하지 않습니다."));
+
         sellerStoreRepository.findById(storeId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 가게가 존재하지 않습니다."));
         Menu menu = sellerMenuRepository.findById(menuId)
@@ -68,6 +70,7 @@ public class SellerMenuService {
             throw new IllegalArgumentException("해당 가게의 메뉴가 아닙니다.");
         }
 
-        menu.delete();
+        menu.close();
+        return MenuResponse.from(menu);
     }
 }

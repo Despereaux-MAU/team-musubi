@@ -1,6 +1,7 @@
 package com.musubi.teammusubi.common.security;
 
-import com.musubi.teammusubi.common.exception.GlobalException;
+import com.musubi.teammusubi.common.exception.ExceptionType;
+import com.musubi.teammusubi.common.exception.ResponseException;
 import com.musubi.teammusubi.common.util.JwtUtil;
 import com.musubi.teammusubi.domain.member.service.MemberDetailsServiceImpl;
 import jakarta.servlet.FilterChain;
@@ -46,7 +47,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
 
             if (request.getRequestURI().startsWith("/api/seller") && !"OWNER".equals(role)) {
-                throw new GlobalException("U0003", HttpStatus.FORBIDDEN, "접근이 거부되었습니다.");
+                throw new ResponseException(ExceptionType.ACCESS_DENIED);
             }
 
         }

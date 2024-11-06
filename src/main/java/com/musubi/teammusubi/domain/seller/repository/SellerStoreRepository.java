@@ -1,14 +1,17 @@
 package com.musubi.teammusubi.domain.seller.repository;
 
 import com.musubi.teammusubi.common.entity.Store;
+import com.musubi.teammusubi.common.enums.StoreStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
 public interface SellerStoreRepository extends JpaRepository<Store, Long> {
-    Integer countByMemberId(Long id);
+    Integer countByMemberIdAndStatusNot(Long loginedMemberId, StoreStatus storeStatus);
 
-    List<Store> findAllByMemberId(Long loginedMemberId);
+    List<Store> findAllByMemberIdAndStatusNot(Long loginedMemberId, StoreStatus storeStatus);
 
-    Store findByIdAndMemberId(Long id, Long loginedMemberId);
+    Store findByIdAndMemberIdAndStatusNot(Long storeId, Long loginedMemberId, StoreStatus storeStatus);
+
+    Store findByIdAndMemberId(Long storeId, Long loginedMemberId);
 }

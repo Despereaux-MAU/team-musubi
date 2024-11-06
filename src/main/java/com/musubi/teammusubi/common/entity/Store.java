@@ -90,4 +90,8 @@ public class Store extends Timestamped {
         this.togo = updateRequest.isTogo();
         this.status = updateRequest.getStatus();
     }
+
+    public void closeStore() {
+        this.status = StoreStatus.CLOSE;
+    }
 }

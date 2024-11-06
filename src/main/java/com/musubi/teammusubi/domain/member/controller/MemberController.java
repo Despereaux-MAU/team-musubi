@@ -1,6 +1,7 @@
 package com.musubi.teammusubi.domain.member.controller;
 
-import com.musubi.teammusubi.common.exception.GlobalException;
+import com.musubi.teammusubi.common.exception.ExceptionType;
+import com.musubi.teammusubi.common.exception.ResponseException;
 import com.musubi.teammusubi.domain.member.dto.LoginRequest;
 import com.musubi.teammusubi.domain.member.dto.LoginResponse;
 import com.musubi.teammusubi.domain.member.dto.MemberRequest;
@@ -29,7 +30,7 @@ public class MemberController {
 
     @PostMapping("/signup")
     @ResponseStatus(HttpStatus.CREATED)
-    public MemberResponse registerMember(@RequestBody MemberRequest request) {
+    public MemberResponse registerMember(@RequestBody MemberRequest request) throws ResponseException {
         return memberService.registerMember(request);
     }
 
@@ -45,7 +46,7 @@ public class MemberController {
         if (response != null) {
             return ResponseEntity.ok(response);
         }
-        throw new GlobalException("U0001", HttpStatus.BAD_REQUEST, "회원 정보를 찾을 수 없습니다.");
+        throw new ResponseException(ExceptionType.USER_NOT_FOUND);
     }
 
     @PutMapping("/profile")
@@ -63,7 +64,7 @@ public class MemberController {
         String passwordCheck = passwordRequest.get("passwordCheck");
 
         if (!email.equals(requestEmail)) {
-            throw new GlobalException("U0001", HttpStatus.BAD_REQUEST, "이메일이 일치하지 않습니다.");
+            throw new ResponseException(ExceptionType.EMAIL_MISMATCH);
         }
 
         memberService.changePassword(email, newPassword, passwordCheck);
