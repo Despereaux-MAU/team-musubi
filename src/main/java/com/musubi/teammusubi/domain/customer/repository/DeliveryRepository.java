@@ -17,9 +17,9 @@ public interface DeliveryRepository extends JpaRepository<Delivery, Long> {
     @Query("SELECT d FROM Delivery d WHERE d.id = ?1 AND d.status = ?2")
     Optional<Delivery> findByIdAndStatus(Long id, DeliveryStatus status);
 
-    default Delivery findByIdSafe(long id) {
-        return findById(id).orElseThrow(() -> new ResponseException(ExceptionType.DELIVERY_NOT_FOUND));
-    }
+//    default Delivery findByIdSafe(long id) {
+//        return findById(id).orElseThrow(() -> new ResponseException(ExceptionType.DELIVERY_NOT_FOUND));
+//    }
     List<Delivery> findByMemberId(Long memberId);
 
     @Query("SELECT d FROM Delivery d LEFT JOIN FETCH d.deliveryMenu WHERE d.id = :deliveryId")

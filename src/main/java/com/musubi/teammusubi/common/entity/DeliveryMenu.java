@@ -34,10 +34,4 @@ public class DeliveryMenu {
         delivery.getDeliveryMenu().add(this);
     }
 
-    // 추후 배달 삭제시 필요한 메서드
-    public void disconnectDelivery(Delivery delivery) {
-        this.delivery = null;
-        delivery.getDeliveryMenu().remove(this);
-    }
-
 }
