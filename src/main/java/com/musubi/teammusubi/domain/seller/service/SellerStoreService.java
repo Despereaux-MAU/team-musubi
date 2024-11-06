@@ -3,6 +3,8 @@ package com.musubi.teammusubi.domain.seller.service;
 import com.musubi.teammusubi.common.entity.Member;
 import com.musubi.teammusubi.common.entity.Store;
 import com.musubi.teammusubi.common.enums.MemberRoleEnum;
+import com.musubi.teammusubi.common.exception.ExceptionType;
+import com.musubi.teammusubi.common.exception.ResponseException;
 import com.musubi.teammusubi.common.enums.StoreStatus;
 import com.musubi.teammusubi.domain.seller.dto.StoreCreateRequest;
 import com.musubi.teammusubi.domain.seller.dto.StoreResponse;
@@ -34,7 +36,7 @@ public class SellerStoreService {
 
         int storeCount = sellerStoreRepository.countByMemberIdAndStatusNot(loginedMember.getId(), StoreStatus.CLOSE);
         if (storeCount >= 3) {
-            throw new IllegalArgumentException("가게는 최대 3개까지만 운영할 수 없습니다");
+            throw new ResponseException(ExceptionType.EXCEEDS_MAXIMUM_STORE_LIMIT);
         }
         Store store = new Store(createRequest, loginedMember.getId());
         sellerStoreRepository.save(store);
