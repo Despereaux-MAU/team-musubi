@@ -8,10 +8,19 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.Optional;
+
 public interface StoreRepository extends JpaRepository<Store, Long> {
 
     default Store findByIdSafe(long id) {
         return findById(id).orElseThrow(() -> new RuntimeException("(Dummy Exception) Id 찾을 수 없음"));
+    }
+
+    @Query("SELECT s FROM Store s LEFT JOIN FETCH s.menus WHERE s.id = :storeId")
+    Optional<Store> findByIdWithMenus(@Param("storeId") long id);
+
+    default Store findByIdSafeWithMenus(long id) {
+        return findByIdWithMenus(id).orElseThrow(() -> new RuntimeException("(Dummy Exception) Id 찾을 수 없음"));
     }
 
     @Query("""
