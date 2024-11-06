@@ -1,8 +1,11 @@
 package com.musubi.teammusubi.domain.seller.service;
 
 import com.musubi.teammusubi.common.entity.Delivery;
+import com.musubi.teammusubi.common.entity.Menu;
 import com.musubi.teammusubi.common.enums.DeliveryStatus;
+import com.musubi.teammusubi.domain.member.repository.MemberRepository;
 import com.musubi.teammusubi.domain.seller.dto.DeliveryResponse;
+import com.musubi.teammusubi.domain.seller.dto.MenuResponse;
 import com.musubi.teammusubi.domain.seller.repository.SellerDeliveryRepository;
 import com.musubi.teammusubi.domain.seller.repository.SellerStoreRepository;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +18,7 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class SellerDeliveryService {
+    private final MemberRepository memberRepository;
     private final SellerStoreRepository storeRepository;
     private final SellerDeliveryRepository deliveryRepository;
 
@@ -39,5 +43,24 @@ public class SellerDeliveryService {
 
         Page<Delivery> deliveries = deliveryRepository.findByStoreIdAndStatus(storeId, deliveryStatus, pageable);
         return deliveries.map(DeliveryResponse::from);
+    }
+
+    public DeliveryResponse changeDeliveryStatus(Long memberId, Long storeId, Long deliveryId, DeliveryStatus status) {
+        // todo - filter에서 확인했으면, 삭제하기!
+        memberRepository.findById(memberId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 존재하지 않습니다."));
+
+        storeRepository.findById(storeId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 가게가 존재하지 않습니다."));
+        Delivery delivery = deliveryRepository.findById(deliveryId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 주문이 존재하지 않습니다."));
+
+        if(!storeId.equals(delivery.getStore().getId())) {
+            throw new IllegalArgumentException("해당 가게의 주문이 아닙니다.");
+        }
+
+        delivery.changeStatus(status);
+
+        return DeliveryResponse.from(delivery);
     }
 }
