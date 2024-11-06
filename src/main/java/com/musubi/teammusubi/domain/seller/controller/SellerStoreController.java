@@ -1,13 +1,18 @@
 package com.musubi.teammusubi.domain.seller.controller;
 
+import com.musubi.teammusubi.common.entity.Member;
+import com.musubi.teammusubi.common.enums.DeliveryStatus;
 import com.musubi.teammusubi.common.enums.MemberRoleEnum;
 import com.musubi.teammusubi.common.security.MemberDetailsImpl;
-import com.musubi.teammusubi.common.entity.Member;
-import com.musubi.teammusubi.domain.seller.dto.*;
+import com.musubi.teammusubi.domain.seller.dto.DeliveryResponse;
+import com.musubi.teammusubi.domain.seller.dto.StoreCreateRequest;
+import com.musubi.teammusubi.domain.seller.dto.StoreResponse;
+import com.musubi.teammusubi.domain.seller.dto.StoreUpdateRequest;
 import com.musubi.teammusubi.domain.seller.service.SellerDeliveryService;
 import com.musubi.teammusubi.domain.seller.service.SellerStoreService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -19,7 +24,6 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/api/seller")
 public class SellerStoreController {
-
     private final SellerStoreService sellerStoreService;
     private final SellerDeliveryService sellerDeliveryService;
 
@@ -63,11 +67,37 @@ public class SellerStoreController {
 
 
     // 가게별 주문 조회
-    // 최신 업데이트 순
+    // 주문 상태별 조회 - default: 대기
+//    @GetMapping("/stores/{storeId}/deliveries")
+//    public ResponseEntity<List<DeliveryResponse>> retrieveDeliveryByStoreId(
+//            @AuthenticationPrincipal MemberDetailsImpl memberDetails,
+//            @PathVariable Long storeId,
+//            @RequestParam(defaultValue = "PENDING") DeliveryStatus deliveryStatus
+//            ) {
+//        MemberRoleEnum memberRole = memberDetails.getMember().getRole();
+//        if(!memberRole.equals(MemberRoleEnum.OWNER)) {
+//            return ResponseEntity
+//                    .status(HttpStatus.FORBIDDEN)
+//                    .build();
+//        }
+//
+//        List<DeliveryResponse> responses = sellerDeliveryService.retrieveDelivery(storeId, deliveryStatus);
+//        return ResponseEntity
+//                .status(HttpStatus.OK)
+//                .body(responses);
+//    }
+
+    // 가게별 주문 조회
+    // 주문 상태별 조회 - default: 대기
     @GetMapping("/stores/{storeId}/deliveries")
-    public ResponseEntity<List<DeliveryResponse>> retrieveDeliveryByStoreId(
+    public ResponseEntity<Page<DeliveryResponse>> retrieveDeliveryByStoreIdAsPageSize(
             @AuthenticationPrincipal MemberDetailsImpl memberDetails,
-            @PathVariable Long storeId
+            @PathVariable Long storeId,
+            @RequestParam(required = false, value = "status", defaultValue = "PENDING") DeliveryStatus deliveryStatus,
+            @RequestParam(required = false, value = "page", defaultValue = "1") int page,
+            @RequestParam(required = false, value = "size", defaultValue = "10") int size,
+            @RequestParam(required = false, value = "orderBy", defaultValue = "createdAt") String criteria,
+            @RequestParam(required = false, value = "sort", defaultValue = "DESC") String sort
     ) {
         MemberRoleEnum memberRole = memberDetails.getMember().getRole();
         if(!memberRole.equals(MemberRoleEnum.OWNER)) {
@@ -76,13 +106,10 @@ public class SellerStoreController {
                     .build();
         }
 
-        List<DeliveryResponse> responses = sellerDeliveryService.retrieveDelivery(storeId);
+        Page<DeliveryResponse> responses = sellerDeliveryService.retrieveDeliveryByStoreIdAsPageSize(
+                storeId, deliveryStatus, page, size, criteria, sort);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(responses);
     }
-
-
-
-
 }

@@ -74,8 +74,8 @@ public class SellerStoreService {
         }
     }
 
-    public StoreResponse closeStore(Long id, Long storeId) {
-        Store store = sellerStoreRepository.findByIdAndMemberId(storeId, id);
+    public StoreResponse closeStore(Long loginedMemberId, Long storeId) {
+        Store store = sellerStoreRepository.findByIdAndMemberId(storeId, loginedMemberId);
         store.closeStore();
         sellerStoreRepository.save(store);
         return new StoreResponse(store);
