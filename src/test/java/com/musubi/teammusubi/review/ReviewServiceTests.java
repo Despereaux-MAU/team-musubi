@@ -4,6 +4,9 @@ import com.musubi.teammusubi.common.exception.ResponseException;
 import com.musubi.teammusubi.domain.customer.dto.ReviewRequest;
 import com.musubi.teammusubi.domain.customer.dto.ReviewResponse;
 import com.musubi.teammusubi.domain.customer.dto.ReviewResponsePage;
+import com.musubi.teammusubi.domain.customer.repository.DeliveryRepository;
+import com.musubi.teammusubi.domain.customer.repository.ReviewRepository;
+import com.musubi.teammusubi.domain.customer.repository.StoreRepository;
 import com.musubi.teammusubi.domain.customer.service.ReviewService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,13 +17,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
-public class ReviewTest {
+public class ReviewServiceTests {
 
-    private final ReviewService reviewService;
+    private final ReviewRepository reviewRepository;
+    private final StoreRepository storeRepository;
+    private final DeliveryRepository deliveryRepository;
 
-    @Autowired
-    public ReviewTest(ReviewService reviewService) {
-        this.reviewService = reviewService;
+    public ReviewServiceTests(ReviewRepository reviewRepository, StoreRepository storeRepository, DeliveryRepository deliveryRepository) {
+        this.reviewRepository = reviewRepository;
+        this.storeRepository = storeRepository;
+        this.deliveryRepository = deliveryRepository;
     }
 
     @Test
@@ -29,7 +35,7 @@ public class ReviewTest {
 
         //Given
         Long storeId = 1L;
-        Long deliveryId = 2L;
+        Long deliveryId = 1L;
         Integer score = 4;
         String comment = "맛있게 잘 먹었습니다.";
         String memberNickname = "눌눌";
@@ -37,6 +43,8 @@ public class ReviewTest {
         ReviewRequest req = new ReviewRequest();
         req.setScore(score);
         req.setComment(comment);
+
+        ReviewService reviewService = new ReviewService(reviewRepository, storeRepository, deliveryRepository);
 
         //When
         ReviewResponse response = reviewService.submit(storeId, deliveryId, req, memberNickname);
@@ -52,7 +60,7 @@ public class ReviewTest {
 
         //Given
         Long storeId = 1L;
-        Long deliveryId = 1L;
+        Long deliveryId = 2L;
         Integer score = 5;
         String comment = "맛있게 잘 먹었습니다.";
         String memberNickname = "눌눌";
@@ -60,6 +68,8 @@ public class ReviewTest {
         ReviewRequest req = new ReviewRequest();
         req.setScore(score);
         req.setComment(comment);
+
+        ReviewService reviewService = new ReviewService(reviewRepository, storeRepository, deliveryRepository);
 
         //When & Then
         ResponseException exception = assertThrows(ResponseException.class, () ->
@@ -86,12 +96,13 @@ public class ReviewTest {
         req.setScore(score);
         req.setComment(comment);
 
+        ReviewService reviewService = new ReviewService(reviewRepository, storeRepository, deliveryRepository);
+
         //When
         ReviewResponsePage responsePage = reviewService.findByScore(storeId, score, page, size, criteria);
 
         //Then
         assertEquals(1L, responsePage.getTotalElements());
-
 
     }
 

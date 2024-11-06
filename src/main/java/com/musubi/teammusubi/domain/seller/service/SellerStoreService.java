@@ -1,6 +1,7 @@
 package com.musubi.teammusubi.domain.seller.service;
 
 import com.musubi.teammusubi.common.entity.Member;
+import com.musubi.teammusubi.common.entity.Review;
 import com.musubi.teammusubi.common.entity.Store;
 import com.musubi.teammusubi.common.enums.MemberRoleEnum;
 import com.musubi.teammusubi.common.exception.ExceptionType;
@@ -84,8 +85,9 @@ public class SellerStoreService {
         Store store = sellerStoreRepository.findByIdAndMemberId(storeId, loginedMemberId);
         store.closeStore();
         sellerStoreRepository.save(store);
-        reviewRepository.deleteByStoreId(storeId).orElseThrow(() ->
-                new ResponseException(ExceptionType.REVIEW_NOT_FOUND));
+
+        List<Review> reviews = reviewRepository.findAllByStoreId(storeId);
+        reviewRepository.deleteAll(reviews);
         return new StoreResponse(store);
     }
 }

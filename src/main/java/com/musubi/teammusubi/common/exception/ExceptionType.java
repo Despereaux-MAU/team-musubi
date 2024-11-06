@@ -41,7 +41,8 @@ public enum ExceptionType {
     MENU_NOT_FOUND("M001", "메뉴가 존재하지 않습니다.", HttpStatus.NOT_FOUND),
 
     // 리뷰(R)
-    REVIEW_NOT_FOUND("R001", "리뷰가 존재하지 않습니다.", HttpStatus.NOT_FOUND);
+    REVIEW_NOT_FOUND("R001", "리뷰가 존재하지 않습니다.", HttpStatus.NOT_FOUND),
+    REVIEW_ALREADY_REGISTERD("R2001", "이미 리뷰를 작성하였습니다.", HttpStatus.BAD_REQUEST);
 
 
     private final String errorCode;
