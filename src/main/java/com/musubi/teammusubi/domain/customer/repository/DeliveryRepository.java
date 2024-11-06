@@ -4,7 +4,9 @@ import com.musubi.teammusubi.common.entity.Delivery;
 import com.musubi.teammusubi.common.enums.DeliveryStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface DeliveryRepository extends JpaRepository<Delivery, Long> {
@@ -15,5 +17,13 @@ public interface DeliveryRepository extends JpaRepository<Delivery, Long> {
 
     default Delivery findByIdSafe(long id) {
         return findById(id).orElseThrow(() -> new RuntimeException("(Dummy Exception)Id not found"));
+    }
+    List<Delivery> findByMemberId(Long memberId);
+
+    @Query("SELECT d FROM Delivery d LEFT JOIN FETCH d.deliveryMenu WHERE d.id = :deliveryId")
+    Optional<Delivery> findByIdWithDeliveryMenus(@Param("deliveryId") long id);
+
+    default Delivery findByIdSafeWithDeliveryMenus(long id) {
+        return findByIdWithDeliveryMenus(id).orElseThrow(() -> new RuntimeException("(Dummy Exception)Id not found"));
     }
 }
