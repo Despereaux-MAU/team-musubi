@@ -22,7 +22,7 @@ public class MemberDetailsServiceImpl implements UserDetailsService {
         Member member = memberRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("가입되지 않은 회원입니다." + email));
 
-        if (member.isDeleted()) {
+        if (member.isDeActive()) {
             throw new UsernameNotFoundException("탈퇴한 회원입니다." + email);
         }
 
@@ -33,7 +33,7 @@ public class MemberDetailsServiceImpl implements UserDetailsService {
         Member member = memberRepository.findById(id)
                 .orElseThrow(() -> new UsernameNotFoundException("가입되지 않은 회원입니다." + id));
 
-        if (member.isDeleted()) {
+        if (member.isDeActive()) {
             throw new UsernameNotFoundException("탈퇴한 회원입니다." + id);
         }
 

@@ -1,7 +1,5 @@
 package com.musubi.teammusubi.common.security;
 
-import com.musubi.teammusubi.common.exception.ExceptionType;
-import com.musubi.teammusubi.common.exception.ResponseException;
 import com.musubi.teammusubi.common.util.JwtUtil;
 import com.musubi.teammusubi.domain.member.service.MemberDetailsServiceImpl;
 import jakarta.servlet.FilterChain;
@@ -35,23 +33,27 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
                                     FilterChain chain) throws ServletException, IOException {
-        String token = getJwtFromRequest(request);
-        if (token != null && jwtUtil.validateToken(token)) {
-            Long memberId = jwtUtil.getMemberIdFromToken(token);
-            String role = jwtUtil.getRoleFromToken(token);
+        try {
+            String token = getJwtFromRequest(request);
+            if (token != null && jwtUtil.validateToken(token)) {
+                Long memberId = jwtUtil.getMemberIdFromToken(token);
+                String role = jwtUtil.getRoleFromToken(token);
 
-            UserDetails userDetails = memberDetailsServiceImpl.loadUserById(memberId);
-            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-                    userDetails, null, Collections.singletonList(new SimpleGrantedAuthority(role)));
-            authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-            SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+                UserDetails userDetails = memberDetailsServiceImpl.loadUserById(memberId);
+                UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+                        userDetails, null, Collections.singletonList(new SimpleGrantedAuthority(role)));
+                authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                SecurityContextHolder.getContext().setAuthentication(authenticationToken);
 
-            if (request.getRequestURI().startsWith("/api/seller") && !"OWNER".equals(role)) {
-                throw new ResponseException(ExceptionType.ACCESS_DENIED);
+                if (request.getRequestURI().startsWith("/api/seller") && !"OWNER".equals(role)) {
+                    response.sendError(HttpStatus.FORBIDDEN.value(), "접근이 거부되었습니다.");
+                    return;
+                }
             }
-
+            chain.doFilter(request, response);
+        } catch (Exception e) {
+            response.sendError(HttpStatus.INTERNAL_SERVER_ERROR.value(), "서버 오류가 발생했습니다.");
         }
-        chain.doFilter(request, response);
     }
 
     private String getJwtFromRequest(HttpServletRequest request) {

@@ -16,15 +16,13 @@ public enum ExceptionType {
      */
 
     // 공통기능(C)
-    NOT_A_OWNER("C001", "사장님이 아닙니다.", HttpStatus.UNAUTHORIZED),
-    USER_NOT_FOUND("C002", "해당 사용자가 존재하지 않습니다.", HttpStatus.UNAUTHORIZED),
-    ACCESS_DENIED("C003", "접근이 거부되었습니다.", HttpStatus.UNAUTHORIZED),
-    PASSWORD_DENIED("C004",
+    USER_NOT_FOUND("C001", "해당 사용자가 존재하지 않습니다.", HttpStatus.UNAUTHORIZED),
+    PASSWORD_DENIED("C002",
             "비밀번호는 최소 8글자 이상이고, 대소문자 포함 영문, 숫자, 특수문자를 최소 1글자씩 포함해야 합니다.",
             HttpStatus.BAD_REQUEST),
-    PASSWORD_MISMATCH("C005", "비밀번호와 비밀번호 확인이 일치하지 않습니다.", HttpStatus.BAD_REQUEST),
-    EMAIL_IN_USE("C006", "이미 사용 중인 이메일입니다.", HttpStatus.CONFLICT),
-    EMAIL_MISMATCH("C007", "이메일이 일치하지 않습니다.", HttpStatus.BAD_REQUEST),
+    PASSWORD_MISMATCH("C003", "비밀번호와 비밀번호 확인이 일치하지 않습니다.", HttpStatus.BAD_REQUEST),
+    EMAIL_IN_USE("C004", "이미 사용 중인 이메일입니다.", HttpStatus.CONFLICT),
+    EMAIL_MISMATCH("C005", "이메일이 일치하지 않습니다.", HttpStatus.BAD_REQUEST),
 
 
     // 가게(S)
