@@ -31,14 +31,17 @@ public enum ExceptionType {
     EXCEEDS_MAXIMUM_STORE_LIMIT("S102", "가게는 최대 3개까지만 운영할 수 없습니다", HttpStatus.BAD_REQUEST),
     NOT_OWNER_OF_STORE("S103", "해당 가게의 주인이 아닙니다.", HttpStatus.UNAUTHORIZED),
     NOT_A_MENU_OF_STORE("S104", "해당 가게의 메뉴가 아닙니다.", HttpStatus.BAD_REQUEST),
-
+    CATEGORY_NOT_FOUND("S201","잘못 된 가게 카테고리입니다.", HttpStatus.BAD_REQUEST),
 
     // 주문(D)
     COMPLETED_DELIVERY_NOT_FOUND("D001", "배달 완료 상태 주문이 존재하지 않습니다.", HttpStatus.NOT_FOUND),
     MINIMUM_ORDER_AMOUNT("D101", "최소 주문 금액이 0원 이상이어야 합니다.", HttpStatus.BAD_REQUEST),
+    DELIVERY_NOT_FOUND("D201","주문을 찾을 수 없습니다.", HttpStatus.NOT_FOUND),
+    NOT_OWNER_OF_DELIVERY("D202","해당 주문의 보유자가 아닙니다.", HttpStatus.UNAUTHORIZED),
 
     // 메뉴(M)
     MENU_NOT_FOUND("M001", "메뉴가 존재하지 않습니다.", HttpStatus.NOT_FOUND),
+    MENU_NOT_FOR_SALE("M200","판매 중인 메뉴가 아닙니다.", HttpStatus.BAD_REQUEST),
 
     // 리뷰(R)
     REVIEW_NOT_FOUND("R001", "리뷰가 존재하지 않습니다.", HttpStatus.NOT_FOUND);
