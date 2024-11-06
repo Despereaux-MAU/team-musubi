@@ -4,6 +4,9 @@ import com.musubi.teammusubi.common.enums.DeliveryStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -11,6 +14,7 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class Delivery extends Timestamped {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -25,42 +29,30 @@ public class Delivery extends Timestamped {
     @Column(nullable = false)
     private Integer totalPrice;
 
-    // todo - 삭제해야 함
+    // 주문자
     @Column(nullable = false)
-    private Integer quantity;
-
-    // todo - 추가됨, 메뉴
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "menu_id")
-    private Menu menu;
-
-    // todo - deliver_menu 를 참조
-    // 1 : 1 매핑 menu
-    // delivery에서 몇개를 주문하느냐
-    // 1 : N
-
-    // 주문을 한 고객
-//    @ManyToOne
-//    @JoinColumn(name = "member_id")
-//    private Member member;
-    @Column
     private long memberId;
 
     // 주문을 받은 가게
-    // todo - 연결 관계 끊기
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "store_id")
-    private Store store;
+    @Column
+    private Long storeId;
 
-    public static Delivery DeliveryFactory(long memberId, Store store, Menu menu, Delivery base) {
+    @OneToMany(mappedBy = "delivery")
+    @Builder.Default
+    private final List<DeliveryMenu> deliveryMenu = new ArrayList<>();
+
+    public static Delivery deliveryFactory(String details, Long memberId, Long storeId) {
         return Delivery.builder()
-                .details(base.getDetails())
+                .details(details)
                 .status(DeliveryStatus.PENDING)
-                .quantity(base.getQuantity())
-                .totalPrice(base.getTotalPrice())
                 .memberId(memberId)
-                .store(store)
-                .menu(menu)
+                .storeId(storeId)
                 .build();
     }
+
+    public void joinStoreDelivery(Store store) {
+        this.storeId = store.getId();
+        store.getDeliveryList().add(this);
+    }
+
 }
