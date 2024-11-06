@@ -28,10 +28,8 @@ public class ReviewService {
 
     public ReviewResponse submit(Long storeId, Long deliveryId, ReviewRequest req, String memberNickname) {
 
-        // 가게가 존재하는지?
         Store store = validStore(storeId);
 
-        // 주문 상태가 COMPLETED 가 맞는지?
         deliveryRepository.findByIdAndStatus(deliveryId, DeliveryStatus.COMPLETED).orElseThrow(() ->
                 new ResponseException(ExceptionType.COMPLETED_DELIVERY_NOT_FOUND));
 
