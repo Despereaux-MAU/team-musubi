@@ -66,7 +66,7 @@ public class SellerMenuController {
             @PathVariable Long storeId,
             @PathVariable Long menuId
     ) {
-        // todo - filter에서 확인했으니, 삭제하기!
+        // todo - filter에서 확인했으면, 삭제하기!
 //        MemberRoleEnum memberRole = memberDetails.getMember().getRole();
 //        if(!memberRole.equals(MemberRoleEnum.OWNER)) {
 //            return ResponseEntity

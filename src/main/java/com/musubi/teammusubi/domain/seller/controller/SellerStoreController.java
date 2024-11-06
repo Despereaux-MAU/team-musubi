@@ -4,10 +4,7 @@ import com.musubi.teammusubi.common.entity.Member;
 import com.musubi.teammusubi.common.enums.DeliveryStatus;
 import com.musubi.teammusubi.common.enums.MemberRoleEnum;
 import com.musubi.teammusubi.common.security.MemberDetailsImpl;
-import com.musubi.teammusubi.domain.seller.dto.DeliveryResponse;
-import com.musubi.teammusubi.domain.seller.dto.StoreCreateRequest;
-import com.musubi.teammusubi.domain.seller.dto.StoreResponse;
-import com.musubi.teammusubi.domain.seller.dto.StoreUpdateRequest;
+import com.musubi.teammusubi.domain.seller.dto.*;
 import com.musubi.teammusubi.domain.seller.service.SellerDeliveryService;
 import com.musubi.teammusubi.domain.seller.service.SellerStoreService;
 import jakarta.validation.Valid;
@@ -111,5 +108,32 @@ public class SellerStoreController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(responses);
+    }
+
+
+    // 주문 상태 변경 - default: 대기
+    @PutMapping("/api/seller/stores/{storeId}/deliveries/{deliveryId}")
+    public ResponseEntity<DeliveryResponse> chageDeliveryStatus(
+            @AuthenticationPrincipal MemberDetailsImpl memberDetails,
+            @PathVariable Long storeId,
+            @PathVariable Long deliveryId,
+            @RequestParam(required = false, value = "status", defaultValue = "PENDING") DeliveryStatus deliveryStatus
+    ) {
+        // todo
+        //  - filter에서 확인했으면, 삭제하기!
+//        MemberRoleEnum memberRole = memberDetails.getMember().getRole();
+//        if(!memberRole.equals(MemberRoleEnum.OWNER)) {
+//            return ResponseEntity
+//                    .status(HttpStatus.FORBIDDEN)
+//                    .build();
+//        }
+
+        Long memberId = memberDetails.getMember().getId();
+        DeliveryResponse response = sellerDeliveryService.changeDeliveryStatus(
+                memberId, storeId, deliveryId, deliveryStatus);
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(response);
     }
 }

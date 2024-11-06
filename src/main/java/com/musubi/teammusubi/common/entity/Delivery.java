@@ -50,6 +50,10 @@ public class Delivery extends Timestamped {
                 .build();
     }
 
+    public void changeStatus(DeliveryStatus status) {
+        this.status = status;
+    }
+
     public void joinStoreDelivery(Store store) {
         this.storeId = store.getId();
         store.getDeliveryList().add(this);
