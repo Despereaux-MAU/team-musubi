@@ -3,6 +3,8 @@ package com.musubi.teammusubi.domain.customer.service;
 import com.musubi.teammusubi.common.entity.Review;
 import com.musubi.teammusubi.common.entity.Store;
 import com.musubi.teammusubi.common.enums.DeliveryStatus;
+import com.musubi.teammusubi.common.exception.ExceptionType;
+import com.musubi.teammusubi.common.exception.ResponseException;
 import com.musubi.teammusubi.domain.customer.dto.ReviewRequest;
 import com.musubi.teammusubi.domain.customer.dto.ReviewResponse;
 import com.musubi.teammusubi.domain.customer.dto.ReviewResponsePage;
@@ -27,12 +29,11 @@ public class ReviewService {
     public ReviewResponse submit(Long storeId, Long deliveryId, ReviewRequest req, String memberNickname) {
 
         // 가게가 존재하는지?
-        Store store = storeRepository.findById(storeId).orElseThrow(() ->
-                new NullPointerException("가게가 존재하지 않습니다."));
+        Store store = validStore(storeId);
 
         // 주문 상태가 COMPLETED 가 맞는지?
         deliveryRepository.findByIdAndStatus(deliveryId, DeliveryStatus.COMPLETED).orElseThrow(() ->
-                new NullPointerException("배달 완료 상태 주문이 존재하지 않습니다."));
+                new ResponseException(ExceptionType.COMPLETED_DELIVERY_NOT_FOUND));
 
         Review review = reviewRepository.save(Review.from(store, deliveryId, req, memberNickname));
 
@@ -42,8 +43,7 @@ public class ReviewService {
 
     public ReviewResponsePage findAll(Long storeId, int page, int size, String criteria) {
 
-        storeRepository.findById(storeId).orElseThrow(() ->
-                new NullPointerException("가게가 존재하지 않습니다."));
+        validStore(storeId);
 
         Pageable pageable = PageRequest.of(page - 1, size, Sort.by(Sort.Direction.DESC, criteria));
         Page<Review> reviews = reviewRepository.findByStoreId(storeId, pageable);
@@ -53,13 +53,18 @@ public class ReviewService {
     }
 
     public ReviewResponsePage findByScore(Long storeId, Integer score, int page, int size, String criteria) {
-        storeRepository.findById(storeId).orElseThrow(() ->
-                new NullPointerException("가게가 존재하지 않습니다."));
+
+        validStore(storeId);
 
         Pageable pageable = PageRequest.of(page - 1, size, Sort.by(Sort.Direction.DESC, criteria));
         Page<Review> reviews = reviewRepository.findByScore(score, pageable);
 
         return new ReviewResponsePage(reviews);
+    }
+
+    public Store validStore(Long storeId) throws NullPointerException{
+        return storeRepository.findById(storeId).orElseThrow(() ->
+                new ResponseException(ExceptionType.STORE_NOT_FOUND));
     }
 
 
