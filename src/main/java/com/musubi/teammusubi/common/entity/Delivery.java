@@ -63,4 +63,8 @@ public class Delivery extends Timestamped {
                 .menu(menu)
                 .build();
     }
+
+    public void changeStatus(DeliveryStatus status) {
+        this.status = status;
+    }
 }
