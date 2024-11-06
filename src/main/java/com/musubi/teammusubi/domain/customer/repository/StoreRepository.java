@@ -30,7 +30,14 @@ public interface StoreRepository extends JpaRepository<Store, Long> {
             (:search IS NULL OR s.name LIKE %:search%) AND \s
             (:category IS NULL OR s.category LIKE :category) AND \s
             (:now IS NULL OR s.openTime <= :now) AND \s
-            (:now IS NULL OR s.closeTime >= :now)
+            (:now IS NULL OR s.closeTime >= :now) AND \s
+            (s.status <> 'CLOSE') AND \s
+            (:includeTemp = true OR s.status = 'OPEN')
    \s""")
-    Page<Store> findAllByParams(@Param("category") Category category, @Param("search") String search, @Param("now") LocalTime now, Pageable pageable);
+    Page<Store> findAllByParams(
+            @Param("category") Category category,
+            @Param("search") String search,
+            @Param("now") LocalTime now,
+            @Param("includeTemp") Boolean includeTemp,
+            Pageable pageable);
 }
