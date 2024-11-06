@@ -112,7 +112,7 @@ public class SellerStoreController {
 
 
     // 주문 상태 변경 - default: 대기
-    @PutMapping("/api/seller/stores/{storeId}/deliveries/{deliveryId}")
+    @PutMapping("/stores/{storeId}/deliveries/{deliveryId}")
     public ResponseEntity<DeliveryResponse> chageDeliveryStatus(
             @AuthenticationPrincipal MemberDetailsImpl memberDetails,
             @PathVariable Long storeId,
