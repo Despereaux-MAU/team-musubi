@@ -38,7 +38,10 @@ public enum ExceptionType {
     MINIMUM_ORDER_AMOUNT("D101", "최소 주문 금액이 0원 이상이어야 합니다.", HttpStatus.BAD_REQUEST),
 
     // 메뉴(M)
-    MENU_NOT_FOUND("M001", "메뉴가 존재하지 않습니다.", HttpStatus.NOT_FOUND);
+    MENU_NOT_FOUND("M001", "메뉴가 존재하지 않습니다.", HttpStatus.NOT_FOUND),
+
+    // 리뷰(R)
+    REVIEW_NOT_FOUND("R001", "리뷰가 존재하지 않습니다.", HttpStatus.NOT_FOUND);
 
 
     private final String errorCode;

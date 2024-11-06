@@ -6,6 +6,7 @@ import com.musubi.teammusubi.common.enums.MemberRoleEnum;
 import com.musubi.teammusubi.common.exception.ExceptionType;
 import com.musubi.teammusubi.common.exception.ResponseException;
 import com.musubi.teammusubi.common.enums.StoreStatus;
+import com.musubi.teammusubi.domain.customer.repository.ReviewRepository;
 import com.musubi.teammusubi.domain.seller.dto.StoreCreateRequest;
 import com.musubi.teammusubi.domain.seller.dto.StoreResponse;
 import com.musubi.teammusubi.domain.seller.dto.StoreUpdateRequest;
@@ -22,6 +23,7 @@ import java.util.List;
 public class SellerStoreService {
 
     private final SellerStoreRepository sellerStoreRepository;
+    private final ReviewRepository reviewRepository;
 
     public StoreResponse registerStore(Member loginedMember, StoreCreateRequest createRequest) {
         if (!(loginedMember.getRole().equals(MemberRoleEnum.OWNER))) {
@@ -80,6 +82,8 @@ public class SellerStoreService {
         Store store = sellerStoreRepository.findByIdAndMemberId(storeId, loginedMemberId);
         store.closeStore();
         sellerStoreRepository.save(store);
+        reviewRepository.deleteByStoreId(storeId).orElseThrow(() ->
+                new ResponseException(ExceptionType.REVIEW_NOT_FOUND));
         return new StoreResponse(store);
     }
 }

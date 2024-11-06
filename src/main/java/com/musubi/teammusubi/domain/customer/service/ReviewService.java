@@ -26,12 +26,11 @@ public class ReviewService {
     private final StoreRepository storeRepository;
     private final DeliveryRepository deliveryRepository;
 
+
     public ReviewResponse submit(Long storeId, Long deliveryId, ReviewRequest req, String memberNickname) {
 
-        // 가게가 존재하는지?
         Store store = validStore(storeId);
 
-        // 주문 상태가 COMPLETED 가 맞는지?
         deliveryRepository.findByIdAndStatus(deliveryId, DeliveryStatus.COMPLETED).orElseThrow(() ->
                 new ResponseException(ExceptionType.COMPLETED_DELIVERY_NOT_FOUND));
 
@@ -62,7 +61,7 @@ public class ReviewService {
         return new ReviewResponsePage(reviews);
     }
 
-    public Store validStore(Long storeId) throws NullPointerException{
+    public Store validStore(Long storeId) {
         return storeRepository.findById(storeId).orElseThrow(() ->
                 new ResponseException(ExceptionType.STORE_NOT_FOUND));
     }
