@@ -20,7 +20,7 @@ public class DeliveryResponse {
                 delivery.getDetails(),
                 delivery.getStatus(),
                 delivery.getTotalPrice(),
-                delivery.getStore().getId()
+                delivery.getStoreId()
         );
     }
 }

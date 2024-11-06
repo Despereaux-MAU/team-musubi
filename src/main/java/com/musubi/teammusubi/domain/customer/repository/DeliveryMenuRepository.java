@@ -1,4 +1,7 @@
 package com.musubi.teammusubi.domain.customer.repository;
 
-public interface DeliveryMenuRepository {
+import com.musubi.teammusubi.common.entity.DeliveryMenu;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface DeliveryMenuRepository extends JpaRepository<DeliveryMenu, Long> {
 }

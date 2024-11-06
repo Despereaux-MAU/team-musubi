@@ -10,7 +10,6 @@ import jakarta.validation.constraints.Email;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.http.HttpStatus;
 
 import java.util.regex.Pattern;
 
@@ -41,7 +40,7 @@ public class Member extends Timestamped {
     private MemberRoleEnum role;
 
     @Column(nullable = false)
-    private boolean isDeleted = false;
+    private boolean deActive = false;
 
     @Column(nullable = false)
     private String address;
@@ -80,7 +79,7 @@ public class Member extends Timestamped {
                 .orElseThrow(() -> new ResponseException(ExceptionType.USER_NOT_FOUND));
     }
 
-    public void deactiveAccount() {
-        this.isDeleted = true;
+    public void deActiveAccount() {
+        this.deActive = true;
     }
 }

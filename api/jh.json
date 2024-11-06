@@ -1,136 +1,196 @@
 {
 	"info": {
-		"_postman_id": "003e5560-57fb-4e8e-8f32-c84a073c1e7f",
-		"name": "musubi",
+		"_postman_id": "bd74da7c-ef96-4ed3-af13-1ba3343233d3",
+		"name": "Delivery-Customer-team3",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "38557384"
 	},
 	"item": [
 		{
-			"name": "customer",
+			"name": "4.재혁",
 			"item": [
 				{
-					"name": "stores",
-					"item": [
-						{
-							"name": "전체 가게조회",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{base_url}}/api/stores?category=KOREAN",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"api",
-										"stores"
-									],
-									"query": [
-										{
-											"key": "category",
-											"value": "KOREAN"
-										},
-										{
-											"key": "search",
-											"value": "미",
-											"disabled": true
-										},
-										{
-											"key": "size",
-											"value": "2",
-											"disabled": true
-										},
-										{
-											"key": "page",
-											"value": "2",
-											"disabled": true
-										}
-									]
+					"name": "유저 로그인 (토큰 발급용)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"test5@example.com\",\r\n    \"password\": \"Rkdhssnfl123!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
 								}
-							},
-							"response": []
+							}
 						},
-						{
-							"name": "상세 가게조회",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{base_url}}/api/stores/{{storeId}}",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"api",
-										"stores",
-										"{{storeId}}"
-									]
-								}
-							},
-							"response": []
+						"url": {
+							"raw": "http://localhost:8080/api/members/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"members",
+								"login"
+							]
 						}
-					]
+					},
+					"response": []
 				},
 				{
-					"name": "deliveries",
-					"item": [
-						{
-							"name": "전체 주문조회",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{base_url}}/api/deliveries",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"api",
-										"deliveries"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "주문 생성",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n\t\"details\":\"세부사항\",\r\n\t\"quantity\":4,\r\n\t\"totalPrice\":60000\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
+					"name": "전체 가게조회",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/stores",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"stores"
+							],
+							"query": [
+								{
+									"key": "size",
+									"value": "2",
+									"disabled": true
 								},
-								"url": {
-									"raw": "{{base_url}}/api/deliveries?storeId=1&menuId=1",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"api",
-										"deliveries"
-									],
-									"query": [
-										{
-											"key": "storeId",
-											"value": "1"
-										},
-										{
-											"key": "menuId",
-											"value": "1"
-										}
-									]
+								{
+									"key": "category",
+									"value": "KOREAN",
+									"disabled": true
+								},
+								{
+									"key": "search",
+									"value": "미",
+									"disabled": true
+								},
+								{
+									"key": "includeTemp",
+									"value": "true",
+									"disabled": true
+								},
+								{
+									"key": "time",
+									"value": "12:00:00",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "2",
+									"disabled": true
 								}
-							},
-							"response": []
+							]
 						}
-					]
+					},
+					"response": []
+				},
+				{
+					"name": "상세 가게조회",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/stores/{{storeId}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"stores",
+								"{{storeId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "전체 주문조회",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/deliveries",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"deliveries"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "상세 주문조회",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/deliveries/{{id}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"deliveries",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "주문 생성",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n\t{\r\n\t\t\"menuId\":1,\r\n\t\t\"quantity\":3\r\n\t},\r\n\t{\r\n\t\t\"menuId\":3,\r\n\t\t\"quantity\":3\r\n\t}\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/deliveries?storeId=1&details=문앞에 두고 노크해주세요",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"deliveries"
+							],
+							"query": [
+								{
+									"key": "storeId",
+									"value": "1"
+								},
+								{
+									"key": "details",
+									"value": "문앞에 두고 노크해주세요"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}
