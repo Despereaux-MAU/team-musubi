@@ -2,6 +2,8 @@ package com.musubi.teammusubi.domain.customer.service;
 
 import com.musubi.teammusubi.common.entity.Store;
 import com.musubi.teammusubi.common.enums.Category;
+import com.musubi.teammusubi.common.exception.ExceptionType;
+import com.musubi.teammusubi.common.exception.ResponseException;
 import com.musubi.teammusubi.domain.customer.repository.StoreRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -29,7 +31,7 @@ public class StoreService {
             LocalTime now, boolean includeTemp
     ) {
         if(category.isPresent() && Arrays.stream(Category.values()).noneMatch(c -> c.toString().equals(category.get()))) {
-            throw new RuntimeException("(Dummy exception)Category not found");
+            throw new ResponseException(ExceptionType.CATEGORY_NOT_FOUND);
         }
 
         Category categoryEnum = null;
