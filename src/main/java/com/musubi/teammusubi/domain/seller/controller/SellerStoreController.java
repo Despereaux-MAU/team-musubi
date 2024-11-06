@@ -61,6 +61,13 @@ public class SellerStoreController {
         return ResponseEntity.ok(storeResponse);
     }
 
+    @PatchMapping("/stores/{storeId}")
+    public ResponseEntity<StoreResponse> closeStore(@AuthenticationPrincipal MemberDetailsImpl memberDetails, @PathVariable Long storeId) {
+        Member loginedMember = memberDetails.getMember();
+        StoreResponse storeResponse = sellerStoreService.closeStore(loginedMember.getId(), storeId);
+        return ResponseEntity.ok(storeResponse);
+    }
+
 
     // 가게별 주문 조회
     // 주문 상태별 조회 - default: 대기
