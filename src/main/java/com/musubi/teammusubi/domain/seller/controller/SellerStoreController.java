@@ -1,13 +1,15 @@
 package com.musubi.teammusubi.domain.seller.controller;
 
-import com.musubi.teammusubi.common.security.MemberDetailsImpl;
 import com.musubi.teammusubi.common.entity.Member;
-import com.musubi.teammusubi.domain.seller.dto.StoreCreateRequest;
-import com.musubi.teammusubi.domain.seller.dto.StoreResponse;
-import com.musubi.teammusubi.domain.seller.dto.StoreUpdateRequest;
+import com.musubi.teammusubi.common.enums.DeliveryStatus;
+import com.musubi.teammusubi.common.enums.MemberRoleEnum;
+import com.musubi.teammusubi.common.security.MemberDetailsImpl;
+import com.musubi.teammusubi.domain.seller.dto.*;
+import com.musubi.teammusubi.domain.seller.service.SellerDeliveryService;
 import com.musubi.teammusubi.domain.seller.service.SellerStoreService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -19,8 +21,8 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/api/seller")
 public class SellerStoreController {
-
     private final SellerStoreService sellerStoreService;
+    private final SellerDeliveryService sellerDeliveryService;
 
     @PostMapping("/stores")
     public ResponseEntity<StoreResponse> registerStore(@AuthenticationPrincipal MemberDetailsImpl memberDetails, @Valid @RequestBody StoreCreateRequest createRequest) {
@@ -53,7 +55,85 @@ public class SellerStoreController {
         return ResponseEntity.ok(storeResponse);
     }
 
+    @PatchMapping("/stores/{storeId}")
+    public ResponseEntity<StoreResponse> closeStore(@AuthenticationPrincipal MemberDetailsImpl memberDetails, @PathVariable Long storeId) {
+        Member loginedMember = memberDetails.getMember();
+        StoreResponse storeResponse = sellerStoreService.closeStore(loginedMember.getId(), storeId);
+        return ResponseEntity.ok(storeResponse);
+    }
 
 
+    // 가게별 주문 조회
+    // 주문 상태별 조회 - default: 대기
+//    @GetMapping("/stores/{storeId}/deliveries")
+//    public ResponseEntity<List<DeliveryResponse>> retrieveDeliveryByStoreId(
+//            @AuthenticationPrincipal MemberDetailsImpl memberDetails,
+//            @PathVariable Long storeId,
+//            @RequestParam(defaultValue = "PENDING") DeliveryStatus deliveryStatus
+//            ) {
+//        MemberRoleEnum memberRole = memberDetails.getMember().getRole();
+//        if(!memberRole.equals(MemberRoleEnum.OWNER)) {
+//            return ResponseEntity
+//                    .status(HttpStatus.FORBIDDEN)
+//                    .build();
+//        }
+//
+//        List<DeliveryResponse> responses = sellerDeliveryService.retrieveDelivery(storeId, deliveryStatus);
+//        return ResponseEntity
+//                .status(HttpStatus.OK)
+//                .body(responses);
+//    }
 
+    // 가게별 주문 조회
+    // 주문 상태별 조회 - default: 대기
+    @GetMapping("/stores/{storeId}/deliveries")
+    public ResponseEntity<Page<DeliveryResponse>> retrieveDeliveryByStoreIdAsPageSize(
+            @AuthenticationPrincipal MemberDetailsImpl memberDetails,
+            @PathVariable Long storeId,
+            @RequestParam(required = false, value = "status", defaultValue = "PENDING") DeliveryStatus deliveryStatus,
+            @RequestParam(required = false, value = "page", defaultValue = "1") int page,
+            @RequestParam(required = false, value = "size", defaultValue = "10") int size,
+            @RequestParam(required = false, value = "orderBy", defaultValue = "createdAt") String criteria,
+            @RequestParam(required = false, value = "sort", defaultValue = "DESC") String sort
+    ) {
+        MemberRoleEnum memberRole = memberDetails.getMember().getRole();
+        if(!memberRole.equals(MemberRoleEnum.OWNER)) {
+            return ResponseEntity
+                    .status(HttpStatus.FORBIDDEN)
+                    .build();
+        }
+
+        Page<DeliveryResponse> responses = sellerDeliveryService.retrieveDeliveryByStoreIdAsPageSize(
+                storeId, deliveryStatus, page, size, criteria, sort);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(responses);
+    }
+
+
+    // 주문 상태 변경 - default: 대기
+    @PutMapping("/api/seller/stores/{storeId}/deliveries/{deliveryId}")
+    public ResponseEntity<DeliveryResponse> chageDeliveryStatus(
+            @AuthenticationPrincipal MemberDetailsImpl memberDetails,
+            @PathVariable Long storeId,
+            @PathVariable Long deliveryId,
+            @RequestParam(required = false, value = "status", defaultValue = "PENDING") DeliveryStatus deliveryStatus
+    ) {
+        // todo
+        //  - filter에서 확인했으면, 삭제하기!
+//        MemberRoleEnum memberRole = memberDetails.getMember().getRole();
+//        if(!memberRole.equals(MemberRoleEnum.OWNER)) {
+//            return ResponseEntity
+//                    .status(HttpStatus.FORBIDDEN)
+//                    .build();
+//        }
+
+        Long memberId = memberDetails.getMember().getId();
+        DeliveryResponse response = sellerDeliveryService.changeDeliveryStatus(
+                memberId, storeId, deliveryId, deliveryStatus);
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(response);
+    }
 }

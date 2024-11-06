@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Getter
 @NoArgsConstructor
@@ -20,7 +22,6 @@ public class Review extends Timestamped{
     @Column(nullable = false)
     private String comment;
 
-    // 리뷰가 작성된 가게
     @ManyToOne
     @JoinColumn(name = "store_id")
     private Store store;
@@ -30,6 +31,13 @@ public class Review extends Timestamped{
 
     @Column(nullable = false, unique = true)
     private Long deliveryId;
+
+//    @ManyToOne
+//    @JoinColumn(name = "parent_id")
+//    private Review parentReview;
+//
+//    @OneToMany(mappedBy = "parentReview", cascade = CascadeType.REMOVE)
+//    private List<Review> childReviews;
 
     public static Review from(Store store, Long deliveryId, ReviewRequest req, String memberNickname) {
         Review review = new Review();

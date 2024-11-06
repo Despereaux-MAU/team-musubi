@@ -1,6 +1,8 @@
 package com.musubi.teammusubi.domain.customer.service;
 
 import com.musubi.teammusubi.common.entity.Menu;
+import com.musubi.teammusubi.common.exception.ExceptionType;
+import com.musubi.teammusubi.common.exception.ResponseException;
 import com.musubi.teammusubi.domain.customer.dto.MenuResponse;
 import com.musubi.teammusubi.domain.customer.repository.MenuRepository;
 import com.musubi.teammusubi.domain.customer.repository.StoreRepository;
@@ -17,10 +19,10 @@ public class MenuService {
     public MenuResponse findByMenuId(Long storeId, Long menuId) {
 
         storeRepository.findById(storeId).orElseThrow(() ->
-                new NullPointerException("가게가 존재하지 않습니다."));
+                new ResponseException(ExceptionType.STORE_NOT_FOUND));
 
         Menu menu = menuRepository.findById(menuId).orElseThrow(() ->
-                new NullPointerException("메뉴가 존재하지 않습니다."));
+                new ResponseException(ExceptionType.MENU_NOT_FOUND));
 
         return MenuResponse.of(menu);
 
