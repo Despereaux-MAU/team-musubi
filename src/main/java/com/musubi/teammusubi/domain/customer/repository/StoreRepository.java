@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.time.LocalTime;
 import java.util.Optional;
 
 public interface StoreRepository extends JpaRepository<Store, Long> {
@@ -26,9 +27,10 @@ public interface StoreRepository extends JpaRepository<Store, Long> {
     @Query("""
         SELECT s FROM Store s \s
         WHERE \s
-            (:search IS NULL OR s.name LIKE %:search%) \s
-            AND \s
-            (:category IS NULL OR s.category LIKE :category)
+            (:search IS NULL OR s.name LIKE %:search%) AND \s
+            (:category IS NULL OR s.category LIKE :category) AND \s
+            (:now IS NULL OR s.openTime <= :now) AND \s
+            (:now IS NULL OR s.closeTime >= :now)
    \s""")
-    Page<Store> findAllByParams(@Param("category") Category category, @Param("search") String search, Pageable pageable);
+    Page<Store> findAllByParams(@Param("category") Category category, @Param("search") String search, @Param("now") LocalTime now, Pageable pageable);
 }
