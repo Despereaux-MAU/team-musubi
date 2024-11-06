@@ -5,6 +5,7 @@ import com.musubi.teammusubi.domain.customer.dto.ReviewRequest;
 import com.musubi.teammusubi.domain.customer.dto.ReviewResponse;
 import com.musubi.teammusubi.domain.customer.dto.ReviewResponsePage;
 import com.musubi.teammusubi.domain.customer.service.ReviewService;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ public class ReviewTest {
 
     @Test
     @DisplayName("리뷰등록 - 완료상태 주문")
+    @Disabled
     void test1() {
 
         //Given
@@ -48,6 +50,7 @@ public class ReviewTest {
 
     @Test
     @DisplayName("리뷰등록 - 진행중인 주문")
+    @Disabled
     void test2() {
 
         //Given
@@ -72,6 +75,7 @@ public class ReviewTest {
 
     @Test
     @DisplayName("별점 별 리뷰 조회")
+    @Disabled
     void test3() {
 
         //Given

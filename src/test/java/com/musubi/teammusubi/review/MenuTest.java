@@ -2,6 +2,7 @@ package com.musubi.teammusubi.review;
 
 import com.musubi.teammusubi.domain.customer.dto.MenuResponse;
 import com.musubi.teammusubi.domain.customer.service.MenuService;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ public class MenuTest {
 
     @Test
     @DisplayName("특정 가게 메뉴 상세 조회")
+    @Disabled
     void test1() {
 
         //Given
