@@ -78,7 +78,7 @@ public class Store extends Timestamped {
         this.address = createRequest.getAddress();
         this.license = createRequest.getLicense();
         this.togo = createRequest.isTogo();
-        this.status = createRequest.getStatus();
+        this.status = StoreStatus.OPEN;
         this.memberId = loginedMemberId;
     }
 

@@ -27,14 +27,10 @@ public class SellerStoreService {
     private final ReviewRepository reviewRepository;
 
     public StoreResponse registerStore(Member loginedMember, StoreCreateRequest createRequest) {
-        if (!(loginedMember.getRole().equals(MemberRoleEnum.OWNER))) {
-            throw new IllegalArgumentException("사장님이 아닙니다");
-        }
-
         validateStoreHours(createRequest.getOpenTime(),createRequest.getCloseTime());
-
+        // 어떤값인지 상수변수로 네이밍으로 입력해주는게 직관적이다.
         if (!(createRequest.getMinPrice() >= 0)) {
-            throw new IllegalArgumentException("최소주문금액이 0원 이상이여야합니다.");
+            throw new ResponseException(ExceptionType.MINIMUM_ORDER_AMOUNT);
         }
 
         int storeCount = sellerStoreRepository.countByMemberIdAndStatusNot(loginedMember.getId(), StoreStatus.CLOSE);
@@ -52,11 +48,13 @@ public class SellerStoreService {
     }
 
     public StoreResponse getStore(Long loginedMemberId, Long storeId) {
-        Store store = sellerStoreRepository.findByIdAndMemberIdAndStatusNot(storeId, loginedMemberId, StoreStatus.CLOSE);
-        // todo - 해당 가게가 아닌 경우 예외처리 추가
+        Store store = sellerStoreRepository.findByIdAndStatusNot(storeId, StoreStatus.CLOSE);
+        if (!(loginedMemberId.equals(store.getMemberId()))) {
+            throw new ResponseException(ExceptionType.NOT_OWNER_OF_STORE);
+        }
 
         if (store == null) {
-            throw new IllegalArgumentException("가게가 존재하지 않거나, 폐업상태입니다.");
+            throw new ResponseException(ExceptionType.STORE_NOT_FOUND_OR_STORE_CLOSE);
         }
         return new StoreResponse(store);
     }
@@ -64,7 +62,7 @@ public class SellerStoreService {
     public StoreResponse updateStore(Long loginedMemberId, Long storeId, @Valid StoreUpdateRequest updateRequest) {
         Store store = sellerStoreRepository.findByIdAndMemberIdAndStatusNot(storeId, loginedMemberId, StoreStatus.CLOSE);
         if (store == null) {
-            throw new IllegalArgumentException("가게가 존재하지 않거나, 폐업상태라서 수정할 수 없습니다.");
+            throw new ResponseException(ExceptionType.STORE_NOT_FOUND_OR_STORE_CLOSE);
         }
         store.update(updateRequest);
         sellerStoreRepository.save(store);
@@ -77,7 +75,7 @@ public class SellerStoreService {
         }
 
         if (openTime.isAfter(closeTime)) {
-            throw new IllegalArgumentException("오픈시간이 마감 시간보다 늦을 수 없습니다.");
+            throw new ResponseException(ExceptionType.OPEN_TIME_AFTER_CLOSE_TIME);
         }
     }
 

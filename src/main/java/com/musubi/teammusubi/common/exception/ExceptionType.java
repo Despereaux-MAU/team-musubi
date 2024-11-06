@@ -31,6 +31,7 @@ public enum ExceptionType {
     EXCEEDS_MAXIMUM_STORE_LIMIT("S102", "가게는 최대 3개까지만 운영할 수 없습니다", HttpStatus.BAD_REQUEST),
     NOT_OWNER_OF_STORE("S103", "해당 가게의 주인이 아닙니다.", HttpStatus.UNAUTHORIZED),
     NOT_A_MENU_OF_STORE("S104", "해당 가게의 메뉴가 아닙니다.", HttpStatus.BAD_REQUEST),
+    STORE_NOT_FOUND_OR_STORE_CLOSE("S105", "선택한 가게가 존재하지 않거나, 폐업상태입니다.", HttpStatus.NOT_FOUND),
     CATEGORY_NOT_FOUND("S201","잘못 된 가게 카테고리입니다.", HttpStatus.BAD_REQUEST),
 
     // 주문(D)
