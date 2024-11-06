@@ -18,6 +18,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class ReviewService {
@@ -28,8 +30,13 @@ public class ReviewService {
 
 
     public ReviewResponse submit(Long storeId, Long deliveryId, ReviewRequest req, String memberNickname) {
-        // todo - 이미 작성된 주문에는 리뷰 생성 불가 처리
+
         Store store = validStore(storeId);
+
+        Optional<Review> existingReview = reviewRepository.findById(deliveryId);
+        if (existingReview.isPresent()) {
+            throw new ResponseException(ExceptionType.REVIEW_ALREADY_REGISTERD);
+        }
 
         deliveryRepository.findByIdAndStatus(deliveryId, DeliveryStatus.COMPLETED).orElseThrow(() ->
                 new ResponseException(ExceptionType.COMPLETED_DELIVERY_NOT_FOUND));

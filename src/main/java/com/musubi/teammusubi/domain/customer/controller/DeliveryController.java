@@ -57,6 +57,10 @@ public class DeliveryController {
 
 
     private Map<Long,Integer> reqListToMap(List<OrderDeliveryRequest> lis) {
-        return lis.stream().collect(Collectors.toMap(OrderDeliveryRequest::getMenuId, OrderDeliveryRequest::getQuantity));
+        return lis.stream().collect(Collectors.toMap(
+                OrderDeliveryRequest::getMenuId,
+                OrderDeliveryRequest::getQuantity,
+                Integer::sum // 같은 메뉴 id 가 여럿일 경우, 수량을 합침
+        ));
     }
 }
