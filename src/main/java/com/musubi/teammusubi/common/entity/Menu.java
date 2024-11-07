@@ -5,11 +5,13 @@ import com.musubi.teammusubi.domain.seller.dto.MenuRequest;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import static com.musubi.teammusubi.common.enums.MenuStatus.*;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor
 public class Menu extends Timestamped {
     @Id

@@ -12,6 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -19,15 +20,6 @@ public class SellerDeliveryService {
     private final MemberRepository memberRepository;
     private final SellerStoreRepository storeRepository;
     private final SellerDeliveryRepository deliveryRepository;
-
-//    public List<DeliveryResponse> retrieveDelivery(Long storeId, DeliveryStatus deliveryStatus) {
-//        storeRepository.findById(storeId)
-//                .orElseThrow(() -> new IllegalArgumentException("해당 가게가 존재하지 않습니다."));
-//
-//        List<Delivery> deliveries = deliveryRepository.findByStoreIdAndStatusOrderByCreatedAtDesc(storeId, deliveryStatus);
-//
-//        return deliveries.stream().map(DeliveryResponse::from).toList();
-//    }
 
     public Page<DeliveryResponse> retrieveDeliveryByStoreIdAsPageSize(
             Long storeId, DeliveryStatus deliveryStatus, int page, int size, String criteria, String sort
@@ -43,11 +35,10 @@ public class SellerDeliveryService {
         return deliveries.map(DeliveryResponse::from);
     }
 
+    @Transactional
     public DeliveryResponse changeDeliveryStatus(Long memberId, Long storeId, Long deliveryId, DeliveryStatus status) {
-        // todo - filter에서 확인했으면, 삭제하기!
         memberRepository.findById(memberId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 존재하지 않습니다."));
-
         storeRepository.findById(storeId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 가게가 존재하지 않습니다."));
         Delivery delivery = deliveryRepository.findById(deliveryId)

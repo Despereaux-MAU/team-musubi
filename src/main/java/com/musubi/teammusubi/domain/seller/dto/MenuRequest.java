@@ -1,8 +1,10 @@
 package com.musubi.teammusubi.domain.seller.dto;
 
 import jakarta.validation.constraints.NotNull;
+import lombok.Builder;
 import lombok.Getter;
 
+@Builder
 @Getter
 public class MenuRequest {
     @NotNull(message = "메뉴명은 필수 입력 사항입니다.")

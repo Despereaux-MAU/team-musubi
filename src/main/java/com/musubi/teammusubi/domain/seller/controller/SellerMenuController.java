@@ -1,6 +1,5 @@
 package com.musubi.teammusubi.domain.seller.controller;
 
-import com.musubi.teammusubi.common.enums.MemberRoleEnum;
 import com.musubi.teammusubi.common.security.MemberDetailsImpl;
 import com.musubi.teammusubi.domain.seller.dto.MenuRequest;
 import com.musubi.teammusubi.domain.seller.dto.MenuResponse;
@@ -25,13 +24,6 @@ public class SellerMenuController {
             @PathVariable Long storeId,
             @RequestBody @Valid MenuRequest requestDto
     ) {
-        MemberRoleEnum memberRole = memberDetails.getMember().getRole();
-        if(!memberRole.equals(MemberRoleEnum.OWNER)) {
-            return ResponseEntity
-                    .status(HttpStatus.FORBIDDEN)
-                    .build();
-        }
-
         Long memberId = memberDetails.getMember().getId();
         MenuResponse response = sellerMenuService.createMenu(memberId, storeId, requestDto);
         return ResponseEntity
@@ -46,13 +38,6 @@ public class SellerMenuController {
             @PathVariable Long menuId,
             @RequestBody @Valid MenuRequest requestDto
     ) {
-        MemberRoleEnum memberRole = memberDetails.getMember().getRole();
-        if(!memberRole.equals(MemberRoleEnum.OWNER)) {
-            return ResponseEntity
-                    .status(HttpStatus.FORBIDDEN)
-                    .build();
-        }
-
         Long memberId = memberDetails.getMember().getId();
         MenuResponse response = sellerMenuService.modifyMenu(memberId, storeId, menuId, requestDto);
         return ResponseEntity
@@ -66,14 +51,6 @@ public class SellerMenuController {
             @PathVariable Long storeId,
             @PathVariable Long menuId
     ) {
-        // todo - filter에서 확인했으면, 삭제하기!
-//        MemberRoleEnum memberRole = memberDetails.getMember().getRole();
-//        if(!memberRole.equals(MemberRoleEnum.OWNER)) {
-//            return ResponseEntity
-//                    .status(HttpStatus.FORBIDDEN)
-//                    .build();
-//        }
-
         Long memberId = memberDetails.getMember().getId();
         MenuResponse response = sellerMenuService.closeMenu(memberId, storeId, menuId);
         return ResponseEntity
