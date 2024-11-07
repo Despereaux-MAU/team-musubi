@@ -2,18 +2,13 @@ package com.musubi.teammusubi.seller;
 
 import com.musubi.teammusubi.common.entity.Delivery;
 import com.musubi.teammusubi.common.entity.Member;
-import com.musubi.teammusubi.common.entity.Menu;
 import com.musubi.teammusubi.common.entity.Store;
 import com.musubi.teammusubi.common.enums.DeliveryStatus;
-import com.musubi.teammusubi.common.enums.MenuStatus;
 import com.musubi.teammusubi.domain.member.repository.MemberRepository;
 import com.musubi.teammusubi.domain.seller.dto.DeliveryResponse;
-import com.musubi.teammusubi.domain.seller.dto.MenuRequest;
-import com.musubi.teammusubi.domain.seller.dto.MenuResponse;
 import com.musubi.teammusubi.domain.seller.repository.SellerDeliveryRepository;
 import com.musubi.teammusubi.domain.seller.repository.SellerStoreRepository;
 import com.musubi.teammusubi.domain.seller.service.SellerDeliveryService;
-import com.musubi.teammusubi.domain.seller.service.SellerMenuService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -31,7 +26,6 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 public class SellerDeliveryServiceTest {
@@ -52,6 +46,7 @@ public class SellerDeliveryServiceTest {
     @DisplayName("사업자 가게별 주문 조회 - 성공")
     void deliveryRetrieveTest() throws Exception {
         // given
+        Long memberId = 1L;
         Long storeId = 1L;
         DeliveryStatus deliveryStatus = DeliveryStatus.PENDING;
         int page = 1;
@@ -59,12 +54,15 @@ public class SellerDeliveryServiceTest {
         String criteria = "createdAt";
         String sort = "DESC";
 
+        Member mockMember = new Member();
         Store mockStore = new Store();
+        mockStore.setMemberId(memberId);
         Delivery mockDelivery1 = new Delivery();
         Delivery mockDelivery2 = new Delivery();
         List<Delivery> deliveryList = Arrays.asList(mockDelivery1, mockDelivery2);
         Page<Delivery> deliveryPage = new PageImpl<>(deliveryList);
 
+        given(memberRepository.findById(memberId)).willReturn(Optional.of(mockMember));
         given(sellerStoreRepository.findById(storeId)).willReturn(Optional.of(mockStore));
         given(sellerDeliveryRepository
                 .findByStoreIdAndStatus(any(Long.class), any(DeliveryStatus.class), any(Pageable.class)))
@@ -73,7 +71,7 @@ public class SellerDeliveryServiceTest {
         // when
         Page<DeliveryResponse> responses
                 = sellerDeliveryService.retrieveDeliveryByStoreIdAsPageSize(
-                        storeId, deliveryStatus, page, size, criteria, sort);
+                        memberId, storeId, deliveryStatus, page, size, criteria, sort);
 
         // then
         assertEquals(2, responses.getTotalElements());
@@ -92,6 +90,7 @@ public class SellerDeliveryServiceTest {
 
         Member mockMember = new Member();
         Store mockStore = new Store();
+        mockStore.setMemberId(memberId);
         Delivery mockDelivery = new Delivery();
         mockDelivery.setStoreId(storeId);
 
