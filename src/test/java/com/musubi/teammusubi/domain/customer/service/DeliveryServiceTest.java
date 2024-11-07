@@ -1,9 +1,8 @@
 package com.musubi.teammusubi.domain.customer.service;
 
-import com.musubi.teammusubi.common.entity.Delivery;
-import com.musubi.teammusubi.common.entity.Member;
-import com.musubi.teammusubi.common.entity.Store;
+import com.musubi.teammusubi.common.entity.*;
 import com.musubi.teammusubi.common.enums.MemberRoleEnum;
+import com.musubi.teammusubi.common.enums.MenuStatus;
 import com.musubi.teammusubi.domain.customer.repository.DeliveryMenuRepository;
 import com.musubi.teammusubi.domain.customer.repository.DeliveryRepository;
 import com.musubi.teammusubi.domain.customer.repository.MenuRepository;
@@ -43,8 +42,10 @@ class DeliveryServiceTest {
     @Mock
     MenuRepository menuRepository;
 
+    private Store store;
     private Member member;
     private Delivery delivery;
+    private Menu menu;
 
     @BeforeEach
     void setUp() {
@@ -56,6 +57,17 @@ class DeliveryServiceTest {
         delivery.setId(1L);
         delivery.setMemberId(member.getId());
         delivery.setDetails("Test Details");
+
+        menu = new Menu();
+        menu.setId(1L);
+        menu.setName("Test Menu");
+        menu.setStatus(MenuStatus.FOR_SALE);
+        menu.setPrice(10000);
+
+        store = new Store();
+        store.setId(1L);
+        store.setName("Test Store");
+        store.getMenus().add(menu);
     }
 
     @Test
@@ -95,7 +107,8 @@ class DeliveryServiceTest {
         Map<Long, Integer> orderMap = new HashMap<>();
         orderMap.put(1L, 1);
         given(deliveryRepository.save(any())).willReturn(delivery);
-        given(storeRepository.findByIdSafe(any(Long.class))).willReturn(new Store());
+        given(storeRepository.findByIdSafe(any(Long.class))).willReturn(store);
+        given(menuRepository.findAllById(any())).willReturn(List.of(menu));
         given(deliveryMenuRepository.saveAll(any())).willReturn(null);
 
         // When
