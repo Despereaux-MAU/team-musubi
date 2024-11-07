@@ -1,6 +1,5 @@
 package com.musubi.teammusubi.domain.seller.controller;
 
-import com.musubi.teammusubi.common.enums.MemberRoleEnum;
 import com.musubi.teammusubi.common.security.MemberDetailsImpl;
 import com.musubi.teammusubi.domain.seller.dto.MenuRequest;
 import com.musubi.teammusubi.domain.seller.dto.MenuResponse;

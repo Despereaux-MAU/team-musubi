@@ -53,8 +53,6 @@ public class SellerMenuService {
 
     @Transactional
     public MenuResponse closeMenu(Long memberId, Long storeId, Long menuId) {
-        // TODO
-        // filter에서 확인했으면, 삭제하기!
         memberRepository.findById(memberId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 존재하지 않습니다."));
 
