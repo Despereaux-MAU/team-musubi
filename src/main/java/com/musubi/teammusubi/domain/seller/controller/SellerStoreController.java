@@ -76,8 +76,9 @@ public class SellerStoreController {
             @RequestParam(required = false, value = "orderBy", defaultValue = "createdAt") String criteria,
             @RequestParam(required = false, value = "sort", defaultValue = "DESC") String sort
     ) {
+        Long memberId = memberDetails.getMember().getId();
         Page<DeliveryResponse> responses = sellerDeliveryService.retrieveDeliveryByStoreIdAsPageSize(
-                storeId, deliveryStatus, page, size, criteria, sort);
+                memberId, storeId, deliveryStatus, page, size, criteria, sort);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(responses);

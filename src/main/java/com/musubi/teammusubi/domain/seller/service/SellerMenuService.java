@@ -2,6 +2,7 @@ package com.musubi.teammusubi.domain.seller.service;
 
 import com.musubi.teammusubi.common.entity.Menu;
 import com.musubi.teammusubi.common.entity.Store;
+import com.musubi.teammusubi.common.exception.ResponseException;
 import com.musubi.teammusubi.domain.member.repository.MemberRepository;
 import com.musubi.teammusubi.domain.seller.dto.MenuRequest;
 import com.musubi.teammusubi.domain.seller.dto.MenuResponse;
@@ -10,6 +11,8 @@ import com.musubi.teammusubi.domain.seller.repository.SellerStoreRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import static com.musubi.teammusubi.common.exception.ExceptionType.*;
 
 @Service
 @RequiredArgsConstructor
@@ -20,11 +23,13 @@ public class SellerMenuService {
 
     public MenuResponse createMenu(Long memberId, Long storeId, MenuRequest requestDto) {
         memberRepository.findById(memberId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 존재하지 않습니다."));
+                .orElseThrow(() -> new ResponseException(USER_NOT_FOUND));
         Store store = sellerStoreRepository.findById(storeId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 가게가 존재하지 않습니다."));
+                .orElseThrow(() -> new ResponseException(STORE_NOT_FOUND));
+
         if(!memberId.equals(store.getMemberId())) {
-            throw new IllegalArgumentException("해당 가게의 주인이 아닙니다.");
+            throw new ResponseException(NOT_OWNER_OF_STORE);
+
         }
         Menu savedMenu = sellerMenuRepository.save(Menu.of(requestDto, store));
 
@@ -34,17 +39,17 @@ public class SellerMenuService {
     @Transactional
     public MenuResponse modifyMenu(Long memberId, Long storeId, Long menuId, MenuRequest requestDto) {
         memberRepository.findById(memberId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 존재하지 않습니다."));
+                .orElseThrow(() -> new ResponseException(USER_NOT_FOUND));
         sellerStoreRepository.findById(storeId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 가게가 존재하지 않습니다."));
+                .orElseThrow(() -> new ResponseException(STORE_NOT_FOUND));
         Menu menu = sellerMenuRepository.findById(menuId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 메뉴가 존재하지 않습니다."));
+                .orElseThrow(() -> new ResponseException(MENU_NOT_FOUND));
 
         if(!memberId.equals(menu.getStore().getMemberId())) {
-            throw new IllegalArgumentException("해당 가게의 주인이 아닙니다.");
+            throw new ResponseException(NOT_OWNER_OF_STORE);
         }
         if(!storeId.equals(menu.getStore().getId())) {
-            throw new IllegalArgumentException("해당 가게의 메뉴가 아닙니다.");
+            throw new ResponseException(NOT_A_MENU_OF_STORE);
         }
 
         menu.modify(requestDto.getName(), requestDto.getPrice(), requestDto.getDescription());
@@ -54,18 +59,17 @@ public class SellerMenuService {
     @Transactional
     public MenuResponse closeMenu(Long memberId, Long storeId, Long menuId) {
         memberRepository.findById(memberId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 존재하지 않습니다."));
-
+                .orElseThrow(() -> new ResponseException(USER_NOT_FOUND));
         sellerStoreRepository.findById(storeId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 가게가 존재하지 않습니다."));
+                .orElseThrow(() -> new ResponseException(STORE_NOT_FOUND));
         Menu menu = sellerMenuRepository.findById(menuId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 메뉴가 존재하지 않습니다."));
+                .orElseThrow(() -> new ResponseException(MENU_NOT_FOUND));
 
         if(!memberId.equals(menu.getStore().getMemberId())) {
-            throw new IllegalArgumentException("해당 가게의 주인이 아닙니다.");
+            throw new ResponseException(NOT_OWNER_OF_STORE);
         }
         if(!storeId.equals(menu.getStore().getId())) {
-            throw new IllegalArgumentException("해당 가게의 메뉴가 아닙니다.");
+            throw new ResponseException(NOT_A_MENU_OF_STORE);
         }
 
         menu.close();
