@@ -2,18 +2,13 @@ package com.musubi.teammusubi.seller;
 
 import com.musubi.teammusubi.common.entity.Delivery;
 import com.musubi.teammusubi.common.entity.Member;
-import com.musubi.teammusubi.common.entity.Menu;
 import com.musubi.teammusubi.common.entity.Store;
 import com.musubi.teammusubi.common.enums.DeliveryStatus;
-import com.musubi.teammusubi.common.enums.MenuStatus;
 import com.musubi.teammusubi.domain.member.repository.MemberRepository;
 import com.musubi.teammusubi.domain.seller.dto.DeliveryResponse;
-import com.musubi.teammusubi.domain.seller.dto.MenuRequest;
-import com.musubi.teammusubi.domain.seller.dto.MenuResponse;
 import com.musubi.teammusubi.domain.seller.repository.SellerDeliveryRepository;
 import com.musubi.teammusubi.domain.seller.repository.SellerStoreRepository;
 import com.musubi.teammusubi.domain.seller.service.SellerDeliveryService;
-import com.musubi.teammusubi.domain.seller.service.SellerMenuService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -31,7 +26,6 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 public class SellerDeliveryServiceTest {
