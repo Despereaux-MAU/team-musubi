@@ -3,11 +3,13 @@ package com.musubi.teammusubi.domain.seller.dto;
 import com.musubi.teammusubi.common.enums.Category;
 import com.musubi.teammusubi.common.enums.StoreStatus;
 import jakarta.validation.constraints.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.time.LocalTime;
 
 @Getter
+@AllArgsConstructor
 public class StoreUpdateRequest {
 
     @NotBlank(message = "가게 이름을 입력하세요.")
