@@ -814,5 +814,6 @@ erDiagram
 [Watch the video on YouTube](https://www.youtube.com/watch?v=Ppg730LI3jE)
 
 ## 코드 커버리지
-![code_coverage.png](img%2Fcode_coverage.png)
+![coverage.png](img%2Fcoverage.png)
+
 
