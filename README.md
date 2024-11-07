@@ -812,3 +812,8 @@ erDiagram
 
 ## Application 핵심 기능 시연 영상
 [Watch the video on YouTube](https://www.youtube.com/watch?v=Ppg730LI3jE)
+
+## 코드 커버리지
+![coverage.png](img%2Fcoverage.png)
+
+
