@@ -1,7 +1,9 @@
 package com.musubi.teammusubi.domain.seller.service;
 
 import com.musubi.teammusubi.common.entity.Delivery;
+import com.musubi.teammusubi.common.entity.Store;
 import com.musubi.teammusubi.common.enums.DeliveryStatus;
+import com.musubi.teammusubi.common.exception.ResponseException;
 import com.musubi.teammusubi.domain.member.repository.MemberRepository;
 import com.musubi.teammusubi.domain.seller.dto.DeliveryResponse;
 import com.musubi.teammusubi.domain.seller.repository.SellerDeliveryRepository;
@@ -14,6 +16,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import static com.musubi.teammusubi.common.exception.ExceptionType.*;
+
 @Service
 @RequiredArgsConstructor
 public class SellerDeliveryService {
@@ -22,10 +26,16 @@ public class SellerDeliveryService {
     private final SellerDeliveryRepository deliveryRepository;
 
     public Page<DeliveryResponse> retrieveDeliveryByStoreIdAsPageSize(
-            Long storeId, DeliveryStatus deliveryStatus, int page, int size, String criteria, String sort
+            Long memberId, Long storeId, DeliveryStatus deliveryStatus, int page, int size, String criteria, String sort
     ) {
-        storeRepository.findById(storeId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 가게가 존재하지 않습니다."));
+        memberRepository.findById(memberId)
+                .orElseThrow(() -> new ResponseException(USER_NOT_FOUND));
+        Store store = storeRepository.findById(storeId)
+                .orElseThrow(() -> new ResponseException(STORE_NOT_FOUND));
+
+        if(!memberId.equals(store.getMemberId())) {
+            throw new ResponseException(NOT_OWNER_OF_STORE);
+        }
 
         Pageable pageable = sort.equals("DESC") ?
                 PageRequest.of(page - 1, size, Sort.by(Sort.Direction.DESC, criteria))
@@ -38,14 +48,17 @@ public class SellerDeliveryService {
     @Transactional
     public DeliveryResponse changeDeliveryStatus(Long memberId, Long storeId, Long deliveryId, DeliveryStatus status) {
         memberRepository.findById(memberId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 존재하지 않습니다."));
-        storeRepository.findById(storeId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 가게가 존재하지 않습니다."));
+                .orElseThrow(() -> new ResponseException(USER_NOT_FOUND));
+        Store store = storeRepository.findById(storeId)
+                .orElseThrow(() -> new ResponseException(STORE_NOT_FOUND));
         Delivery delivery = deliveryRepository.findById(deliveryId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 주문이 존재하지 않습니다."));
+                .orElseThrow(() -> new ResponseException(DELIVERY_NOT_FOUND));
 
+        if(!memberId.equals(store.getMemberId())) {
+            throw new ResponseException(NOT_OWNER_OF_STORE);
+        }
         if(!storeId.equals(delivery.getStoreId())) {
-            throw new IllegalArgumentException("해당 가게의 주문이 아닙니다.");
+            throw new ResponseException(NOT_A_DELIVERY_OF_STORE);
         }
 
         delivery.changeStatus(status);

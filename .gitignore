@@ -19,6 +19,7 @@ bin/
 
 ### IntelliJ IDEA ###
 /src/main/resources/application-aws.properties
+/src/main/resources/application-aws-backup.properties
 
 .idea
 *.iws
@@ -37,4 +38,3 @@ out/
 
 ### VS Code ###
 .vscode/
-/src/main/resources/application-aws-backup.properties
