@@ -6,6 +6,7 @@ import com.musubi.teammusubi.domain.seller.dto.StoreCreateRequest;
 import com.musubi.teammusubi.domain.seller.dto.StoreUpdateRequest;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,6 +19,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class Store extends Timestamped {
 
     @Id
@@ -70,6 +72,18 @@ public class Store extends Timestamped {
     @OneToMany(mappedBy = "store")
     private List<Menu> menus = new ArrayList<>();
 
+    public Store(String name, LocalTime openTime, LocalTime closeTime, Integer minPrice, Category category, String address, String license, boolean togo, StoreStatus status, Long memberId) {
+        this.name = name;
+        this.openTime = openTime;
+        this.closeTime = closeTime;
+        this.minPrice = minPrice;
+        this.category = category;
+        this.address = address;
+        this.license = license;
+        this.togo = togo;
+        this.status = status;
+        this.memberId = memberId;
+    }
 
     public Store(StoreCreateRequest createRequest, Long loginedMemberId) {
         this.name = createRequest.getName();
@@ -80,8 +94,8 @@ public class Store extends Timestamped {
         this.address = createRequest.getAddress();
         this.license = createRequest.getLicense();
         this.togo = createRequest.isTogo();
-        this.status = StoreStatus.OPEN;
         this.memberId = loginedMemberId;
+        this.status = StoreStatus.OPEN;
     }
 
     public void update(@Valid StoreUpdateRequest updateRequest) {
