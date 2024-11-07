@@ -93,7 +93,9 @@ class MemberServiceTest {
     void authenticate() {
 
         Member member = new Member();
+        member.setId(1L);
         member.setPassword("encodedPassword");
+        member.setRole(MemberRoleEnum.USER);
 
         when(memberRepository.findByEmail(loginRequest.getEmail())).thenReturn(Optional.of(member));
         when(passwordEncoder.matches(loginRequest.getPassword(), member.getPassword())).thenReturn(true);
