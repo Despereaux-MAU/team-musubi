@@ -62,28 +62,6 @@ public class SellerStoreController {
         return ResponseEntity.ok(storeResponse);
     }
 
-
-    // 가게별 주문 조회
-    // 주문 상태별 조회 - default: 대기
-//    @GetMapping("/stores/{storeId}/deliveries")
-//    public ResponseEntity<List<DeliveryResponse>> retrieveDeliveryByStoreId(
-//            @AuthenticationPrincipal MemberDetailsImpl memberDetails,
-//            @PathVariable Long storeId,
-//            @RequestParam(defaultValue = "PENDING") DeliveryStatus deliveryStatus
-//            ) {
-//        MemberRoleEnum memberRole = memberDetails.getMember().getRole();
-//        if(!memberRole.equals(MemberRoleEnum.OWNER)) {
-//            return ResponseEntity
-//                    .status(HttpStatus.FORBIDDEN)
-//                    .build();
-//        }
-//
-//        List<DeliveryResponse> responses = sellerDeliveryService.retrieveDelivery(storeId, deliveryStatus);
-//        return ResponseEntity
-//                .status(HttpStatus.OK)
-//                .body(responses);
-//    }
-
     // 가게별 주문 조회
     // 주문 상태별 조회 - default: 대기
     @GetMapping("/stores/{storeId}/deliveries")
@@ -96,13 +74,6 @@ public class SellerStoreController {
             @RequestParam(required = false, value = "orderBy", defaultValue = "createdAt") String criteria,
             @RequestParam(required = false, value = "sort", defaultValue = "DESC") String sort
     ) {
-        MemberRoleEnum memberRole = memberDetails.getMember().getRole();
-        if(!memberRole.equals(MemberRoleEnum.OWNER)) {
-            return ResponseEntity
-                    .status(HttpStatus.FORBIDDEN)
-                    .build();
-        }
-
         Page<DeliveryResponse> responses = sellerDeliveryService.retrieveDeliveryByStoreIdAsPageSize(
                 storeId, deliveryStatus, page, size, criteria, sort);
         return ResponseEntity
@@ -119,15 +90,6 @@ public class SellerStoreController {
             @PathVariable Long deliveryId,
             @RequestParam(required = false, value = "status", defaultValue = "PENDING") DeliveryStatus deliveryStatus
     ) {
-        // todo
-        //  - filter에서 확인했으면, 삭제하기!
-//        MemberRoleEnum memberRole = memberDetails.getMember().getRole();
-//        if(!memberRole.equals(MemberRoleEnum.OWNER)) {
-//            return ResponseEntity
-//                    .status(HttpStatus.FORBIDDEN)
-//                    .build();
-//        }
-
         Long memberId = memberDetails.getMember().getId();
         DeliveryResponse response = sellerDeliveryService.changeDeliveryStatus(
                 memberId, storeId, deliveryId, deliveryStatus);
