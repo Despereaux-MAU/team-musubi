@@ -52,6 +52,7 @@ public class SellerDeliveryServiceTest {
     @DisplayName("사업자 가게별 주문 조회 - 성공")
     void deliveryRetrieveTest() throws Exception {
         // given
+        Long memberId = 1L;
         Long storeId = 1L;
         DeliveryStatus deliveryStatus = DeliveryStatus.PENDING;
         int page = 1;
@@ -59,12 +60,15 @@ public class SellerDeliveryServiceTest {
         String criteria = "createdAt";
         String sort = "DESC";
 
+        Member mockMember = new Member();
         Store mockStore = new Store();
+        mockStore.setMemberId(memberId);
         Delivery mockDelivery1 = new Delivery();
         Delivery mockDelivery2 = new Delivery();
         List<Delivery> deliveryList = Arrays.asList(mockDelivery1, mockDelivery2);
         Page<Delivery> deliveryPage = new PageImpl<>(deliveryList);
 
+        given(memberRepository.findById(memberId)).willReturn(Optional.of(mockMember));
         given(sellerStoreRepository.findById(storeId)).willReturn(Optional.of(mockStore));
         given(sellerDeliveryRepository
                 .findByStoreIdAndStatus(any(Long.class), any(DeliveryStatus.class), any(Pageable.class)))
@@ -73,7 +77,7 @@ public class SellerDeliveryServiceTest {
         // when
         Page<DeliveryResponse> responses
                 = sellerDeliveryService.retrieveDeliveryByStoreIdAsPageSize(
-                        storeId, deliveryStatus, page, size, criteria, sort);
+                        memberId, storeId, deliveryStatus, page, size, criteria, sort);
 
         // then
         assertEquals(2, responses.getTotalElements());
@@ -92,6 +96,7 @@ public class SellerDeliveryServiceTest {
 
         Member mockMember = new Member();
         Store mockStore = new Store();
+        mockStore.setMemberId(memberId);
         Delivery mockDelivery = new Delivery();
         mockDelivery.setStoreId(storeId);
 
