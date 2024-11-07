@@ -811,4 +811,4 @@ erDiagram
 ```
 
 ## Application 핵심 기능 시연 영상
-[![Watch the video](https://www.youtube.com/embed/Ppg730LI3jE?si=VC7H3ushd3HDJG7-)
+[Watch the video on YouTube](https://www.youtube.com/watch?v=Ppg730LI3jE)
