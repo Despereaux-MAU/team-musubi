@@ -46,12 +46,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
 
                 if (request.getRequestURI().startsWith("/api/seller") && !"OWNER".equals(role)) {
+                    SecurityContextHolder.clearContext();  // 인증 정보 제거
                     response.sendError(HttpStatus.FORBIDDEN.value(), "접근이 거부되었습니다.");
                     return;
                 }
             }
             chain.doFilter(request, response);
         } catch (Exception e) {
+            SecurityContextHolder.clearContext();  // 예외 발생 시 인증 정보 제거
             response.sendError(HttpStatus.INTERNAL_SERVER_ERROR.value(), "서버 오류가 발생했습니다.");
         }
     }
